@@ -96,6 +96,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <div class="container">
       <div class="highlight-grid">
         <div class="highlight-image">
+          <h3 class="graph-title">Cost Per Sauna (1 hr 45 min)</h3>
           <div class="image-wrapper">
             <img src="/graph.png" alt="Sauna Interior View" class="graph-image" />
           </div>
@@ -773,6 +774,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     aspect-ratio: 4/3;
     object-fit: cover;
     border-radius: 20px;
+  }
+
+  .graph-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 0.125rem;
+    text-align: center;
   }
 
   .graph-image {
