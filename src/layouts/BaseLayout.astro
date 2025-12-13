@@ -1,9 +1,18 @@
 ---
 interface Props {
   title?: string;
+  description?: string;
+  siteUrl?: string;
 }
 
-const { title = 'The Pellet Sauna Co. | P1 Sauna Stove' } = Astro.props;
+const { 
+  title = 'The Pellet Sauna Co. | P1 Sauna Stove',
+  description = 'The P1 isn\'t just another sauna stove — it\'s an entirely new way to sauna. It combines the soulful warmth of a wood-fired sauna with the effortless convenience of electric. No electricians, No woodpiles. Just a perfect Löyly every time.',
+  siteUrl = Astro.site?.href || 'https://pelletsaunaco.com'
+} = Astro.props;
+
+const ogImage = new URL('/p1-stove2.png', siteUrl).href;
+const currentUrl = new URL(Astro.url.pathname, siteUrl).href;
 ---
 
 <!DOCTYPE html>
@@ -12,6 +21,36 @@ const { title = 'The Pellet Sauna Co. | P1 Sauna Stove' } = Astro.props;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
+    
+    <!-- Primary Meta Tags -->
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={currentUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="P1 Pellet Sauna Stove - The World's First Wood Pellet Sauna Stove" />
+    <meta property="og:site_name" content="Pellet Sauna Company" />
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={currentUrl} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content="P1 Pellet Sauna Stove - The World's First Wood Pellet Sauna Stove" />
+    
+    <!-- LinkedIn (uses Open Graph, but adding additional tags) -->
+    <meta property="og:image:secure_url" content={ogImage} />
+    
+    <!-- Additional Meta Tags -->
+    <meta name="author" content="Pellet Sauna Company" />
+    <link rel="canonical" href={currentUrl} />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
