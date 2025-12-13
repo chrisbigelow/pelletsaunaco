@@ -6,7 +6,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <!-- Navigation -->
   <nav class="nav">
     <div class="nav-container">
-      <div class="brand">The Pellet Sauna Co.</div>
+      <div class="brand">Pellet Sauna<br/>Company</div>
       <div class="nav-links">
         <a href="#home" class="nav-link">Home</a>
         <a href="#product" class="nav-link">Product</a>
@@ -54,12 +54,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <div class="hero-image">
         <!-- TODO: Add your P1 stove image to /public/p1-stove.png -->
         <div class="product-container">
-          <img src="/p1-stove.png" alt="P1 Pellet Sauna Stove" class="product-img" />
+          <img src="/p1-stove2.png" alt="P1 Pellet Sauna Stove" class="product-img" />
           <!-- Fallback placeholder if image not found -->
           <div class="product-placeholder">
             <div class="placeholder-content">
               <span class="placeholder-icon">🔥</span>
-              <p>Place your P1 stove image at:<br/><code>/public/p1-stove.png</code></p>
+              <p>Place your P1 stove image at:<br/><code>/public/p1-stove2.png</code></p>
             </div>
           </div>
         </div>
@@ -120,7 +120,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   </section>
 
   <!-- Features Section -->
-  <section class="features" id="features">
+  <!-- <section class="features" id="features">
     <div class="container">
       <div class="section-header">
         <h2>Designed for the Modern Sauna</h2>
@@ -153,7 +153,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         </div>
       </div>
     </div>
-  </section>
+  </section> -->
 
   <!-- Specifications -->
   <section class="specifications">
@@ -210,7 +210,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           </div>
         </div>
         <div class="about-content">
-          <h2>The Pellet Sauna Co.</h2>
+          <h2>Pellet Sauna<br/>Company</h2>
           <p class="lead">
             We believe that the best sauna experiences come from a harmony of tradition and innovation.
           </p>
@@ -265,7 +265,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <div class="container">
       <div class="footer-content">
         <div class="footer-brand">
-          <h3>The Pellet Sauna Co.</h3>
+          <h3>Pellet Sauna<br/>Company</h3>
           <p>Sustainable warmth for the modern sauna</p>
         </div>
         <div class="footer-links">
@@ -283,7 +283,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         </div>
       </div>
       <div class="footer-bottom">
-        <p>&copy; 2025 The Pellet Sauna Co. All rights reserved.</p>
+        <p>&copy; 2025 Pellet Sauna<br/>Company. All rights reserved.</p>
       </div>
     </div>
   </footer>
@@ -312,9 +312,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   }
 
   .brand {
+    font-family: 'Playwrite NO', cursive;
     font-size: 1.25rem;
-    font-weight: 600;
+    font-weight: 900;
     color: var(--text-dark);
+    text-shadow: 0.5px 0.5px 0px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    line-height: 1.1;
   }
 
   .nav-links {
@@ -450,12 +454,18 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: visible;
+    width: 100%;
+    height: 100%;
   }
 
   .product-container {
     position: relative;
     width: 100%;
-    max-width: 600px;
+    max-width: none;
+    transform: scale(2.2) translateY(-10%);
+    transform-origin: center center;
+    margin: 0 auto;
   }
 
   .product-img {
@@ -783,6 +793,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     font-size: 2.5rem;
     color: var(--text-dark);
     margin-bottom: 1.5rem;
+    text-align: center;
+    line-height: 1.1;
   }
 
   .about-content .lead {
@@ -842,7 +854,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     background: rgba(255, 255, 255, 0.05);
     color: white;
     font-size: 1rem;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Work Sans', sans-serif;
     transition: border-color 0.3s ease, background 0.3s ease;
   }
 
@@ -893,9 +905,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   }
 
   .footer-brand h3 {
+    font-family: 'Playwrite NO', cursive;
     color: white;
     font-size: 1.5rem;
     margin-bottom: 0.75rem;
+    font-weight: 900;
+    text-shadow: 0.5px 0.5px 0px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    line-height: 1.1;
   }
 
   .footer-brand p {
