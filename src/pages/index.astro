@@ -12,12 +12,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <span></span>
       </button>
       <div class="brand">Pellet Sauna<br/>Company</div>
-      <a href="#contact" class="btn-preorder">Pre Order Now</a>
+      <a href="#contact" class="btn-preorder btn-preorder-desktop">Pre Order Now</a>
       <div class="nav-links" id="navLinks">
         <a href="#product" class="nav-link">Product</a>
         <a href="#product" class="nav-link">Features</a>
         <a href="javascript:void(0)" class="nav-link">About</a>
         <a href="#contact" class="nav-link">Contact</a>
+        <a href="#contact" class="btn-preorder btn-preorder-mobile">Pre Order Now</a>
       </div>
     </div>
   </nav>
@@ -29,6 +30,20 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <div class="hero-text">
         <h1 class="hero-title">P1</h1>
         <p class="hero-subtitle">The World's First Wood Pellet Sauna Stove</p>
+        
+        <!-- Product image - appears after subtitle on mobile -->
+        <div class="hero-image hero-image-mobile">
+          <div class="product-container">
+            <img src="/p1-stove2.png" alt="P1 Pellet Sauna Stove" class="product-img" />
+            <div class="product-placeholder">
+              <div class="placeholder-content">
+                <span class="placeholder-icon">🔥</span>
+                <p>Place your P1 stove image at:<br/><code>/public/p1-stove2.png</code></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <p class="hero-description">
           The P1 isn't just another sauna stove — it's an entirely new way to sauna. It combines the soulful warmth of a wood-fired sauna with the effortless convenience of electric. No electricians, No woodpiles. Just a perfect Löyly every time.
         </p>
@@ -54,12 +69,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         </div>
       </div>
 
-      <!-- Right side - Product image -->
-      <div class="hero-image">
-        <!-- TODO: Add your P1 stove image to /public/p1-stove.png -->
+      <!-- Right side - Product image (desktop only) -->
+      <div class="hero-image hero-image-desktop">
         <div class="product-container">
           <img src="/p1-stove2.png" alt="P1 Pellet Sauna Stove" class="product-img" />
-          <!-- Fallback placeholder if image not found -->
           <div class="product-placeholder">
             <div class="placeholder-content">
               <span class="placeholder-icon">🔥</span>
@@ -408,6 +421,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     border-bottom: none;
   }
 
+  .nav-links .btn-preorder-mobile {
+    margin: 0.5rem 2rem;
+    padding: 0.75rem 1.5rem;
+    text-align: center;
+    border-radius: 8px;
+    border-bottom: none;
+  }
+
   .btn-preorder {
     background: #FFD700;
     color: var(--text-dark);
@@ -425,6 +446,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     background: #FFC700;
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+  }
+
+  .btn-preorder-mobile {
+    display: none;
   }
 
   .nav-link {
@@ -561,6 +586,16 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     width: 100%;
     height: 100%;
     margin-right: 4rem;
+  }
+
+  /* Desktop image - hidden on mobile */
+  .hero-image-desktop {
+    display: flex;
+  }
+
+  /* Mobile image - hidden on desktop */
+  .hero-image-mobile {
+    display: none;
   }
 
   .product-container {
@@ -1095,12 +1130,25 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       margin-left: 0;
     }
 
-    .hero-image {
-      margin-right: 0;
+    /* Hide desktop image on tablet and below */
+    .hero-image-desktop {
+      display: none;
     }
 
-    .product-container {
-      transform: scale(1.5) translateY(-5%);
+    /* Show mobile image on tablet and below */
+    .hero-image-mobile {
+      display: flex;
+      margin: 2rem 0 4rem 0;
+      width: 100%;
+      height: auto;
+      margin-right: 0;
+      justify-content: center;
+    }
+
+    .hero-image-mobile .product-container {
+      transform: scale(1.8) translateY(-5%);
+      max-width: 100%;
+      width: 100%;
     }
 
     .floating-card {
@@ -1128,17 +1176,25 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
     .nav-container {
       padding: 0.875rem 1rem;
-      grid-template-columns: auto 1fr auto;
+      grid-template-columns: auto 1fr;
+      position: relative;
     }
 
     .brand {
       font-size: 1rem;
       line-height: 1.2;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      grid-column: 1 / -1;
     }
 
-    .btn-preorder {
-      padding: 0.5rem 0.875rem;
-      font-size: 0.8125rem;
+    .btn-preorder-desktop {
+      display: none;
+    }
+
+    .btn-preorder-mobile {
+      display: block;
     }
 
     .nav-links {
@@ -1215,14 +1271,25 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       font-size: 0.9375rem;
     }
 
-    .hero-image {
-      margin-right: 0;
-      margin-top: 1rem;
+    /* Hide desktop image on mobile */
+    .hero-image-desktop {
+      display: none;
     }
 
-    .product-container {
-      transform: scale(1.2) translateY(0);
+    /* Show mobile image on mobile */
+    .hero-image-mobile {
+      display: flex;
+      margin: 2rem 0 5rem 0;
+      width: 100%;
+      height: auto;
+      margin-right: 0;
+      justify-content: center;
+    }
+
+    .hero-image-mobile .product-container {
+      transform: scale(1.8) translateY(0);
       max-width: 100%;
+      width: 100%;
     }
 
     .product-img {
@@ -1422,9 +1489,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       font-size: 0.875rem;
     }
 
-    .btn-preorder {
-      padding: 0.4375rem 0.75rem;
-      font-size: 0.75rem;
+    .btn-preorder-desktop {
+      display: none;
+    }
+
+    .btn-preorder-mobile {
+      display: block;
     }
 
     .hero {
@@ -1459,8 +1529,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       padding: 3rem 0;
     }
 
-    .product-container {
-      transform: scale(1) translateY(0);
+    .hero-image-mobile .product-container {
+      transform: scale(1.8) translateY(0);
     }
   }
 </style>
@@ -1493,8 +1563,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     }
   });
 
-  // Close dropdown when clicking a link
-  navLinks?.querySelectorAll('.nav-link').forEach(link => {
+  // Close dropdown when clicking a link or button
+  navLinks?.querySelectorAll('.nav-link, .btn-preorder-mobile').forEach(link => {
     link.addEventListener('click', () => {
       menuToggle?.classList.remove('active');
       navLinks?.classList.remove('active');
