@@ -1,13 +1,18 @@
 # The Pellet Sauna Co. - P1 Landing Page
 
-A modern, sophisticated landing page for the P1 pellet sauna stove, built with Astro.js.
+A modern, sophisticated landing page for the P1 pellet sauna stove, built with Astro.js. Features a clean, minimalist design with light blue-gray tones, natural wood colors, and a product-centric layout.
 
 ## Design Features
 
-- **Modern & Sophisticated**: Clean design with smooth animations and gradients
-- **Product-Centric**: P1 stove front and center in the hero section
-- **Color Palette**: Wood tones (browns, warm neutrals) combined with green mossy nature colors
+- **Modern & Clean**: Minimal design with light, airy aesthetics
+- **Product-Centric**: P1 stove prominently featured in the hero section
+- **Color Palette**:
+  - Light blue-gray atmospheric tones (inspired by the stove rendering background)
+  - Natural wood tones (warm, light woods)
+  - Charcoal stove colors
+  - Fire glow accents (orange/red)
 - **Responsive**: Fully responsive design that works on all devices
+- **Performance-Focused**: Zero JavaScript by default, fast loading
 
 ## Getting Started
 
@@ -32,73 +37,119 @@ npm run build
 npm run preview
 ```
 
-## Customization
+## Adding Your P1 Stove Image
 
-### Adding Your Product Images
+### Main Product Image (Hero Section)
 
-Replace the placeholder images in the following locations:
+1. Save your P1 stove rendering as `p1-stove.png` in the `/public` folder
+2. The image will automatically display in the hero section
+3. Recommended format: PNG with transparent background
+4. Recommended size: At least 1200px wide for best quality
 
-1. **Hero Product Image**: The main P1 stove rendering
-   - Located in the `.product-image` section
-   - Replace the `.image-placeholder` div with your image
-   - Recommended size: 600x600px minimum
+**Note**: The page includes a placeholder that will show until you add your image to `/public/p1-stove.png`
 
-2. **Product Card Image**: Smaller thumbnail
-   - Located in the `.product-card-image` section
-   - Replace the `.small-placeholder` div
-   - Recommended size: 400x225px (16:9 aspect ratio)
+### Additional Images
 
-3. **About Section Image**: Nature/lifestyle imagery
-   - Located in the `.about-image` section
-   - Replace the `.image-placeholder-large` div
+You can replace other placeholder images throughout the page:
+
+1. **Sauna Interior View** (Product Highlight section)
+   - Shows the P1 in a sauna setting
    - Recommended size: 800x600px
 
-### Color Customization
+2. **Technical Drawing** (Specifications section)
+   - Detail shot or technical illustration
+   - Recommended size: 800x600px
 
-All colors are defined as CSS variables in `src/layouts/BaseLayout.astro`. Modify these to adjust the color scheme:
+3. **Nature Scene** (About section)
+   - Nature-inspired imagery, wood textures, or lifestyle shots
+   - Recommended size: 800x600px
 
-- Wood tones: `--wood-dark`, `--wood-medium`, `--wood-light`, etc.
-- Moss/green tones: `--moss-dark`, `--moss-medium`, `--moss-light`, etc.
-- Accent colors: `--gold`, `--copper`
+To add these images, edit `/src/pages/index.astro` and replace the `.placeholder-box` divs with `<img>` tags.
 
-### Content Updates
+## Color Customization
+
+All colors are defined as CSS variables in `src/layouts/BaseLayout.astro`:
+
+```css
+--wood-natural: #d4a574;    /* Natural wood color */
+--sky-light: #a8b8c4;       /* Light blue-gray */
+--stove-dark: #3a4145;      /* Charcoal stove */
+--fire-glow: #ff6b4a;       /* Orange fire glow */
+/* ...and more */
+```
+
+Simply modify these values to adjust the entire site's color scheme.
+
+## Content Updates
 
 Edit the content directly in `src/pages/index.astro`:
 
-- Navigation links
-- Hero section text
-- Features descriptions
-- About section content
-- Contact form
+- **Navigation**: Update links in the `<nav>` section
+- **Hero Text**: Modify the P1 description and philosophy
+- **Stats**: Update ratings, review counts, etc.
+- **Features**: Add or modify feature cards
+- **Specifications**: Update technical specs in the table
+- **About**: Edit company story and mission
+- **Contact**: Customize form fields
 
 ## Project Structure
 
 ```
 /
-├── public/          # Static assets (add your images here)
+├── public/              # Static assets
+│   └── p1-stove.png    # Add your main product image here
 ├── src/
 │   ├── layouts/
-│   │   └── BaseLayout.astro
+│   │   └── BaseLayout.astro  # Base layout with color variables
 │   └── pages/
-│       └── index.astro
+│       └── index.astro       # Main landing page
 ├── astro.config.mjs
 ├── package.json
-└── tsconfig.json
+└── README.md
 ```
 
 ## Technology Stack
 
-- **Astro.js**: Fast, modern static site builder
-- **Pure CSS**: No external CSS frameworks for better performance
-- **Google Fonts**: Inter font family for clean typography
+- **Astro.js 4.0**: Modern static site builder
+- **Pure CSS**: No external frameworks for better performance
+- **Google Fonts (Inter)**: Clean, professional typography
+- **Zero JavaScript**: Fast, accessible by default
+
+## Sections
+
+The landing page includes:
+
+1. **Hero Section** - Large P1 title with product image and CTA buttons
+2. **Product Highlight** - Feature list with detailed benefits
+3. **Features Grid** - Four key features with icons
+4. **Specifications** - Technical details in a clean table
+5. **About Section** - Company story and mission
+6. **Contact Form** - Professional contact form with validation
+7. **Footer** - Links and copyright information
 
 ## Performance
 
-This site is built with performance in mind:
-- Zero JavaScript by default (Astro islands architecture)
-- Optimized CSS
-- Fast page loads
-- SEO-friendly
+- ⚡ Zero JavaScript by default
+- 🎨 Optimized CSS
+- 📱 Mobile-first responsive design
+- ♿ Accessible markup
+- 🔍 SEO-friendly
+
+## Deployment
+
+This Astro site can be deployed to:
+
+- **Netlify**: `npm run build` → Deploy `dist/` folder
+- **Vercel**: Connect repo and auto-deploy
+- **GitHub Pages**: Use Astro's GitHub Pages adapter
+- **Any static host**: Upload the `dist/` folder after building
+
+## Browser Support
+
+- Chrome/Edge (last 2 versions)
+- Firefox (last 2 versions)
+- Safari (last 2 versions)
+- Mobile browsers (iOS Safari, Chrome Mobile)
 
 ## License
 

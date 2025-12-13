@@ -23,28 +23,36 @@ const { title = 'The Pellet Sauna Co. | P1 Sauna Stove' } = Astro.props;
 
 <style is:global>
   :root {
-    /* Wood tones */
-    --wood-dark: #3e2723;
-    --wood-medium: #5d4037;
-    --wood-light: #8d6e63;
-    --wood-lighter: #bcaaa4;
-    --wood-accent: #d7ccc8;
+    /* Natural wood tones - inspired by sauna wood */
+    --wood-natural: #d4a574;
+    --wood-light: #e8d5c4;
+    --wood-medium: #c89968;
+    --wood-warm: #b88a5c;
 
-    /* Green mossy tones */
-    --moss-dark: #2d4a2b;
-    --moss-medium: #3d5a3b;
-    --moss-light: #5a7c58;
-    --sage: #8b9d83;
-    --sage-light: #a8b5a1;
+    /* Blue-gray atmospheric tones */
+    --sky-light: #a8b8c4;
+    --sky-medium: #8fa3b0;
+    --sky-blue: #6b8a9d;
+    --mist: #d1dce5;
+    --mist-light: #e8eef2;
+
+    /* Sauna stove colors */
+    --stove-dark: #3a4145;
+    --stove-charcoal: #2d3235;
+    --fire-glow: #ff6b4a;
+    --fire-orange: #ff8c61;
+    --steam-white: #f8fbfd;
 
     /* Neutrals */
-    --cream: #f5f1ed;
-    --warm-white: #faf8f5;
-    --charcoal: #2b2b2b;
+    --white: #ffffff;
+    --off-white: #fafcfd;
+    --light-gray: #e5eaed;
+    --text-dark: #1a1f22;
+    --text-medium: #4a5258;
 
-    /* Accents */
-    --gold: #c9a961;
-    --copper: #b87333;
+    /* Accent colors */
+    --accent-warm: #d4915c;
+    --accent-cool: #7a9bb0;
   }
 
   * {
@@ -55,8 +63,8 @@ const { title = 'The Pellet Sauna Co. | P1 Sauna Stove' } = Astro.props;
 
   body {
     font-family: 'Inter', sans-serif;
-    background-color: var(--warm-white);
-    color: var(--charcoal);
+    background-color: var(--off-white);
+    color: var(--text-dark);
     overflow-x: hidden;
   }
 
