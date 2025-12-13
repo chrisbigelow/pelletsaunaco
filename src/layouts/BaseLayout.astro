@@ -1,0 +1,66 @@
+---
+interface Props {
+  title?: string;
+}
+
+const { title = 'The Pellet Sauna Co. | P1 Sauna Stove' } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    /* Wood tones */
+    --wood-dark: #3e2723;
+    --wood-medium: #5d4037;
+    --wood-light: #8d6e63;
+    --wood-lighter: #bcaaa4;
+    --wood-accent: #d7ccc8;
+
+    /* Green mossy tones */
+    --moss-dark: #2d4a2b;
+    --moss-medium: #3d5a3b;
+    --moss-light: #5a7c58;
+    --sage: #8b9d83;
+    --sage-light: #a8b5a1;
+
+    /* Neutrals */
+    --cream: #f5f1ed;
+    --warm-white: #faf8f5;
+    --charcoal: #2b2b2b;
+
+    /* Accents */
+    --gold: #c9a961;
+    --copper: #b87333;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--warm-white);
+    color: var(--charcoal);
+    overflow-x: hidden;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+</style>

@@ -1,0 +1,658 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout>
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-container">
+      <div class="nav-links">
+        <a href="#home" class="nav-link">HOME.</a>
+        <a href="#product" class="nav-link">PRODUCT.</a>
+        <a href="#features" class="nav-link">FEATURES.</a>
+        <a href="#about" class="nav-link">ABOUT.</a>
+        <a href="#contact" class="nav-link">CONTACT US.</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="hero-gradient"></div>
+    <div class="hero-content">
+      <!-- Large Product Name -->
+      <h1 class="hero-title">
+        <span class="title-line">THE</span>
+        <span class="title-line main">P1</span>
+      </h1>
+
+      <!-- Philosophy Text -->
+      <div class="philosophy-card">
+        <p>
+          The P1 isn't just a sauna stove — it's a philosophy of sustainable warmth.
+          Honest materials, precision engineering, and the quiet power of wood pellets.
+        </p>
+      </div>
+
+      <!-- Product Image Placeholder -->
+      <div class="product-showcase">
+        <div class="product-image">
+          <div class="image-placeholder">
+            <span>Your P1 Stove Rendering Here</span>
+          </div>
+          <div class="product-glow"></div>
+        </div>
+      </div>
+
+      <!-- Product Info Card -->
+      <div class="product-card">
+        <div class="product-card-image">
+          <div class="small-placeholder">P1</div>
+        </div>
+        <div class="product-card-info">
+          <h3>PELLET SAUNA STOVE P1</h3>
+          <p>2025</p>
+        </div>
+      </div>
+
+      <!-- Reviews Card -->
+      <div class="reviews-card">
+        <div class="rating">
+          <span class="rating-number">4.9</span>
+          <span class="star">★</span>
+        </div>
+        <div class="customer-avatars">
+          <div class="avatar" style="background: var(--moss-dark);">1</div>
+          <div class="avatar" style="background: var(--wood-medium);">2</div>
+          <div class="avatar" style="background: var(--moss-light);">3</div>
+        </div>
+        <p class="review-count">150 Customer Reviews</p>
+      </div>
+
+      <!-- CTA Button -->
+      <a href="#product" class="cta-button">
+        <span>Discover More</span>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features" id="features">
+    <div class="container">
+      <h2 class="section-title">Designed for the Modern Sauna</h2>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon moss">🔥</div>
+          <h3>Pellet-Powered Heat</h3>
+          <p>Efficient, clean-burning wood pellets provide consistent, controllable heat for the perfect sauna experience.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon wood">🌲</div>
+          <h3>Sustainable Design</h3>
+          <p>Crafted from natural materials with a focus on environmental responsibility and renewable fuel sources.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon sage">⚙️</div>
+          <h3>Precision Engineering</h3>
+          <p>Advanced temperature control and airflow management for optimal performance and safety.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon copper">✨</div>
+          <h3>Timeless Aesthetic</h3>
+          <p>Modern lines meet traditional craftsmanship in a stove that's as beautiful as it is functional.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="about" id="about">
+    <div class="container">
+      <div class="about-content">
+        <div class="about-text">
+          <h2>The Pellet Sauna Co.</h2>
+          <p>
+            We believe that the best sauna experiences come from a harmony of tradition and innovation.
+            The P1 represents our commitment to creating heating solutions that respect both the
+            environment and the timeless ritual of the sauna.
+          </p>
+          <p>
+            Every stove is engineered for performance, designed for beauty, and built to last generations.
+          </p>
+        </div>
+        <div class="about-image">
+          <div class="image-placeholder-large">
+            <span>Nature-inspired imagery here</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <h2 class="section-title">Get in Touch</h2>
+      <p class="contact-intro">Ready to transform your sauna experience?</p>
+
+      <form class="contact-form">
+        <div class="form-group">
+          <input type="text" placeholder="Your Name" required />
+        </div>
+        <div class="form-group">
+          <input type="email" placeholder="Your Email" required />
+        </div>
+        <div class="form-group">
+          <textarea placeholder="Tell us about your project" rows="5" required></textarea>
+        </div>
+        <button type="submit" class="submit-button">Send Message</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2025 The Pellet Sauna Co. All rights reserved.</p>
+    </div>
+  </footer>
+</BaseLayout>
+
+<style>
+  /* Navigation */
+  .nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: rgba(250, 248, 245, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(141, 110, 99, 0.1);
+  }
+
+  .nav-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 1.5rem 2rem;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 3rem;
+    justify-content: center;
+  }
+
+  .nav-link {
+    color: var(--wood-dark);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    transition: color 0.3s ease;
+  }
+
+  .nav-link:hover {
+    color: var(--moss-dark);
+  }
+
+  /* Hero Section */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    background: linear-gradient(135deg,
+      var(--moss-dark) 0%,
+      var(--wood-medium) 50%,
+      var(--copper) 100%
+    );
+    padding: 8rem 2rem 4rem;
+    overflow: hidden;
+  }
+
+  .hero-gradient {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 50%,
+      rgba(201, 169, 97, 0.2) 0%,
+      transparent 70%
+    );
+    pointer-events: none;
+  }
+
+  .hero-content {
+    position: relative;
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 2rem;
+    grid-template-areas:
+      "title title title title title title title title title title title title"
+      "phil phil phil product product product product product product card card card"
+      "reviews reviews cta product product product product product product card card card";
+  }
+
+  .hero-title {
+    grid-area: title;
+    font-size: clamp(4rem, 15vw, 12rem);
+    font-weight: 700;
+    line-height: 0.9;
+    color: var(--wood-accent);
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .title-line.main {
+    font-size: clamp(6rem, 20vw, 16rem);
+    background: linear-gradient(135deg, var(--cream) 0%, var(--gold) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .philosophy-card {
+    grid-area: phil;
+    background: rgba(250, 248, 245, 0.1);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    padding: 2rem;
+    color: var(--cream);
+    font-size: 1rem;
+    line-height: 1.6;
+    align-self: start;
+  }
+
+  .product-showcase {
+    grid-area: product;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .product-image {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    aspect-ratio: 1;
+  }
+
+  .image-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--wood-light) 0%, var(--moss-medium) 100%);
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--cream);
+    font-size: 1.5rem;
+    text-align: center;
+    padding: 2rem;
+    border: 2px dashed rgba(255, 255, 255, 0.3);
+  }
+
+  .product-glow {
+    position: absolute;
+    bottom: -20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 40%;
+    background: radial-gradient(ellipse, var(--gold) 0%, transparent 70%);
+    opacity: 0.4;
+    filter: blur(40px);
+    pointer-events: none;
+  }
+
+  .product-card {
+    grid-area: card;
+    background: rgba(250, 248, 245, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 1.5rem;
+    align-self: start;
+    border: 1px solid rgba(141, 110, 99, 0.2);
+  }
+
+  .product-card-image {
+    width: 100%;
+    aspect-ratio: 16/9;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+  }
+
+  .small-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--moss-light) 0%, var(--wood-medium) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--cream);
+    font-size: 2rem;
+    font-weight: 700;
+  }
+
+  .product-card-info h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--wood-dark);
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.5px;
+  }
+
+  .product-card-info p {
+    color: var(--wood-light);
+    font-size: 0.9rem;
+  }
+
+  .reviews-card {
+    grid-area: reviews;
+    background: rgba(250, 248, 245, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 2rem;
+    align-self: end;
+    border: 1px solid rgba(141, 110, 99, 0.2);
+  }
+
+  .rating {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .rating-number {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--wood-dark);
+  }
+
+  .star {
+    color: var(--gold);
+    font-size: 2rem;
+  }
+
+  .customer-avatars {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+    font-size: 0.8rem;
+  }
+
+  .review-count {
+    color: var(--wood-medium);
+    font-size: 0.9rem;
+  }
+
+  .cta-button {
+    grid-area: cta;
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    background: linear-gradient(135deg, var(--gold) 0%, var(--copper) 100%);
+    color: white;
+    padding: 1.25rem 2.5rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    align-self: end;
+    justify-self: start;
+    box-shadow: 0 10px 30px rgba(201, 169, 97, 0.3);
+  }
+
+  .cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 40px rgba(201, 169, 97, 0.4);
+  }
+
+  /* Features Section */
+  .features {
+    padding: 6rem 2rem;
+    background: var(--cream);
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    color: var(--wood-dark);
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+  }
+
+  .feature-card {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 20px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 2px solid transparent;
+  }
+
+  .feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    border-color: var(--moss-light);
+  }
+
+  .feature-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    margin: 0 auto 1.5rem;
+  }
+
+  .feature-icon.moss {
+    background: linear-gradient(135deg, var(--moss-medium) 0%, var(--moss-light) 100%);
+  }
+
+  .feature-icon.wood {
+    background: linear-gradient(135deg, var(--wood-medium) 0%, var(--wood-light) 100%);
+  }
+
+  .feature-icon.sage {
+    background: linear-gradient(135deg, var(--sage) 0%, var(--sage-light) 100%);
+  }
+
+  .feature-icon.copper {
+    background: linear-gradient(135deg, var(--copper) 0%, var(--gold) 100%);
+  }
+
+  .feature-card h3 {
+    font-size: 1.5rem;
+    color: var(--wood-dark);
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+
+  .feature-card p {
+    color: var(--wood-medium);
+    line-height: 1.6;
+  }
+
+  /* About Section */
+  .about {
+    padding: 6rem 2rem;
+    background: var(--warm-white);
+  }
+
+  .about-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .about-text h2 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    color: var(--wood-dark);
+    margin-bottom: 2rem;
+    font-weight: 700;
+  }
+
+  .about-text p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--wood-medium);
+    margin-bottom: 1.5rem;
+  }
+
+  .image-placeholder-large {
+    width: 100%;
+    aspect-ratio: 4/3;
+    background: linear-gradient(135deg, var(--moss-dark) 0%, var(--sage-light) 100%);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--cream);
+    font-size: 1.2rem;
+    border: 2px dashed rgba(255, 255, 255, 0.3);
+  }
+
+  /* Contact Section */
+  .contact {
+    padding: 6rem 2rem;
+    background: linear-gradient(135deg, var(--moss-dark) 0%, var(--wood-dark) 100%);
+    color: var(--cream);
+  }
+
+  .contact-intro {
+    text-align: center;
+    font-size: 1.2rem;
+    margin-bottom: 3rem;
+    color: var(--wood-accent);
+  }
+
+  .contact-form {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--cream);
+    font-size: 1rem;
+    font-family: 'Inter', sans-serif;
+    transition: border-color 0.3s ease;
+  }
+
+  .form-group input::placeholder,
+  .form-group textarea::placeholder {
+    color: var(--wood-lighter);
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: var(--gold);
+  }
+
+  .submit-button {
+    width: 100%;
+    padding: 1.25rem;
+    background: linear-gradient(135deg, var(--gold) 0%, var(--copper) 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .submit-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(201, 169, 97, 0.3);
+  }
+
+  /* Footer */
+  .footer {
+    background: var(--wood-dark);
+    color: var(--wood-lighter);
+    padding: 2rem;
+    text-align: center;
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .hero-content {
+      grid-template-areas:
+        "title title title title title title title title title title title title"
+        "phil phil phil phil phil phil phil phil phil phil phil phil"
+        "product product product product product product product product product product product product"
+        "card card card card card card reviews reviews reviews reviews reviews reviews"
+        "cta cta cta cta cta cta cta cta cta cta cta cta";
+    }
+
+    .about-content {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .nav-links {
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .nav-link {
+      font-size: 0.8rem;
+    }
+
+    .hero {
+      padding: 6rem 1rem 2rem;
+    }
+  }
+</style>
