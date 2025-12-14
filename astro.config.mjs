@@ -2,7 +2,7 @@ import { defineConfig } from 'astro/config';
 import vercel from '@astrojs/vercel/static';
 
 export default defineConfig({
-  site: 'https://pelletsaunaco.com', // Update this with your actual domain
+  site: 'https://pelletsauna.com',
   output: 'static',
   adapter: vercel(),
 });
