@@ -349,11 +349,17 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   }
 
   .menu-toggle {
+    grid-column: 1;
     justify-self: start;
+    position: absolute;
+    left: 2rem;
   }
 
   .btn-preorder {
+    grid-column: 3;
     justify-self: end;
+    position: absolute;
+    right: 2rem;
   }
 
   .menu-toggle {
@@ -1217,6 +1223,16 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       padding: 0.875rem 1rem;
       grid-template-columns: auto 1fr;
       position: relative;
+    }
+
+    .menu-toggle {
+      position: static;
+      left: auto;
+    }
+
+    .btn-preorder {
+      position: static;
+      right: auto;
     }
 
     .brand {
