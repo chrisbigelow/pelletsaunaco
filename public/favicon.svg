@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Pellet Sauna Company">
+  <title>Pellet Sauna Company</title>
+  <g fill="none" stroke="#d6101b" stroke-linecap="round" stroke-linejoin="round" stroke-width="6">
+    <path d="M20 10c-6 6-2 12 2 16 4 4 2 10-2 14" />
+    <path d="M32 10c-6 6-2 12 2 16 4 4 2 10-2 14" />
+    <path d="M44 10c-6 6-2 12 2 16 4 4 2 10-2 14" />
+    <path d="M10 44c6 8 38 8 44 0" />
+  </g>
+</svg>
