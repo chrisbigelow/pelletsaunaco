@@ -5,9 +5,9 @@ interface Props {
   siteUrl?: string;
 }
 
-const { 
-  title = 'The Pellet Sauna Co. | P1 Sauna Stove',
-  description = 'The P1 isn\'t just another sauna stove — it\'s an entirely new way to sauna. It combines the soulful warmth of a wood-fired sauna with the effortless convenience of electric. No electricians, No woodpiles. Just a perfect Löyly every time.',
+const {
+  title = 'P1 Pellet Sauna Stove | Wood Pellet Powered Sauna Heater',
+  description = 'The P1 pellet sauna stove combines wood-fired warmth with modern convenience. Our pellet sauna stove heats in 30 minutes, no electrician needed. The world\'s first wood pellet sauna stove for the perfect Löyly every time.',
   siteUrl = Astro.site?.href || 'https://pelletsauna.com'
 } = Astro.props;
 
@@ -63,6 +63,130 @@ const currentUrl = new URL(Astro.url.pathname, siteUrl).href;
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Playwrite+NO:wght@100..400&display=swap" rel="stylesheet">
+
+    <!-- Structured Data - Organization -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Pellet Sauna Company",
+      "url": "https://pelletsauna.com",
+      "logo": "https://pelletsauna.com/p1-stove3.png",
+      "description": "Manufacturer of the world's first wood pellet sauna stove. We combine traditional sauna warmth with modern pellet fuel convenience.",
+      "sameAs": []
+    }
+    </script>
+
+    <!-- Structured Data - Product -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "name": "P1 Pellet Sauna Stove",
+      "description": "The world's first wood pellet sauna stove. Combines the soulful warmth of a wood-fired sauna with the effortless convenience of electric. Heats up in 30 minutes, handles rooms up to 600 cubic feet, with built-in remote start.",
+      "image": "https://pelletsauna.com/p1-stove3.png",
+      "brand": {
+        "@type": "Brand",
+        "name": "Pellet Sauna Company"
+      },
+      "manufacturer": {
+        "@type": "Organization",
+        "name": "Pellet Sauna Company"
+      },
+      "category": "Sauna Stoves",
+      "material": "Steel",
+      "weight": {
+        "@type": "QuantitativeValue",
+        "value": "110",
+        "unitCode": "LBR"
+      },
+      "additionalProperty": [
+        {
+          "@type": "PropertyValue",
+          "name": "Heating Capacity",
+          "value": "300-600 cubic feet"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Fuel Type",
+          "value": "Wood Pellets"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Heat-up Time",
+          "value": "30 minutes"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Remote Start",
+          "value": "Built-in"
+        }
+      ],
+      "offers": {
+        "@type": "Offer",
+        "availability": "https://schema.org/PreOrder",
+        "url": "https://pelletsauna.com/#contact"
+      }
+    }
+    </script>
+
+    <!-- Structured Data - FAQPage -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is a pellet sauna stove?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A pellet sauna stove is an innovative sauna heater that uses compressed wood pellets as fuel instead of traditional firewood or electricity. The P1 pellet sauna stove combines the authentic wood-fired sauna experience with modern convenience, offering precise temperature control and easy operation."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does the P1 pellet sauna stove work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The P1 pellet sauna stove automatically feeds wood pellets from a built-in hopper into a combustion chamber. An electronic control system manages the pellet feed rate to maintain your desired temperature. You can even start your pellet sauna stove remotely using our app, so your sauna is hot when you arrive."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why choose a pellet sauna stove over electric or wood-burning?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A pellet sauna stove offers the best of both worlds: the authentic warmth and ambiance of wood-fired heat without the hassle of chopping and storing firewood, and without the high electrical costs or installation requirements of electric heaters. Wood pellets are also more eco-friendly and cost-effective than other fuel sources."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How long does it take to heat a sauna with a pellet stove?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The P1 pellet sauna stove heats your sauna to optimal temperature in approximately 30 minutes. This is comparable to electric heaters and faster than traditional wood-burning stoves, making it convenient for spontaneous sauna sessions."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What size sauna can the P1 pellet stove heat?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The P1 pellet sauna stove is designed to efficiently heat saunas ranging from 300 to 600 cubic feet. This covers most residential sauna sizes, from compact home saunas to larger family-sized installations."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Are wood pellets easy to find for my pellet sauna stove?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes! Wood pellets are widely available at hardware stores, home improvement centers, and online retailers. They're the same pellets used in pellet grills and home heating systems, making them convenient and affordable to purchase year-round."
+          }
+        }
+      ]
+    }
+    </script>
   </head>
   <body>
     <slot />
