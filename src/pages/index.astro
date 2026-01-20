@@ -28,7 +28,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <div class="hero-container">
       <!-- Left side - Text content -->
       <div class="hero-text">
-        <h1 class="hero-title">P1</h1>
+        <h1 class="hero-title">P1 Pellet Sauna Stove</h1>
         <p class="hero-subtitle">The World's First Wood Pellet Sauna Stove</p>
 
         <!-- Product image - appears after subtitle on mobile -->
@@ -230,6 +230,48 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             The P1 embodies our commitment to crafting sauna stoves that honor the environment and the timeless sauna ritual. Each stove is engineered for performance, designed for beauty, and built to endure for generations.
             From the sleek, sustainable materials to the precision-engineered combustion system, every detail reflects our dedication to quality and sustainability.
           </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq" id="faq">
+    <div class="container">
+      <div class="section-header centered">
+        <h2>Frequently Asked Questions</h2>
+        <p>Everything you need to know about pellet sauna stoves</p>
+      </div>
+
+      <div class="faq-grid">
+        <div class="faq-item">
+          <h3>What is a pellet sauna stove?</h3>
+          <p>A pellet sauna stove is an innovative sauna heater that uses compressed wood pellets as fuel instead of traditional firewood or electricity. The P1 pellet sauna stove combines the authentic wood-fired sauna experience with modern convenience, offering precise temperature control and easy operation.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>How does the P1 pellet sauna stove work?</h3>
+          <p>The P1 pellet sauna stove automatically feeds wood pellets from a built-in hopper into a combustion chamber. An electronic control system manages the pellet feed rate to maintain your desired temperature. You can even start your pellet sauna stove remotely using our app, so your sauna is hot when you arrive.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>Why choose a pellet sauna stove over electric or wood-burning?</h3>
+          <p>A pellet sauna stove offers the best of both worlds: the authentic warmth and ambiance of wood-fired heat without the hassle of chopping and storing firewood, and without the high electrical costs or installation requirements of electric heaters. Wood pellets are also more eco-friendly and cost-effective than other fuel sources.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>How long does it take to heat a sauna with a pellet stove?</h3>
+          <p>The P1 pellet sauna stove heats your sauna to optimal temperature in approximately 30 minutes. This is comparable to electric heaters and faster than traditional wood-burning stoves, making it convenient for spontaneous sauna sessions.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>What size sauna can the P1 pellet stove heat?</h3>
+          <p>The P1 pellet sauna stove is designed to efficiently heat saunas ranging from 300 to 600 cubic feet. This covers most residential sauna sizes, from compact home saunas to larger family-sized installations.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>Are wood pellets easy to find for my pellet sauna stove?</h3>
+          <p>Yes! Wood pellets are widely available at hardware stores, home improvement centers, and online retailers. They're the same pellets used in pellet grills and home heating systems, making them convenient and affordable to purchase year-round.</p>
         </div>
       </div>
     </div>
@@ -988,6 +1030,45 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     margin-bottom: 1.25rem;
   }
 
+  /* FAQ Section */
+  .faq {
+    padding: 6rem 0;
+    background: var(--mist-light);
+    scroll-margin-top: 120px;
+  }
+
+  .faq-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+
+  .faq-item {
+    background: white;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .faq-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .faq-item h3 {
+    font-size: 1.25rem;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+
+  .faq-item p {
+    color: var(--text-medium);
+    line-height: 1.7;
+    font-size: 1rem;
+  }
+
   /* Contact Section */
   .contact {
     padding: 6rem 0;
@@ -1439,6 +1520,27 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
     .contact {
       padding: 4rem 0;
+    }
+
+    .faq {
+      padding: 4rem 0;
+    }
+
+    .faq-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .faq-item {
+      padding: 1.5rem;
+    }
+
+    .faq-item h3 {
+      font-size: 1.125rem;
+    }
+
+    .faq-item p {
+      font-size: 0.9375rem;
     }
 
     .section-header {
