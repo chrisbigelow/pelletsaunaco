@@ -77,52 +77,18 @@ const currentUrl = new URL(Astro.url.pathname, siteUrl).href;
     }
     </script>
 
-    <!-- Structured Data - Product -->
+    <!-- Structured Data - WebPage -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "Product",
+      "@type": "WebPage",
       "name": "P1 Pellet Sauna Stove",
-      "description": "The world's first wood pellet sauna stove. Combines the soulful warmth of a wood-fired sauna with the effortless convenience of electric. Heats up in 30 minutes, handles rooms up to 600 cubic feet, with built-in remote start.",
-      "image": "https://pelletsauna.com/p1-stove3.png",
-      "brand": {
-        "@type": "Brand",
-        "name": "Pellet Sauna Company"
-      },
-      "manufacturer": {
-        "@type": "Organization",
-        "name": "Pellet Sauna Company"
-      },
-      "category": "Sauna Stoves",
-      "material": "Steel",
-      "weight": {
-        "@type": "QuantitativeValue",
-        "value": "110",
-        "unitCode": "LBR"
-      },
-      "url": "https://pelletsauna.com/#product",
-      "additionalProperty": [
-        {
-          "@type": "PropertyValue",
-          "name": "Heating Capacity",
-          "value": "300-600 cubic feet"
-        },
-        {
-          "@type": "PropertyValue",
-          "name": "Fuel Type",
-          "value": "Wood Pellets"
-        },
-        {
-          "@type": "PropertyValue",
-          "name": "Heat-up Time",
-          "value": "30 minutes"
-        },
-        {
-          "@type": "PropertyValue",
-          "name": "Remote Start",
-          "value": "Built-in"
-        }
-      ]
+      "url": "https://pelletsauna.com/",
+      "description": "Landing page for the P1 Pellet Sauna Stove, the world's first wood pellet sauna stove. Learn about features like 30-minute heat-up time, 300-600 cubic feet capacity, and built-in remote start.",
+      "primaryImageOfPage": {
+        "@type": "ImageObject",
+        "url": "https://pelletsauna.com/p1-stove3.png"
+      }
     }
     </script>
 
