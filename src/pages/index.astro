@@ -37,7 +37,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             <img src="/p1-stove3.png" alt="P1 Pellet Sauna Stove" class="product-img" />
             <div class="product-placeholder">
               <div class="placeholder-content">
-                <span class="placeholder-icon fire" aria-hidden="true"></span>
+                <span class="placeholder-icon">🔥</span>
                 <p>Place your P1 stove image at:<br/><code>/public/p1-stove3.png</code></p>
               </div>
             </div>
@@ -75,7 +75,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           <img src="/p1-stove3.png" alt="P1 Pellet Sauna Stove" class="product-img" />
           <div class="product-placeholder">
             <div class="placeholder-content">
-              <span class="placeholder-icon fire" aria-hidden="true"></span>
+              <span class="placeholder-icon">🔥</span>
               <p>Place your P1 stove image at:<br/><code>/public/p1-stove3.png</code></p>
             </div>
           </div>
@@ -109,21 +109,21 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           </p>
           <ul class="feature-list">
             <li>
-              <span class="icon temp" aria-hidden="true"></span>
+              <span class="icon">🌡️</span>
               <div>
                 <strong>Precise Temperature Control</strong>
                 <p>Advanced fuel management for optimal heat. Start the stove remotely and set it to your exact temp using our app.</p>
               </div>
             </li>
             <li>
-              <span class="icon eco" aria-hidden="true"></span>
+              <span class="icon">♻️</span>
               <div>
                 <strong>Eco-Friendly Fuel</strong>
                 <p>Sustainable wood pellets burn cleaner and cheaper</p>
               </div>
             </li>
             <li>
-              <span class="icon fast" aria-hidden="true"></span>
+              <span class="icon">⚡</span>
               <div>
                 <strong>Efficient Performance</strong>
                 <p>Quick heat-up time, small footprint</p>
@@ -145,25 +145,25 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
       <div class="features-grid">
         <div class="feature-card">
-          <div class="feature-icon fire" aria-hidden="true"></div>
+          <div class="feature-icon fire">🔥</div>
           <h3>Pellet-Powered Heat</h3>
           <p>Efficient, clean-burning wood pellets provide consistent, controllable heat for the perfect sauna experience.</p>
         </div>
 
         <div class="feature-card">
-          <div class="feature-icon nature" aria-hidden="true"></div>
+          <div class="feature-icon nature">🌲</div>
           <h3>Sustainable Design</h3>
           <p>Crafted from natural materials with a focus on environmental responsibility and renewable fuel sources.</p>
         </div>
 
         <div class="feature-card">
-          <div class="feature-icon precision" aria-hidden="true"></div>
+          <div class="feature-icon precision">⚙️</div>
           <h3>Precision Engineering</h3>
           <p>Advanced temperature control and airflow management for optimal performance and safety.</p>
         </div>
 
         <div class="feature-card">
-          <div class="feature-icon aesthetic" aria-hidden="true"></div>
+          <div class="feature-icon aesthetic">✨</div>
           <h3>Timeless Aesthetic</h3>
           <p>Modern lines meet traditional craftsmanship in a stove that's as beautiful as it is functional.</p>
         </div>
@@ -208,7 +208,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         </div>
 
         <div class="spec-visual">
-          <img src="/technical.png" alt="Sauna stove with visible flame in modern sauna interior" class="technical-image" />
+          <img src="/technical.png" alt="Modern sauna stove in interior" class="technical-image" />
         </div>
       </div>
     </div>
@@ -689,9 +689,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     display: block;
     margin-bottom: 1rem;
   }
-  .placeholder-icon::before {
-    content: "🔥";
-  }
 
   .placeholder-content code {
     background: rgba(255, 255, 255, 0.5);
@@ -871,18 +868,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     font-size: 2rem;
     flex-shrink: 0;
   }
-  .feature-list .icon::before {
-    content: "";
-  }
-  .feature-list .icon.temp::before {
-    content: "🌡️";
-  }
-  .feature-list .icon.eco::before {
-    content: "♻️";
-  }
-  .feature-list .icon.fast::before {
-    content: "⚡";
-  }
 
   .feature-list strong {
     display: block;
@@ -929,21 +914,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     justify-content: center;
     font-size: 2rem;
     margin-bottom: 1.5rem;
-  }
-  .feature-icon::before {
-    content: "";
-  }
-  .feature-icon.fire::before {
-    content: "🔥";
-  }
-  .feature-icon.nature::before {
-    content: "🌲";
-  }
-  .feature-icon.precision::before {
-    content: "⚙️";
-  }
-  .feature-icon.aesthetic::before {
-    content: "✨";
   }
 
   .feature-icon.fire {
