@@ -214,6 +214,61 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     </div>
   </section>
 
+  <!-- Product Comparison -->
+  <section class="comparison" id="comparison">
+    <div class="container">
+      <div class="section-header centered">
+        <h2>Product Comparison</h2>
+        <p>See how the P1 stacks up against traditional options</p>
+      </div>
+
+      <div class="comparison-table-wrapper">
+        <table class="comparison-table" aria-label="Sauna stove comparison table">
+          <thead>
+            <tr>
+              <th scope="col">Feature</th>
+              <th scope="col">Wood-Fired Stove</th>
+              <th scope="col">Electric Stove</th>
+              <th scope="col">P1</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Heats up to 220F</th>
+              <td><span class="comparison-check" aria-label="Yes">✓</span></td>
+              <td>—</td>
+              <td><span class="comparison-check" aria-label="Yes">✓</span></td>
+            </tr>
+            <tr>
+              <th scope="row">No Electrician Required</th>
+              <td><span class="comparison-check" aria-label="Yes">✓</span></td>
+              <td>—</td>
+              <td><span class="comparison-check" aria-label="Yes">✓</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Remote start</th>
+              <td>—</td>
+              <td><span class="comparison-check" aria-label="Yes">✓</span></td>
+              <td><span class="comparison-check" aria-label="Yes">✓</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Precise temperature control</th>
+              <td>—</td>
+              <td><span class="comparison-check" aria-label="Yes">✓</span></td>
+              <td><span class="comparison-check" aria-label="Yes">✓</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Traditional wood-fired experience</th>
+              <td><span class="comparison-check" aria-label="Yes">✓</span></td>
+              <td>—</td>
+              <td><span class="comparison-check" aria-label="Yes">✓</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
   <!-- About Section -->
   <section class="about" id="about">
     <div class="container">
@@ -994,6 +1049,65 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     color: var(--text-dark);
   }
 
+  /* Comparison Section */
+  .comparison {
+    padding: 6rem 0;
+    background: var(--off-white);
+    scroll-margin-top: 120px;
+  }
+
+  .comparison-table-wrapper {
+    overflow-x: auto;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    background: white;
+  }
+
+  .comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 720px;
+  }
+
+  .comparison-table th,
+  .comparison-table td {
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--light-gray);
+    text-align: center;
+  }
+
+  .comparison-table thead th {
+    background: var(--stove-dark);
+    color: white;
+    font-size: 0.95rem;
+    letter-spacing: 0.02em;
+  }
+
+  .comparison-table tbody th {
+    text-align: left;
+    color: var(--text-dark);
+    font-weight: 600;
+    background: #fcfbfa;
+  }
+
+  .comparison-table tbody td {
+    color: var(--text-medium);
+    font-weight: 600;
+    font-size: 1.1rem;
+  }
+
+  .comparison-check {
+    color: #00c853;
+    font-weight: 800;
+    font-size: 1.2rem;
+    text-shadow: 0 0 8px rgba(0, 200, 83, 0.45);
+  }
+
+  .comparison-table tbody tr:last-child th,
+  .comparison-table tbody tr:last-child td {
+    border-bottom: none;
+  }
+
   /* About Section */
   .about {
     padding: 6rem 0;
@@ -1503,6 +1617,20 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       gap: 2rem;
     }
 
+    .comparison {
+      padding: 4rem 0;
+    }
+
+    .comparison-table {
+      min-width: 640px;
+    }
+
+    .comparison-table th,
+    .comparison-table td {
+      padding: 0.875rem 1rem;
+      font-size: 0.95rem;
+    }
+
     .about-content h2 {
       font-size: clamp(1.75rem, 6vw, 2.25rem);
       margin-bottom: 1rem;
@@ -1666,6 +1794,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
     .product-highlight,
     .specifications,
+    .comparison,
     .about,
     .contact {
       padding: 3rem 0;
