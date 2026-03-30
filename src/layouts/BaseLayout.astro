@@ -11,7 +11,8 @@ const {
   siteUrl = Astro.site?.href || 'https://pelletsauna.com'
 } = Astro.props;
 
-const ogImage = new URL('/p1-stove3.png', siteUrl).href;
+const ogImage = new URL('/p1-stove3.webp', siteUrl).href;
+const lcpImageHref = '/p1-stove3.webp';
 const currentUrl = new URL(Astro.url.pathname, siteUrl).href;
 ---
 
@@ -20,6 +21,7 @@ const currentUrl = new URL(Astro.url.pathname, siteUrl).href;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preload" as="image" href={lcpImageHref} fetchpriority="high" />
     <title>{title}</title>
     
     <!-- Primary Meta Tags -->
@@ -32,8 +34,8 @@ const currentUrl = new URL(Astro.url.pathname, siteUrl).href;
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
+    <meta property="og:image:width" content="1536" />
+    <meta property="og:image:height" content="1024" />
     <meta property="og:image:alt" content="P1 Pellet Sauna Stove - The World's First Wood Pellet Sauna Stove" />
     <meta property="og:site_name" content="Pellet Sauna Company" />
     
@@ -71,7 +73,7 @@ const currentUrl = new URL(Astro.url.pathname, siteUrl).href;
       "@type": "Organization",
       "name": "Pellet Sauna Company",
       "url": "https://pelletsauna.com",
-      "logo": "https://pelletsauna.com/p1-stove3.png",
+      "logo": "https://pelletsauna.com/p1-stove3.webp",
       "description": "Manufacturer of the world's first wood pellet sauna stove. We combine traditional sauna warmth with modern pellet fuel convenience.",
       "sameAs": []
     }
@@ -87,7 +89,7 @@ const currentUrl = new URL(Astro.url.pathname, siteUrl).href;
       "description": "Landing page for the P1 Pellet Sauna Stove, the world's first wood pellet sauna stove. Learn about features like 30-minute heat-up time, 300-600 cubic feet capacity, and built-in remote start.",
       "primaryImageOfPage": {
         "@type": "ImageObject",
-        "url": "https://pelletsauna.com/p1-stove3.png"
+        "url": "https://pelletsauna.com/p1-stove3.webp"
       }
     }
     </script>

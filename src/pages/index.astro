@@ -34,7 +34,18 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <!-- Product image - appears after subtitle on mobile -->
         <div class="hero-image hero-image-mobile">
           <div class="product-container">
-            <img src="/p1-stove3.png" alt="P1 Pellet Sauna Stove" class="product-img" />
+            <picture>
+              <source srcset="/p1-stove3.webp" type="image/webp" />
+              <img
+                src="/p1-stove3.png"
+                alt="P1 Pellet Sauna Stove"
+                class="product-img"
+                width="1536"
+                height="1024"
+                fetchpriority="high"
+                decoding="sync"
+              />
+            </picture>
             <div class="product-placeholder">
               <div class="placeholder-content">
                 <span class="placeholder-icon">🔥</span>
@@ -72,7 +83,18 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <!-- Right side - Product image (desktop only) -->
       <div class="hero-image hero-image-desktop">
         <div class="product-container">
-          <img src="/p1-stove3.png" alt="P1 Pellet Sauna Stove" class="product-img" />
+          <picture>
+            <source srcset="/p1-stove3.webp" type="image/webp" />
+            <img
+              src="/p1-stove3.png"
+              alt="P1 Pellet Sauna Stove"
+              class="product-img"
+              width="1536"
+              height="1024"
+              fetchpriority="high"
+              decoding="sync"
+            />
+          </picture>
           <div class="product-placeholder">
             <div class="placeholder-content">
               <span class="placeholder-icon">🔥</span>
@@ -98,7 +120,18 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <div class="highlight-image">
           <h3 class="graph-title">Cost Per Sauna (1 hr 45 min)</h3>
           <div class="image-wrapper">
-            <img src="/graph2.png" alt="Sauna Interior View" class="graph-image" />
+            <picture>
+              <source srcset="/graph2.webp" type="image/webp" />
+              <img
+                src="/graph2.png"
+                alt="Sauna Interior View"
+                class="graph-image"
+                width="1024"
+                height="1024"
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
           </div>
         </div>
         <div class="highlight-content">
@@ -208,7 +241,18 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         </div>
 
         <div class="spec-visual">
-          <img src="/stove_render.png" alt="Modern sauna stove in interior" class="technical-image" />
+          <picture>
+            <source srcset="/stove_render.webp" type="image/webp" />
+            <img
+              src="/stove_render.png"
+              alt="Modern sauna stove in interior"
+              class="technical-image"
+              width="1424"
+              height="704"
+              loading="lazy"
+              decoding="async"
+            />
+          </picture>
         </div>
       </div>
     </div>
@@ -274,7 +318,18 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <div class="container">
       <div class="about-grid">
         <div class="about-image">
-          <img src="/nature.jpg" alt="Nature-inspired imagery" class="nature-image" />
+          <picture>
+            <source srcset="/nature.webp" type="image/webp" />
+            <img
+              src="/nature.jpg"
+              alt="Nature-inspired imagery"
+              class="nature-image"
+              width="1600"
+              height="1201"
+              loading="lazy"
+              decoding="async"
+            />
+          </picture>
         </div>
         <div class="about-content">
           <h2>Pellet Sauna<br/>Company</h2>
@@ -717,8 +772,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     filter: drop-shadow(0 25px 50px rgba(0, 0, 0, 0.15));
   }
 
-  /* Hide placeholder when image loads */
-  .product-img:not([src=""]) ~ .product-placeholder {
+  /* Hide placeholder when hero image is present (wrapped in <picture>) */
+  .product-container:has(picture .product-img[src]) .product-placeholder {
     display: none;
   }
 
