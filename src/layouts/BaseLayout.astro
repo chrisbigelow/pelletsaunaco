@@ -13,7 +13,8 @@ const {
 
 const ogImage = new URL('/p1-stove3.webp', siteUrl).href;
 const lcpImageHref = '/p1-stove3.webp';
-const currentUrl = new URL(Astro.url.pathname, siteUrl).href;
+const site = Astro.site ?? new URL('https://pelletsauna.com');
+const canonicalURL = new URL(Astro.url.pathname, site).href;
 ---
 
 <!DOCTYPE html>
@@ -21,6 +22,7 @@ const currentUrl = new URL(Astro.url.pathname, siteUrl).href;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="canonical" href={canonicalURL} />
     <link rel="preload" as="image" href={lcpImageHref} fetchpriority="high" />
     <title>{title}</title>
     
@@ -30,7 +32,7 @@ const currentUrl = new URL(Astro.url.pathname, siteUrl).href;
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content={currentUrl} />
+    <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
@@ -41,7 +43,7 @@ const currentUrl = new URL(Astro.url.pathname, siteUrl).href;
     
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:url" content={currentUrl} />
+    <meta name="twitter:url" content={canonicalURL} />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
@@ -52,7 +54,6 @@ const currentUrl = new URL(Astro.url.pathname, siteUrl).href;
     
     <!-- Additional Meta Tags -->
     <meta name="author" content="Pellet Sauna Company" />
-    <link rel="canonical" href={currentUrl} />
     
     <!-- Favicons -->
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
