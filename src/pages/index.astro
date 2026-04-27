@@ -500,6 +500,21 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     line-height: 1.1;
     grid-column: 2;
     justify-self: center;
+    position: relative;
+    padding: 0.65rem 1.35rem 0.75rem;
+    border: 2px solid rgba(212, 145, 92, 0.75);
+    border-radius: 999px;
+    background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.95) 0%, rgba(232, 213, 196, 0.45) 100%);
+    box-shadow: 0 8px 24px rgba(58, 65, 69, 0.12), inset 0 0 0 1px rgba(255, 255, 255, 0.7);
+  }
+
+  .brand::before {
+    content: '';
+    position: absolute;
+    inset: 0.28rem;
+    border: 1px solid rgba(58, 65, 69, 0.18);
+    border-radius: inherit;
+    pointer-events: none;
   }
 
   .menu-toggle {
@@ -1370,6 +1385,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     text-shadow: 0.5px 0.5px 0px rgba(0, 0, 0, 0.2);
     text-align: left;
     line-height: 1.1;
+    display: inline-block;
+    padding: 0.75rem 1.45rem 0.85rem;
+    border: 2px solid rgba(212, 145, 92, 0.85);
+    border-radius: 999px;
+    background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.08) 0%, rgba(212, 145, 92, 0.16) 100%);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18), inset 0 0 0 1px rgba(255, 255, 255, 0.14);
   }
 
   .footer-brand p {
