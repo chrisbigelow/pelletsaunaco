@@ -8,12 +8,12 @@ interface Props {
 const {
   title = 'P1 Pellet Sauna Stove | Wood Pellet Powered Sauna Heater',
   description = 'The P1 pellet sauna stove heats in 30 minutes — no electrician needed. Wood-fired warmth with modern convenience. The world\'s first pellet sauna stove.',
-  siteUrl = Astro.site?.href || 'https://pelletsauna.com'
+  siteUrl = Astro.site?.href || 'https://www.pelletsauna.com'
 } = Astro.props;
 
 const ogImage = new URL('/p1-stove3.webp', siteUrl).href;
 const lcpImageHref = '/p1-stove3.webp';
-const site = Astro.site ?? new URL('https://pelletsauna.com');
+const site = Astro.site ?? new URL('https://www.pelletsauna.com');
 const canonicalURL = new URL(Astro.url.pathname, site).href;
 ---
 
@@ -73,8 +73,8 @@ const canonicalURL = new URL(Astro.url.pathname, site).href;
       "@context": "https://schema.org",
       "@type": "Organization",
       "name": "Pellet Sauna Company",
-      "url": "https://pelletsauna.com",
-      "logo": "https://pelletsauna.com/p1-stove3.webp",
+      "url": "https://www.pelletsauna.com",
+      "logo": "https://www.pelletsauna.com/p1-stove3.webp",
       "description": "Manufacturer of the world's first wood pellet sauna stove. We combine traditional sauna warmth with modern pellet fuel convenience.",
       "sameAs": []
     }
@@ -86,11 +86,11 @@ const canonicalURL = new URL(Astro.url.pathname, site).href;
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "P1 Pellet Sauna Stove",
-      "url": "https://pelletsauna.com/",
+      "url": "https://www.pelletsauna.com/",
       "description": "Landing page for the P1 Pellet Sauna Stove, the world's first wood pellet sauna stove. Learn about features like 30-minute heat-up time, standard 110V outlet operation, 300-500 cubic feet capacity, and built-in remote start.",
       "primaryImageOfPage": {
         "@type": "ImageObject",
-        "url": "https://pelletsauna.com/p1-stove3.webp"
+        "url": "https://www.pelletsauna.com/p1-stove3.webp"
       }
     }
     </script>

@@ -1,6 +1,6 @@
 import { defineConfig } from 'astro/config';
 
 export default defineConfig({
-  site: 'https://pelletsauna.com',
+  site: 'https://www.pelletsauna.com',
   output: 'static',
 });
