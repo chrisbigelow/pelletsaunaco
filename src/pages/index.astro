@@ -456,7 +456,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         </div>
       </div>
       <div class="footer-bottom">
-        <p>&copy; 2025 Pellet Sauna<br/>Company. All rights reserved.</p>
+        <p>&copy; 2026 Pellet Sauna<br/>Company. All rights reserved.</p>
       </div>
     </div>
   </footer>
@@ -472,8 +472,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   .nav {
     position: fixed;
     top: 1rem;
-    left: 1rem;
-    right: 1rem;
+    left: 50%;
+    right: auto;
+    width: min(calc(100% - 2rem), 1220px);
+    transform: translateX(-50%);
     z-index: 1000;
     background: rgba(255, 255, 255, 0.92);
     backdrop-filter: blur(18px);
@@ -505,7 +507,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     padding: 0.4rem 1rem 0.48rem;
     border: 1.5px solid var(--text-dark);
     border-radius: 999px;
-    background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.95) 0%, rgba(232, 213, 196, 0.45) 100%);
+    background: #fff;
     box-shadow: 0 6px 18px rgba(58, 65, 69, 0.12);
   }
 
@@ -638,7 +640,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     position: relative;
     min-height: 100vh;
     background: linear-gradient(135deg, var(--mist-light) 0%, var(--sky-light) 100%);
-    padding: 8rem 2rem 4rem;
+    padding: 8.75rem 2rem 3rem;
     overflow: hidden;
     scroll-margin-top: 96px;
   }
@@ -650,12 +652,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     grid-template-columns: 1fr 1fr;
     gap: 4rem;
     align-items: center;
-    min-height: 80vh;
+    min-height: calc(100vh - 12rem);
   }
 
   .hero-text {
     z-index: 2;
-    margin-left: 4rem;
+    margin-left: clamp(1rem, 4vw, 4rem);
   }
 
   .hero-title {
@@ -675,17 +677,17 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   }
 
   .hero-description {
-    font-size: 1.125rem;
+    font-size: 1.1875rem;
     line-height: 1.8;
     color: var(--text-medium);
-    margin-bottom: 3rem;
-    max-width: 540px;
+    margin-bottom: 2.5rem;
+    max-width: 560px;
   }
 
   .hero-stats {
     display: flex;
-    gap: 3rem;
-    margin-bottom: 3rem;
+    gap: 2.5rem;
+    margin-bottom: 2.5rem;
   }
 
   .stat {
@@ -754,7 +756,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     overflow: visible;
     width: 100%;
     height: 100%;
-    margin-right: 4rem;
+    margin-right: 1rem;
   }
 
   /* Desktop image - hidden on mobile */
@@ -771,7 +773,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     position: relative;
     width: 100%;
     max-width: none;
-    transform: scale(1.35) translateY(-5%);
+    transform: scale(1.22) translate(4%, 1%);
     transform-origin: center center;
     margin: 0 auto;
   }
@@ -1475,8 +1477,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   @media (max-width: 768px) {
     .nav {
       top: 0.5rem;
-      left: 0.5rem;
-      right: 0.5rem;
+      left: 50%;
+      right: auto;
+      width: calc(100% - 1rem);
       border-radius: 12px;
     }
 
