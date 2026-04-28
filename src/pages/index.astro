@@ -1838,17 +1838,22 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   @media (max-width: 480px) {
     .nav {
       top: 0.5rem;
-      left: 0.5rem;
-      right: 0.5rem;
+      left: 50%;
+      right: auto;
+      width: calc(100% - 1rem);
       border-radius: 10px;
     }
 
     .nav-container {
-      padding: 0.75rem 0.875rem;
+      min-height: 3.5rem;
+      padding: 0.45rem 0.75rem;
+      grid-template-columns: 1fr auto 1fr;
     }
 
     .brand {
-      font-size: 0.875rem;
+      font-size: 0.8rem;
+      grid-column: 2;
+      justify-self: center;
     }
 
     .btn-preorder-desktop {
