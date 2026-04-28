@@ -426,7 +426,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         </div>
         <div class="form-group">
           <label for="message">Message</label>
-          <textarea id="message" name="message" rows="6" required></textarea>
+          <textarea id="message" name="message" rows="4" required></textarea>
         </div>
         <button type="submit" class="btn-submit" id="submitBtn">Send Message</button>
       </form>
@@ -649,8 +649,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     max-width: 1220px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3.5rem;
+    grid-template-columns: 0.92fr 1.08fr;
+    gap: 3rem;
     align-items: center;
     min-height: calc(100vh - 11.75rem);
   }
@@ -661,23 +661,23 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   }
 
   .hero-title {
-    font-size: clamp(3rem, 10vw, 6rem);
+    font-size: clamp(3rem, 7vw, 5rem);
     font-weight: 900;
-    line-height: 0.9;
+    line-height: 0.95;
     color: var(--stove-dark);
     margin-bottom: 1rem;
     letter-spacing: -0.02em;
   }
 
   .hero-subtitle {
-    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-size: clamp(1.25rem, 2.4vw, 1.65rem);
     color: var(--text-medium);
-    margin-bottom: 2rem;
+    margin-bottom: 1.75rem;
     font-weight: 300;
   }
 
   .hero-description {
-    font-size: 1.1875rem;
+    font-size: 1.0625rem;
     line-height: 1.8;
     color: var(--text-medium);
     margin-bottom: 2.5rem;
@@ -773,7 +773,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     position: relative;
     width: 100%;
     max-width: none;
-    transform: scale(1.15) translate(6%, 1%);
+    transform: scale(1.28) translate(6%, 1%);
     transform-origin: center center;
     margin: 0 auto;
   }
@@ -1253,10 +1253,18 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   /* Contact Section */
   .contact {
-    padding: 6rem 0;
+    padding: 4rem 0;
     background: var(--stove-dark);
     color: white;
     scroll-margin-top: 120px;
+  }
+
+  .contact .section-header {
+    margin-bottom: 2.25rem;
+  }
+
+  .contact .section-header h2 {
+    margin-bottom: 0.5rem;
   }
 
   .contact .section-header h2,
@@ -1265,23 +1273,23 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   }
 
   .contact-form {
-    margin-top: 2rem;
+    margin-top: 0;
   }
 
   .form-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
-    margin-bottom: 1.5rem;
+    gap: 1.25rem;
+    margin-bottom: 1rem;
   }
 
   .form-group {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
   }
 
   .form-group label {
     display: block;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.35rem;
     font-weight: 500;
     color: var(--mist);
   }
@@ -1289,7 +1297,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   .form-group input,
   .form-group textarea {
     width: 100%;
-    padding: 0.875rem 1.125rem;
+    padding: 0.65rem 1rem;
     border: 2px solid rgba(255, 255, 255, 0.2);
     border-radius: 8px;
     background: rgba(255, 255, 255, 0.05);
@@ -1313,7 +1321,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   .btn-submit {
     width: 100%;
-    padding: 1.125rem;
+    padding: 0.9rem;
     background: white;
     color: var(--stove-dark);
     border: none;
