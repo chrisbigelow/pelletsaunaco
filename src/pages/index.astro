@@ -1500,19 +1500,26 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     .nav-container {
       min-height: 3.5rem;
       padding: 0.45rem 0.85rem;
-      grid-template-columns: auto 1fr;
+      grid-template-columns: auto 1fr auto;
       position: relative;
     }
 
+    .nav-container::after {
+      content: '';
+      width: 38px;
+      justify-self: end;
+    }
 
     .brand {
       font-size: 0.86rem;
       line-height: 1.12;
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      grid-column: 1 / -1;
+      position: static;
+      left: auto;
+      transform: none;
+      grid-column: 2;
+      justify-self: center;
       padding: 0.34rem 0.85rem 0.42rem;
+      max-width: calc(100% - 5.5rem);
     }
 
     .btn-preorder-desktop {
