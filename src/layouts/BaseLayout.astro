@@ -95,6 +95,57 @@ const canonicalURL = new URL(Astro.url.pathname, site).href;
     }
     </script>
 
+    <!-- Structured Data - Product -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "name": "P1 Pellet Sauna Stove",
+      "image": [
+        "https://www.pelletsauna.com/p1-stove3.webp",
+        "https://www.pelletsauna.com/stove_render.webp"
+      ],
+      "description": "The P1 is a wood pellet powered sauna stove that combines wood-fired warmth with remote start, precise temperature control, and standard 110V outlet operation.",
+      "brand": {
+        "@type": "Brand",
+        "name": "Pellet Sauna Company"
+      },
+      "manufacturer": {
+        "@type": "Organization",
+        "name": "Pellet Sauna Company",
+        "url": "https://www.pelletsauna.com"
+      },
+      "category": "Sauna Heater",
+      "additionalProperty": [
+        {
+          "@type": "PropertyValue",
+          "name": "Fuel Type",
+          "value": "Wood Pellets"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Heating Capacity",
+          "value": "300-500 cubic feet"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Power Requirement",
+          "value": "Standard 110V outlet"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Heat-Up Time",
+          "value": "Approximately 30 minutes"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Warranty",
+          "value": "5 years on electrical components; lifetime on steel body"
+        }
+      ]
+    }
+    </script>
+
     <!-- Structured Data - FAQPage -->
     <script type="application/ld+json">
     {
