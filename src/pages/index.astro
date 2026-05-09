@@ -262,6 +262,31 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     </div>
   </section>
 
+  <!-- Installation Trust Section -->
+  <section class="trust" id="installation">
+    <div class="container">
+      <div class="section-header centered">
+        <h2>Built for Real Sauna Projects</h2>
+        <p>Clear specs and practical installation details for buyers comparing sauna heaters</p>
+      </div>
+
+      <div class="trust-grid">
+        <article class="trust-card">
+          <h3>Standard 110V controls</h3>
+          <p>The P1 uses wood pellets for heat and plugs into a standard 110V outlet for controls, helping owners avoid the dedicated high-voltage wiring common with many electric sauna heaters.</p>
+        </article>
+        <article class="trust-card">
+          <h3>Residential room sizing</h3>
+          <p>Designed for sauna rooms from 300 to 500 cubic feet, the P1 gives builders and homeowners a clear target range when planning a backyard, cabin, or home sauna.</p>
+        </article>
+        <article class="trust-card">
+          <h3>Warranty-backed build</h3>
+          <p>The steel body is backed by a lifetime warranty, with five years of coverage for electrical components, so buyers can evaluate the heater with concrete durability expectations.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
   <!-- Product Comparison -->
   <section class="comparison" id="comparison">
     <div class="container">
@@ -1121,6 +1146,36 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   }
 
   /* Comparison Section */
+  .trust {
+    padding: 6rem 0;
+    background: var(--mist-light);
+    scroll-margin-top: 120px;
+  }
+
+  .trust-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .trust-card {
+    background: white;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  }
+
+  .trust-card h3 {
+    color: var(--text-dark);
+    font-size: 1.3rem;
+    margin-bottom: 0.85rem;
+  }
+
+  .trust-card p {
+    color: var(--text-medium);
+    line-height: 1.7;
+  }
+
   .comparison {
     padding: 6rem 0;
     background: var(--off-white);
@@ -1712,6 +1767,18 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
     .comparison {
       padding: 4rem 0;
+    }
+
+    .trust {
+      padding: 4rem 0;
+    }
+
+    .trust-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .trust-card {
+      padding: 1.5rem;
     }
 
     .comparison-table {
