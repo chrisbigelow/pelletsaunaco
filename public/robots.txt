@@ -4,8 +4,8 @@
 User-agent: *
 Allow: /
 
-# Sitemap location
-Sitemap: https://pelletsauna.com/sitemap.xml
+# Sitemap location (use the canonical www host so crawlers do not fetch a redirected sitemap URL)
+Sitemap: https://www.pelletsauna.com/sitemap.xml
 
 # Allow all major search engine crawlers
 User-agent: Googlebot
