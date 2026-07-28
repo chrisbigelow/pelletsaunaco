@@ -1,0 +1,90 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Privacy Policy | Pellet Sauna Company"
+  description="How Pellet Sauna Company uses analytics cookies and handles information collected on pelletsauna.com."
+>
+  <main class="privacy-page">
+    <a class="back-link" href="/">← Back to P1</a>
+    <h1>Privacy Policy</h1>
+    <p class="updated">Last updated: July 28, 2026</p>
+
+    <section>
+      <h2>What this site collects</h2>
+      <p>
+        If you contact us through the form, we receive the name, email, and message you submit so we can respond.
+      </p>
+    </section>
+
+    <section>
+      <h2>Analytics cookies</h2>
+      <p>
+        We use Google Analytics only if you accept cookies. Analytics cookies help us understand how people use the site (pages viewed, approximate location, device/browser type). Google may process this data under its own terms.
+      </p>
+      <p>
+        You can accept or reject analytics when prompted. To change your choice later, clear this site’s data in your browser and reload the page.
+      </p>
+    </section>
+
+    <section>
+      <h2>Contact</h2>
+      <p>
+        Questions about privacy: use the <a href="/#contact">contact form</a> on our homepage.
+      </p>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .privacy-page {
+    max-width: 40rem;
+    margin: 0 auto;
+    padding: 2.5rem 1.25rem 4rem;
+  }
+
+  .back-link {
+    display: inline-block;
+    margin-bottom: 1.5rem;
+    color: var(--text-medium);
+    text-decoration: none;
+    font-size: 0.9375rem;
+  }
+
+  .back-link:hover {
+    color: var(--text-dark);
+  }
+
+  h1 {
+    font-size: clamp(1.75rem, 4vw, 2.25rem);
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+  }
+
+  .updated {
+    color: var(--text-medium);
+    font-size: 0.875rem;
+    margin-bottom: 2rem;
+  }
+
+  section {
+    margin-bottom: 1.75rem;
+  }
+
+  h2 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    color: var(--text-medium);
+    line-height: 1.6;
+    margin-bottom: 0.75rem;
+  }
+
+  a {
+    color: var(--sky-blue);
+  }
+</style>
