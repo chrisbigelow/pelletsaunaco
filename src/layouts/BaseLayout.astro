@@ -203,6 +203,62 @@ const canonicalURL = new URL(Astro.url.pathname, site).href;
   </head>
   <body>
     <slot />
+
+    <div id="cookie-banner" class="cookie-banner" hidden>
+      <p>
+        We use Google Analytics cookies to understand site traffic.
+        See our <a href="/privacy">Privacy Policy</a>.
+      </p>
+      <div class="cookie-banner-actions">
+        <button type="button" id="cookie-reject" class="cookie-btn cookie-btn-reject">Reject</button>
+        <button type="button" id="cookie-accept" class="cookie-btn cookie-btn-accept">Accept</button>
+      </div>
+    </div>
+
+    <script is:inline>
+      (function () {
+        var GA_ID = 'G-XHQWDSNJWF';
+        var KEY = 'analytics-consent';
+
+        function loadAnalytics() {
+          if (window.__gaLoaded) return;
+          window.__gaLoaded = true;
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          window.gtag = gtag;
+          gtag('js', new Date());
+          gtag('config', GA_ID);
+          var s = document.createElement('script');
+          s.async = true;
+          s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+          document.head.appendChild(s);
+        }
+
+        function setConsent(value) {
+          try { localStorage.setItem(KEY, value); } catch (e) {}
+          var banner = document.getElementById('cookie-banner');
+          if (banner) banner.hidden = true;
+          if (value === 'accepted') loadAnalytics();
+        }
+
+        var consent = null;
+        try { consent = localStorage.getItem(KEY); } catch (e) {}
+
+        if (consent === 'accepted') {
+          loadAnalytics();
+        } else if (consent !== 'rejected') {
+          var banner = document.getElementById('cookie-banner');
+          if (banner) banner.hidden = false;
+        }
+
+        document.getElementById('cookie-accept')?.addEventListener('click', function () {
+          setConsent('accepted');
+        });
+        document.getElementById('cookie-reject')?.addEventListener('click', function () {
+          setConsent('rejected');
+        });
+      })();
+    </script>
   </body>
 </html>
 
@@ -255,5 +311,66 @@ const canonicalURL = new URL(Astro.url.pathname, site).href;
 
   html {
     scroll-behavior: smooth;
+  }
+
+  .cookie-banner {
+    position: fixed;
+    left: 1rem;
+    right: 1rem;
+    bottom: 1rem;
+    z-index: 1000;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    max-width: 40rem;
+    margin-inline: auto;
+    padding: 1rem 1.25rem;
+    background: var(--stove-charcoal);
+    color: var(--steam-white);
+    font-size: 0.875rem;
+    line-height: 1.45;
+    box-shadow: 0 8px 24px rgba(26, 31, 34, 0.2);
+  }
+
+  .cookie-banner[hidden] {
+    display: none;
+  }
+
+  .cookie-banner p {
+    flex: 1 1 14rem;
+    margin: 0;
+  }
+
+  .cookie-banner a {
+    color: var(--wood-light);
+    text-underline-offset: 2px;
+  }
+
+  .cookie-banner-actions {
+    display: flex;
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  .cookie-btn {
+    font-family: inherit;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    padding: 0.5rem 0.9rem;
+    border: 1px solid transparent;
+    cursor: pointer;
+  }
+
+  .cookie-btn-accept {
+    background: var(--wood-natural);
+    color: var(--text-dark);
+  }
+
+  .cookie-btn-reject {
+    background: transparent;
+    color: var(--steam-white);
+    border-color: rgba(248, 251, 253, 0.35);
   }
 </style>
