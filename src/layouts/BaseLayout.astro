@@ -24,7 +24,7 @@ const productImage = new URL('/p1-stove3.png', siteUrl).href;
 const organizationSchema = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
-  name: 'Pellet Sauna Company',
+  name: 'The Pellet Sauna Company',
   url: siteUrl,
   logo: {
     '@type': 'ImageObject',
@@ -42,7 +42,7 @@ const webPageSchema = {
   name: title,
   url: canonicalURL,
   description,
-  isPartOf: { '@type': 'WebSite', name: 'Pellet Sauna Company', url: siteUrl },
+  isPartOf: { '@type': 'WebSite', name: 'The Pellet Sauna Company', url: siteUrl },
   primaryImageOfPage: { '@type': 'ImageObject', url: productImage }
 };
 
@@ -53,8 +53,8 @@ const productSchema = {
   name: 'P1 Pellet Sauna Stove',
   image: [productImage, new URL('/stove_render.png', siteUrl).href],
   description: "The world's first wood pellet sauna stove. Heats a 300-500 cubic foot sauna in about 30 minutes, plugs into a standard 110V outlet, and supports remote start.",
-  brand: { '@type': 'Brand', name: 'Pellet Sauna Company' },
-  manufacturer: { '@type': 'Organization', name: 'Pellet Sauna Company', url: siteUrl },
+  brand: { '@type': 'Brand', name: 'The Pellet Sauna Company' },
+  manufacturer: { '@type': 'Organization', name: 'The Pellet Sauna Company', url: siteUrl },
   category: 'Sauna Heater',
   url: siteUrl,
   offers: {
@@ -62,7 +62,7 @@ const productSchema = {
     url: new URL('/#contact', siteUrl).href,
     availability: 'https://schema.org/PreOrder',
     itemCondition: 'https://schema.org/NewCondition',
-    seller: { '@type': 'Organization', name: 'Pellet Sauna Company' }
+    seller: { '@type': 'Organization', name: 'The Pellet Sauna Company' }
   }
 };
 
@@ -197,7 +197,7 @@ const schemas = [organizationSchema, webPageSchema, ...(isHome ? [productSchema,
     <meta property="og:image:width" content="1536" />
     <meta property="og:image:height" content="1024" />
     <meta property="og:image:alt" content="P1 Pellet Sauna Stove - The World's First Wood Pellet Sauna Stove" />
-    <meta property="og:site_name" content="Pellet Sauna Company" />
+    <meta property="og:site_name" content="The Pellet Sauna Company" />
     
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -211,7 +211,7 @@ const schemas = [organizationSchema, webPageSchema, ...(isHome ? [productSchema,
     <meta property="og:image:secure_url" content={ogImage} />
     
     <!-- Additional Meta Tags -->
-    <meta name="author" content="Pellet Sauna Company" />
+    <meta name="author" content="The Pellet Sauna Company" />
     
     <!-- Favicons -->
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
