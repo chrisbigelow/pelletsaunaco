@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<BaseLayout>
+<BaseLayout isHome={true}>
   <!-- Navigation -->
   <nav class="nav">
     <div class="nav-container">
@@ -11,7 +11,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <span></span>
         <span></span>
       </button>
-      <div class="brand">Pellet Sauna<br/>Company</div>
+      <a href="/" class="brand" aria-label="Pellet Sauna Company home">
+        <svg class="brand-mark" viewBox="140 140 962 962" aria-hidden="true" focusable="false">
+          <g fill="currentColor">
+            <path d="M428 322 A90 90 0 0 1 518 232 L628 232 L628 920 A100 100 0 0 1 528 1020 L428 1020 Z"/>
+            <path d="M655 232 L743 232 A115 115 0 0 1 858 347 L858 622 A115 115 0 0 1 743 737 L655 737 Z"/>
+          </g>
+        </svg>
+        <span>Pellet Sauna<br/>Company</span>
+      </a>
       <a href="#contact" class="btn-preorder btn-preorder-desktop">Pre Order Now</a>
       <div class="nav-links" id="navLinks">
         <a href="#product" class="nav-link">Product</a>
@@ -531,6 +539,16 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     border-radius: 999px;
     background: #fff;
     box-shadow: 0 6px 18px rgba(58, 65, 69, 0.12);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+  }
+
+  .brand-mark {
+    width: 1.5em;
+    height: 1.5em;
+    flex-shrink: 0;
   }
 
   .menu-toggle {

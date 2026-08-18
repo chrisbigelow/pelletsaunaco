@@ -3,18 +3,175 @@ interface Props {
   title?: string;
   description?: string;
   siteUrl?: string;
+  /** Home page only: emits Product + FAQPage schema, which must match visible page content. */
+  isHome?: boolean;
 }
 
 const {
   title = 'P1 Pellet Sauna Stove | Wood Pellet Powered Sauna Heater',
   description = 'The P1 pellet sauna stove heats in 30 minutes. No electrician needed. Wood-fired warmth with modern convenience. The world\'s first pellet sauna stove.',
-  siteUrl = Astro.site?.href || 'https://www.pelletsauna.com'
+  siteUrl = Astro.site?.href || 'https://www.pelletsauna.com',
+  isHome = false
 } = Astro.props;
 
 const ogImage = new URL('/p1-stove3.webp', siteUrl).href;
 const lcpImageHref = '/p1-stove3.webp';
 const site = Astro.site ?? new URL('https://www.pelletsauna.com');
 const canonicalURL = new URL(Astro.url.pathname, site).href;
+const logoImage = new URL('/logo.png', siteUrl).href;
+const productImage = new URL('/p1-stove3.png', siteUrl).href;
+
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Pellet Sauna Company',
+  url: siteUrl,
+  logo: {
+    '@type': 'ImageObject',
+    url: logoImage,
+    width: 512,
+    height: 512
+  },
+  description: "Manufacturer of the world's first wood pellet sauna stove. We combine traditional sauna warmth with modern pellet fuel convenience.",
+  sameAs: []
+};
+
+const webPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: title,
+  url: canonicalURL,
+  description,
+  isPartOf: { '@type': 'WebSite', name: 'Pellet Sauna Company', url: siteUrl },
+  primaryImageOfPage: { '@type': 'ImageObject', url: productImage }
+};
+
+// Google reads Product.image for result thumbnails; og:image is ignored for search.
+const productSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: 'P1 Pellet Sauna Stove',
+  image: [productImage, new URL('/stove_render.png', siteUrl).href],
+  description: "The world's first wood pellet sauna stove. Heats a 300-500 cubic foot sauna in about 30 minutes, plugs into a standard 110V outlet, and supports remote start.",
+  brand: { '@type': 'Brand', name: 'Pellet Sauna Company' },
+  manufacturer: { '@type': 'Organization', name: 'Pellet Sauna Company', url: siteUrl },
+  category: 'Sauna Heater',
+  url: siteUrl,
+  offers: {
+    '@type': 'Offer',
+    url: new URL('/#contact', siteUrl).href,
+    availability: 'https://schema.org/PreOrder',
+    itemCondition: 'https://schema.org/NewCondition',
+    seller: { '@type': 'Organization', name: 'Pellet Sauna Company' }
+  }
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is a pellet sauna stove?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A pellet sauna stove is an innovative sauna heater that uses compressed wood pellets as fuel instead of traditional firewood or electricity. The P1 pellet sauna stove combines the authentic wood-fired sauna experience with modern convenience, offering precise temperature control and easy operation."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does the P1 pellet sauna stove work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The P1 pellet sauna stove automatically feeds wood pellets from a built-in hopper into a combustion chamber. An electronic control system manages the pellet feed rate to maintain your desired temperature, and the unit runs by plugging into a standard 110V outlet. You can even start your pellet sauna stove remotely using our app, so your sauna is hot when you arrive."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why choose a pellet sauna stove over electric or wood-burning?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A pellet sauna stove offers the best of both worlds: the authentic warmth and ambiance of wood-fired heat without the hassle of chopping and storing firewood, and without the high electrical costs or installation requirements of electric heaters. Wood pellets are also more eco-friendly and cost-effective than other fuel sources."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How long does it take to heat a sauna with a pellet stove?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The P1 pellet sauna stove heats your sauna to optimal temperature in approximately 30 minutes. This is comparable to electric heaters and faster than traditional wood-burning stoves, making it convenient for spontaneous sauna sessions."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What size sauna can the P1 pellet stove heat?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The P1 pellet sauna stove is designed to efficiently heat saunas ranging from 300 to 500 cubic feet. This covers most residential sauna sizes, from compact home saunas to larger family-sized installations."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Are wood pellets easy to find for my pellet sauna stove?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes! Wood pellets are widely available at hardware stores, home improvement centers, and online retailers. They're the same pellets used in pellet grills and home heating systems, making them convenient and affordable to purchase year-round."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does a pellet sauna stove need an electrician?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The P1 is designed to plug into a standard 110V outlet, avoiding the dedicated high-voltage electrical work commonly required for many electric sauna heaters. Always follow the installation manual and local code requirements for your sauna setup."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can a pellet sauna stove be used in an outdoor sauna?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. The P1 is designed for residential sauna rooms from 300 to 500 cubic feet, including many backyard and cabin sauna installations, when installed with proper clearances, ventilation, and venting."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How many wood pellets does one sauna session use?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Pellet use depends on room size, outside temperature, target temperature, insulation, and session length. Because pellets are compact and widely available, they are easy to store and restock compared with split firewood."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What maintenance does a pellet sauna stove need?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Like other pellet appliances, a pellet sauna stove should be kept clean and inspected regularly. Owners should empty ash as needed, keep air pathways clear, use quality dry pellets, and follow the maintenance schedule in the product manual."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I retrofit a pellet stove into an existing sauna?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Many existing sauna rooms in the 300 to 500 cubic foot range may be candidates for a P1 retrofit. Final fit depends on room volume, clearances, venting path, floor protection, and the existing heater location."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why does remote start matter for a sauna heater?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Remote start lets you begin heating before you walk outside or arrive at the sauna. With the P1's approximately 30-minute heat-up time, that convenience can turn sauna use from a planned chore into a more spontaneous routine."
+      }
+    }
+  ]
+};
+
+// FAQPage and Product markup must match content visible on the page, so they are
+// emitted only where that content actually exists.
+const schemas = [organizationSchema, webPageSchema, ...(isHome ? [productSchema, faqSchema] : [])];
 ---
 
 <!DOCTYPE html>
@@ -22,6 +179,7 @@ const canonicalURL = new URL(Astro.url.pathname, site).href;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <link rel="canonical" href={canonicalURL} />
     <link rel="preload" as="image" href={lcpImageHref} fetchpriority="high" />
     <title>{title}</title>
@@ -67,139 +225,9 @@ const canonicalURL = new URL(Astro.url.pathname, site).href;
     <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Playwrite+NO:wght@100..400&display=swap" rel="stylesheet">
 
-    <!-- Structured Data - Organization -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "Pellet Sauna Company",
-      "url": "https://www.pelletsauna.com",
-      "logo": "https://www.pelletsauna.com/p1-stove3.webp",
-      "description": "Manufacturer of the world's first wood pellet sauna stove. We combine traditional sauna warmth with modern pellet fuel convenience.",
-      "sameAs": []
-    }
-    </script>
-
-    <!-- Structured Data - WebPage -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      "name": "P1 Pellet Sauna Stove",
-      "url": "https://www.pelletsauna.com/",
-      "description": "Landing page for the P1 Pellet Sauna Stove, the world's first wood pellet sauna stove. Learn about features like 30-minute heat-up time, standard 110V outlet operation, 300-500 cubic feet capacity, and built-in remote start.",
-      "primaryImageOfPage": {
-        "@type": "ImageObject",
-        "url": "https://www.pelletsauna.com/p1-stove3.webp"
-      }
-    }
-    </script>
-
-    <!-- Structured Data - FAQPage -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "What is a pellet sauna stove?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "A pellet sauna stove is an innovative sauna heater that uses compressed wood pellets as fuel instead of traditional firewood or electricity. The P1 pellet sauna stove combines the authentic wood-fired sauna experience with modern convenience, offering precise temperature control and easy operation."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "How does the P1 pellet sauna stove work?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "The P1 pellet sauna stove automatically feeds wood pellets from a built-in hopper into a combustion chamber. An electronic control system manages the pellet feed rate to maintain your desired temperature, and the unit runs by plugging into a standard 110V outlet. You can even start your pellet sauna stove remotely using our app, so your sauna is hot when you arrive."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Why choose a pellet sauna stove over electric or wood-burning?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "A pellet sauna stove offers the best of both worlds: the authentic warmth and ambiance of wood-fired heat without the hassle of chopping and storing firewood, and without the high electrical costs or installation requirements of electric heaters. Wood pellets are also more eco-friendly and cost-effective than other fuel sources."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "How long does it take to heat a sauna with a pellet stove?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "The P1 pellet sauna stove heats your sauna to optimal temperature in approximately 30 minutes. This is comparable to electric heaters and faster than traditional wood-burning stoves, making it convenient for spontaneous sauna sessions."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What size sauna can the P1 pellet stove heat?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "The P1 pellet sauna stove is designed to efficiently heat saunas ranging from 300 to 500 cubic feet. This covers most residential sauna sizes, from compact home saunas to larger family-sized installations."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Are wood pellets easy to find for my pellet sauna stove?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Yes! Wood pellets are widely available at hardware stores, home improvement centers, and online retailers. They're the same pellets used in pellet grills and home heating systems, making them convenient and affordable to purchase year-round."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Does a pellet sauna stove need an electrician?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "The P1 is designed to plug into a standard 110V outlet, avoiding the dedicated high-voltage electrical work commonly required for many electric sauna heaters. Always follow the installation manual and local code requirements for your sauna setup."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Can a pellet sauna stove be used in an outdoor sauna?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Yes. The P1 is designed for residential sauna rooms from 300 to 500 cubic feet, including many backyard and cabin sauna installations, when installed with proper clearances, ventilation, and venting."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "How many wood pellets does one sauna session use?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Pellet use depends on room size, outside temperature, target temperature, insulation, and session length. Because pellets are compact and widely available, they are easy to store and restock compared with split firewood."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What maintenance does a pellet sauna stove need?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Like other pellet appliances, a pellet sauna stove should be kept clean and inspected regularly. Owners should empty ash as needed, keep air pathways clear, use quality dry pellets, and follow the maintenance schedule in the product manual."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Can I retrofit a pellet stove into an existing sauna?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Many existing sauna rooms in the 300 to 500 cubic foot range may be candidates for a P1 retrofit. Final fit depends on room volume, clearances, venting path, floor protection, and the existing heater location."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Why does remote start matter for a sauna heater?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Remote start lets you begin heating before you walk outside or arrive at the sauna. With the P1's approximately 30-minute heat-up time, that convenience can turn sauna use from a planned chore into a more spontaneous routine."
-          }
-        }
-      ]
-    }
-    </script>
+    {schemas.map((schema) => (
+      <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    ))}
   </head>
   <body>
     <slot />

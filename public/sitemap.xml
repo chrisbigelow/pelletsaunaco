@@ -1,10 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://www.pelletsauna.com/</loc>
     <lastmod>2026-05-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://www.pelletsauna.com/p1-stove3.png</image:loc>
+      <image:title>P1 Pellet Sauna Stove</image:title>
+      <image:caption>The P1 pellet sauna stove, the world's first wood pellet sauna stove.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.pelletsauna.com/stove_render.png</image:loc>
+      <image:title>P1 Pellet Sauna Stove product render</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.pelletsauna.com/logo.png</image:loc>
+      <image:title>Pellet Sauna Company logo</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://www.pelletsauna.com/pellet-sauna-stove-vs-electric</loc>
