@@ -3,7 +3,7 @@ interface Props {
   title?: string;
   description?: string;
   siteUrl?: string;
-  /** Home page only: emits Product + FAQPage schema, which must match visible page content. */
+  /** Home page only: emits FAQPage schema, which must match visible page content. */
   isHome?: boolean;
 }
 
@@ -44,26 +44,6 @@ const webPageSchema = {
   description,
   isPartOf: { '@type': 'WebSite', name: 'The Pellet Sauna Company', url: siteUrl },
   primaryImageOfPage: { '@type': 'ImageObject', url: productImage }
-};
-
-// Google reads Product.image for result thumbnails; og:image is ignored for search.
-const productSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'Product',
-  name: 'P1 Pellet Sauna Stove',
-  image: [productImage, new URL('/stove_render.png', siteUrl).href],
-  description: "The world's first wood pellet sauna stove. Heats a 300-500 cubic foot sauna in about 30 minutes, plugs into a standard 110V outlet, and supports remote start.",
-  brand: { '@type': 'Brand', name: 'The Pellet Sauna Company' },
-  manufacturer: { '@type': 'Organization', name: 'The Pellet Sauna Company', url: siteUrl },
-  category: 'Sauna Heater',
-  url: siteUrl,
-  offers: {
-    '@type': 'Offer',
-    url: new URL('/#contact', siteUrl).href,
-    availability: 'https://schema.org/PreOrder',
-    itemCondition: 'https://schema.org/NewCondition',
-    seller: { '@type': 'Organization', name: 'The Pellet Sauna Company' }
-  }
 };
 
 const faqSchema = {
@@ -169,9 +149,10 @@ const faqSchema = {
   ]
 };
 
-// FAQPage and Product markup must match content visible on the page, so they are
-// emitted only where that content actually exists.
-const schemas = [organizationSchema, webPageSchema, ...(isHome ? [productSchema, faqSchema] : [])];
+// FAQPage markup must match content visible on the page, so it is emitted only
+// on the home page. Product/Offer schema is omitted until a public price exists;
+// incomplete Offer markup causes Merchant listing and Product snippet errors.
+const schemas = [organizationSchema, webPageSchema, ...(isHome ? [faqSchema] : [])];
 ---
 
 <!DOCTYPE html>
