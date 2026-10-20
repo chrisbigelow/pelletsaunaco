@@ -297,14 +297,6 @@ const logoPaths = [
         </details>
       ))}
     </div>
-    <div class="faq-help">
-      <div class="faq-help-head">
-        <span class="faq-help-badge" aria-hidden="true"><Icon name="flame" size={20} /></span>
-        <p class="faq-help-title">Still have questions?</p>
-      </div>
-      <p>Our team is happy to help you plan the right setup for your sauna.</p>
-      <a href="#contact" class="btn btn-clay">Get in Touch</a>
-    </div>
   </section>
 
   <!-- Contact -->
@@ -315,18 +307,6 @@ const logoPaths = [
       <p class="contact-sub">
         Reach out and join our growing email list to stay up to date as we bring the P1 Pellet Stove to production in mid-2027.
       </p>
-      <ul class="contact-details">
-        {contactDetails.map((item) => (
-          <li>
-            <span class="contact-icon"><Icon name={item.icon} size={18} /></span>
-            <div>
-              <span class="contact-label">{item.label}</span>
-              {'href' in item ? <a href={item.href}>{item.value}</a> : <span>{item.value}</span>}
-            </div>
-          </li>
-        ))}
-      </ul>
-      <p class="contact-note"><span class="contact-dot" aria-hidden="true"></span>We typically reply within one business day</p>
     </div>
 
     <form class="contact-form" id="contactForm" method="POST" action="https://api.web3forms.com/submit">
@@ -362,6 +342,21 @@ const logoPaths = [
         <Icon name="arrow-right" size={16} />
       </button>
     </form>
+
+    <div class="contact-info">
+      <ul class="contact-details">
+        {contactDetails.map((item) => (
+          <li>
+            <span class="contact-icon"><Icon name={item.icon} size={18} /></span>
+            <div>
+              <span class="contact-label">{item.label}</span>
+              {'href' in item ? <a href={item.href}>{item.value}</a> : <span>{item.value}</span>}
+            </div>
+          </li>
+        ))}
+      </ul>
+      <p class="contact-note"><span class="contact-dot" aria-hidden="true"></span>We typically reply within one business day</p>
+    </div>
   </section>
 
   <!-- Footer -->
@@ -1246,65 +1241,23 @@ const logoPaths = [
 
   /* Mobile-only FAQ extras (shown in the 640px breakpoint). */
   .faq-eyebrow,
-  .faq-help,
   .label-short {
     display: none;
-  }
-
-  .faq-help {
-    flex-direction: column;
-    gap: 16px;
-    padding: 24px;
-    background: var(--linen);
-    border-radius: 4px;
-  }
-
-  .faq-help-head {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-  }
-
-  .faq-help-badge {
-    width: 40px;
-    height: 40px;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background: var(--clay);
-    color: var(--cream-bright);
-  }
-
-  .faq-help-title {
-    font-family: var(--serif);
-    font-size: 22px;
-    color: var(--ink);
-  }
-
-  .faq-help > p {
-    font-size: 15px;
-    line-height: 1.55;
-    color: var(--muted);
-  }
-
-  .faq-help .btn {
-    justify-content: center;
-    padding: 16px 22px;
   }
 
   /* Contact */
   .contact {
     background: var(--char);
     padding: var(--section-y) var(--gutter);
-    display: flex;
-    align-items: flex-start;
-    gap: 96px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 620px;
+    grid-template-rows: auto 1fr;
+    align-items: start;
+    column-gap: 96px;
   }
 
   .contact-copy {
-    flex: 1;
+    grid-column: 1;
     min-width: 0;
   }
 
@@ -1397,8 +1350,13 @@ const logoPaths = [
     background: #9fc27a;
   }
 
+  .contact-info {
+    grid-column: 1;
+  }
+
   .contact-form {
-    flex: 0 0 620px;
+    grid-column: 2;
+    grid-row: 1 / span 2;
     display: flex;
     flex-direction: column;
     gap: 24px;
@@ -1630,8 +1588,9 @@ const logoPaths = [
       gap: 56px;
     }
 
-    .contact-form {
-      flex-basis: 520px;
+    .contact {
+      grid-template-columns: minmax(0, 1fr) 520px;
+      row-gap: 0;
     }
 
     .story {
@@ -1776,8 +1735,19 @@ const logoPaths = [
       flex-basis: auto;
     }
 
+    .contact {
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-rows: auto;
+    }
+
+    .contact-info {
+      grid-row: 2;
+    }
+
     .contact-form {
-      flex-basis: auto;
+      grid-column: 1;
+      grid-row: 3;
+      margin-top: 56px;
     }
 
     .footer-art {
@@ -2127,13 +2097,18 @@ const logoPaths = [
       font-size: 15px;
     }
 
-    .faq-help {
-      display: flex;
-    }
-
     /* Contact */
     .contact {
-      gap: 48px;
+      gap: 32px;
+    }
+
+    .contact-form {
+      margin-top: 0;
+      grid-row: 2;
+    }
+
+    .contact-info {
+      grid-row: 3;
     }
 
     .contact-copy h2 {
@@ -2145,7 +2120,7 @@ const logoPaths = [
     }
 
     .contact-details {
-      margin-top: 32px;
+      margin-top: 0;
     }
 
     .contact-details li {
