@@ -139,7 +139,7 @@ const logoPaths = [
         </p>
         <div class="hero-cta">
           <a href="#product" class="btn btn-clay">Explore the P1 <Icon name="arrow-right" size={16} /></a>
-          <a href="#contact" class="btn btn-outline-light">Get in Touch</a>
+          <a href="#contact" class="btn btn-outline-light"><span class="hero-contact-desktop">Get in Touch</span><span class="hero-contact-mobile">Pre Order Now</span></a>
         </div>
       </div>
 
@@ -1240,6 +1240,7 @@ const logoPaths = [
   }
 
   /* Mobile-only FAQ extras (shown in the 640px breakpoint). */
+  .hero-contact-mobile,
   .faq-eyebrow,
   .label-short {
     display: none;
@@ -1757,6 +1758,14 @@ const logoPaths = [
 
   /* Phone layout: matches "Mockup A — Backyard Ritual (Mobile)" (390px). */
   @media (max-width: 640px) {
+    .hero-contact-desktop {
+      display: none;
+    }
+
+    .hero-contact-mobile {
+      display: inline;
+    }
+
     :global(:root) {
       --gutter: 20px;
       --section-y: 72px;
