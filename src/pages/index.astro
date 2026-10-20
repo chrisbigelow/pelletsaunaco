@@ -231,8 +231,8 @@ const logoPaths = [
         <thead>
           <tr>
             <th scope="col">Feature</th>
-            <th scope="col">Wood-Fired Stove</th>
-            <th scope="col">Electric Stove</th>
+            <th scope="col"><span class="label-full">Wood-Fired Stove</span><span class="label-short" aria-hidden="true">Wood</span></th>
+            <th scope="col"><span class="label-full">Electric Stove</span><span class="label-short" aria-hidden="true">Electric</span></th>
             <th scope="col" class="col-p1">P1</th>
           </tr>
         </thead>
@@ -274,6 +274,7 @@ const logoPaths = [
   <!-- FAQ -->
   <section class="faq" id="faq">
     <div class="faq-head">
+      <p class="eyebrow faq-eyebrow">FAQ</p>
       <h2 class="section-title">Frequently Asked<br />Questions</h2>
       <p>Everything you need to know about pellet sauna stoves</p>
       <a href="#contact" class="btn btn-outline-dark">Get in Touch</a>
@@ -287,12 +288,22 @@ const logoPaths = [
         <details class="faq-item" open={i === 0}>
           <summary>
             <h3>{question}</h3>
-            <Icon name="plus" size={20} class="faq-toggle faq-toggle-plus" />
-            <Icon name="minus" size={20} class="faq-toggle faq-toggle-minus" />
+            <span class="faq-toggle">
+              <Icon name="plus" size={20} class="faq-toggle-plus" />
+              <Icon name="minus" size={20} class="faq-toggle-minus" />
+            </span>
           </summary>
           <p>{answer}</p>
         </details>
       ))}
+    </div>
+    <div class="faq-help">
+      <div class="faq-help-head">
+        <span class="faq-help-badge" aria-hidden="true"><Icon name="flame" size={20} /></span>
+        <p class="faq-help-title">Still have questions?</p>
+      </div>
+      <p>Our team is happy to help you plan the right setup for your sauna.</p>
+      <a href="#contact" class="btn btn-clay">Get in Touch</a>
     </div>
   </section>
 
@@ -1134,7 +1145,7 @@ const logoPaths = [
     line-height: 1.1;
   }
 
-  .faq-head > p {
+  .faq-head > p:not(.eyebrow) {
     font-size: 16px;
     line-height: 1.6;
     color: var(--muted);
@@ -1207,9 +1218,13 @@ const logoPaths = [
     color: var(--ink);
   }
 
-  .faq-item :global(.faq-toggle) {
+  .faq-toggle {
     flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: var(--ink);
+    transition: background 0.2s ease, color 0.2s ease;
   }
 
   .faq-item :global(.faq-toggle-minus),
@@ -1227,6 +1242,56 @@ const logoPaths = [
     font-size: 16px;
     line-height: 1.6;
     color: var(--muted);
+  }
+
+  /* Mobile-only FAQ extras (shown in the 640px breakpoint). */
+  .faq-eyebrow,
+  .faq-help,
+  .label-short {
+    display: none;
+  }
+
+  .faq-help {
+    flex-direction: column;
+    gap: 16px;
+    padding: 24px;
+    background: var(--linen);
+    border-radius: 4px;
+  }
+
+  .faq-help-head {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .faq-help-badge {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--clay);
+    color: var(--cream-bright);
+  }
+
+  .faq-help-title {
+    font-family: var(--serif);
+    font-size: 22px;
+    color: var(--ink);
+  }
+
+  .faq-help > p {
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--muted);
+  }
+
+  .faq-help .btn {
+    justify-content: center;
+    padding: 16px 22px;
   }
 
   /* Contact */
@@ -1720,26 +1785,41 @@ const logoPaths = [
     }
   }
 
+  /* Phone layout: matches "Mockup A — Backyard Ritual (Mobile)" (390px). */
   @media (max-width: 640px) {
     :global(:root) {
       --gutter: 20px;
       --section-y: 72px;
     }
 
-    .brand-text {
-      font-size: 17px;
-    }
-
-    .brand-mark {
-      width: 13px;
-      height: 24px;
+    /* Nav: logo left, menu right */
+    .nav {
+      height: 60px;
+      display: flex;
+      justify-content: space-between;
     }
 
     .brand {
+      order: 1;
       gap: 10px;
+      padding: 0 20px;
     }
 
-    .nav-cta {
+    .brand-text {
+      font-size: 18px;
+    }
+
+    .brand-mark {
+      width: 13.1px;
+      height: 24px;
+    }
+
+    .nav-left {
+      order: 2;
+      padding: 0 12px 0 0;
+    }
+
+    .nav-right {
       display: none;
     }
 
@@ -1749,74 +1829,350 @@ const logoPaths = [
       text-align: center;
     }
 
+    /* Hero: stove on top, copy below */
     .hero {
-      padding-top: 120px;
+      height: auto;
+      min-height: 0;
+      padding: 430px 20px 40px;
+    }
+
+    .hero-video {
+      top: 50px;
+      left: calc(50% - 385px);
+      width: 760px;
+      height: 464px;
+      object-position: 0% center;
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.3) 8%, #000 22%);
+      mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.3) 8%, #000 22%);
+    }
+
+    .hero-scrims {
+      background: linear-gradient(to bottom, #1e1c14 0, #1e1c14 55px, rgba(30, 28, 20, 0) 154px, rgba(30, 28, 20, 0) 330px, rgba(30, 28, 20, 0.85) 450px, #1e1c14 510px);
+    }
+
+    .hero-content {
+      gap: 32px;
+    }
+
+    .hero-copy {
+      width: 100%;
+      gap: 20px;
+    }
+
+    .hero-title {
+      font-size: 42px;
+      letter-spacing: -1px;
     }
 
     .hero-sub {
-      font-size: 16px;
-    }
-
-    .hero-stats {
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .hero-stat dd {
-      font-size: 26px;
+      max-width: none;
+      font-size: 15px;
     }
 
     .hero-cta {
       flex-direction: column;
       align-items: stretch;
+      gap: 12px;
+      padding-top: 8px;
     }
 
     .hero-cta .btn {
       justify-content: center;
     }
 
-    .specs,
-    .faq,
-    .contact {
-      gap: 48px;
+    .hero-stats {
+      flex-direction: column;
+      gap: 0;
+      padding-bottom: 0;
+      border-top: 1px solid rgba(246, 241, 231, 0.4);
+    }
+
+    .hero-stat {
+      flex-direction: row-reverse;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 0;
+    }
+
+    .hero-stat dd {
+      font-size: 24px;
+    }
+
+    /* Intro pillars */
+    .pillars {
+      gap: 40px;
+    }
+
+    .pillars-head {
+      gap: 16px;
+    }
+
+    .pillars-head h2 {
+      font-size: 34px;
+    }
+
+    .pillars-head p {
+      font-size: 15px;
+    }
+
+    .pillar-list {
+      gap: 0;
+    }
+
+    .pillar,
+    .pillar + .pillar {
+      gap: 12px;
+      padding: 28px 12px;
+      border-top: 1px solid rgba(246, 241, 231, 0.2);
+    }
+
+    .pillar h3 {
+      font-size: 22px;
+    }
+
+    /* Specifications */
+    .specs {
+      gap: 36px;
+    }
+
+    .specs-image {
+      height: 380px;
+      max-height: none;
+      aspect-ratio: auto;
+    }
+
+    .specs-copy {
+      gap: 20px;
+    }
+
+    .specs .section-title {
+      font-size: 36px;
     }
 
     .spec-row {
-      flex-direction: column;
-      gap: 4px;
+      font-size: 14px;
     }
 
-    .spec-row dd {
-      text-align: left;
-    }
-
+    /* How it works */
     .how-image {
-      height: 260px;
+      height: 380px;
+      object-position: 37% center;
+    }
+
+    .how-steps {
+      gap: 28px;
+      padding: 56px 20px 72px;
+    }
+
+    .how-steps h2 {
+      font-size: 32px;
+    }
+
+    .how-steps ol {
+      gap: 28px;
+    }
+
+    .how-steps li {
+      gap: 16px;
     }
 
     .how-steps li p {
+      font-size: 17px;
+    }
+
+    /* Comparison: fits the screen, short column labels */
+    .compare {
+      gap: 32px;
+    }
+
+    .compare-head {
+      gap: 12px;
+    }
+
+    .compare .section-title {
+      font-size: 34px;
+    }
+
+    .compare-head p {
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .compare-table {
+      min-width: 0;
+    }
+
+    .compare-table th,
+    .compare-table td {
+      padding: 12px 4px;
+    }
+
+    .compare-table thead th {
+      height: 44px;
+      font-size: 9px;
+      letter-spacing: 1.2px;
+    }
+
+    .compare-table thead th:not(:first-child) {
+      width: 68px;
+      padding-inline: 4px;
+    }
+
+    .compare-table thead th:first-child,
+    .compare-table tbody th {
+      min-width: 0;
+      padding: 12px 12px 12px 0;
+    }
+
+    .compare-table tbody tr {
+      height: 64px;
+    }
+
+    .compare-table tbody th {
+      font-size: 14px;
+      line-height: 1.35;
+    }
+
+    .cost-row td {
       font-size: 18px;
     }
 
-    .story {
-      min-height: 0;
-      padding: var(--section-y) var(--gutter);
+    .label-full {
+      display: none;
     }
 
+    .label-short {
+      display: inline;
+    }
+
+    /* Story */
+    .story {
+      min-height: 0;
+      gap: 24px;
+      padding: 96px 24px;
+    }
+
+    .story-bg {
+      opacity: 0.3;
+    }
+
+    .story-quote {
+      font-size: 30px;
+      line-height: 1.2;
+    }
+
+    .story-body {
+      font-size: 15px;
+    }
+
+    /* FAQ */
+    .faq {
+      gap: 32px;
+      padding: 64px 20px 72px;
+    }
+
+    .faq-head {
+      gap: 14px;
+    }
+
+    .faq-eyebrow {
+      display: block;
+    }
+
+    .faq-head .section-title {
+      font-size: 34px;
+    }
+
+    .faq-head > p:not(.eyebrow) {
+      font-size: 15px;
+    }
+
+    .faq-head .btn-outline-dark,
     .faq-art {
       display: none;
     }
 
+    .faq-item {
+      padding: 18px 0;
+    }
+
+    .faq-item summary {
+      gap: 16px;
+    }
+
     .faq-item h3 {
-      font-size: 18px;
+      font-size: 17px;
+      line-height: 1.35;
+    }
+
+    .faq-toggle {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1px solid rgba(43, 42, 34, 0.25);
+    }
+
+    .faq-toggle :global(svg) {
+      width: 16px;
+      height: 16px;
+    }
+
+    .faq-item[open] .faq-toggle {
+      background: var(--ink);
+      border-color: var(--ink);
+      color: var(--cream);
+    }
+
+    .faq-item p {
+      font-size: 15px;
+    }
+
+    .faq-help {
+      display: flex;
+    }
+
+    /* Contact */
+    .contact {
+      gap: 48px;
+    }
+
+    .contact-copy h2 {
+      font-size: 44px;
+    }
+
+    .contact-sub {
+      font-size: 15px;
+    }
+
+    .contact-details {
+      margin-top: 32px;
+    }
+
+    .contact-details li {
+      gap: 16px;
+      padding: 18px 0;
+    }
+
+    .contact-details li > div {
+      font-size: 16px;
+    }
+
+    .contact-note {
+      margin-top: 24px;
     }
 
     .contact-form {
-      padding: 24px 20px;
+      gap: 20px;
+      padding: 24px;
     }
 
     .form-row {
       grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .form-group textarea {
+      height: 130px;
     }
 
     .btn-submit {
@@ -1824,24 +2180,33 @@ const logoPaths = [
       justify-content: center;
     }
 
+    /* Footer: right-hand trees and sauna, cropped at the bottom */
     .footer {
-      padding-top: 56px;
-    }
-
-    .footer-top {
-      flex-direction: column;
-    }
-
-    .footer-links {
-      gap: 64px;
+      padding-top: 28px;
     }
 
     .footer-content {
       gap: 40px;
     }
 
+    .footer-top {
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    .footer-links {
+      gap: 80px;
+    }
+
+    .footer-bottom p {
+      font-size: 12px;
+    }
+
     .footer-art {
-      margin-top: 0;
+      height: 300px;
+      object-fit: cover;
+      object-position: right top;
+      margin: 4px 0 -26px;
     }
   }
 
