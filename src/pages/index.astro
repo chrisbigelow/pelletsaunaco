@@ -69,7 +69,7 @@ const faqs = [
 const contactDetails = [
   { icon: 'phone', label: 'Call us', value: '(720) 772-1574', href: 'tel:+17207721574' },
   { icon: 'mail', label: 'Email', value: 'jared@pelletsauna.com', href: 'mailto:jared@pelletsauna.com' },
-  { icon: 'clock', label: 'Hours', value: 'Mon–Fri, 8am–5pm PT' },
+  { icon: 'clock', label: 'Hours', value: 'Mon–Fri, 8am–5pm CDT' },
 ] as const;
 
 // TODO: add profile URLs.
@@ -313,7 +313,7 @@ const logoPaths = [
       <p class="eyebrow">Contact Us</p>
       <h2>Get in Touch</h2>
       <p class="contact-sub">
-        Ready to transform your sauna experience? Whether you're adding a P1 Stove to an existing sauna or planning one from scratch, we'll help you find the right setup for your space.
+        Reach out and join our growing email list to stay up to date as we bring the P1 Pellet Stove to production in mid-2027.
       </p>
       <ul class="contact-details">
         {contactDetails.map((item) => (
@@ -355,7 +355,7 @@ const logoPaths = [
       </div>
       <div class="form-group">
         <label for="message">Message <span class="req" aria-hidden="true">*</span></label>
-        <textarea id="message" name="message" rows="5" placeholder="Tell us about your space and how you'd like to use your sauna…" required></textarea>
+        <textarea id="message" name="message" rows="5" placeholder="Tell us about your project or ask us a question…" required></textarea>
       </div>
       <button type="submit" class="btn btn-clay btn-submit" id="submitBtn">
         <span id="submitLabel">Send Message</span>
