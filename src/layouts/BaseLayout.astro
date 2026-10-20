@@ -5,17 +5,19 @@ interface Props {
   siteUrl?: string;
   /** Home page only: emits FAQPage schema, which must match visible page content. */
   isHome?: boolean;
+  /** Above-the-fold image to preload for LCP. */
+  lcpImage?: string;
 }
 
 const {
   title = 'P1 Pellet Sauna Stove | Wood Pellet Powered Sauna Heater',
   description = 'The P1 pellet sauna stove heats in 30 minutes. No electrician needed. Wood-fired warmth with modern convenience. The world\'s first pellet sauna stove.',
   siteUrl = Astro.site?.href || 'https://www.pelletsauna.com',
-  isHome = false
+  isHome = false,
+  lcpImage = '/p1-stove3.webp'
 } = Astro.props;
 
 const ogImage = new URL('/p1-stove3.webp', siteUrl).href;
-const lcpImageHref = '/p1-stove3.webp';
 const site = Astro.site ?? new URL('https://www.pelletsauna.com');
 const canonicalURL = new URL(Astro.url.pathname, site).href;
 const logoImage = new URL('/logo.png', siteUrl).href;
@@ -162,7 +164,7 @@ const schemas = [organizationSchema, webPageSchema, ...(isHome ? [faqSchema] : [
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <link rel="canonical" href={canonicalURL} />
-    <link rel="preload" as="image" href={lcpImageHref} fetchpriority="high" />
+    <link rel="preload" as="image" href={lcpImage} fetchpriority="high" />
     <title>{title}</title>
     
     <!-- Primary Meta Tags -->
@@ -205,6 +207,7 @@ const schemas = [organizationSchema, webPageSchema, ...(isHome ? [faqSchema] : [
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,400&display=swap" rel="stylesheet">
 
     {schemas.map((schema) => (
       <script type="application/ld+json" set:html={JSON.stringify(schema)} />
