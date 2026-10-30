@@ -1,0 +1,136 @@
+/* Shared "Backyard Ritual" design tokens, type and buttons for the home and product pages. */
+:root {
+  --pine: #384629;
+  --char: #1e1c14;
+  --cream: #f6f1e7;
+  --cream-bright: #fffcf6;
+  --linen: #ece4d4;
+  --sand: #d9cfb4;
+  --sand-light: #e9dcc3;
+  --sand-pale: #f1eadc;
+  --clay: #c2734a;
+  --ink: #2b2a22;
+  --muted: #6b675a;
+  --stone: #b5ae9c;
+  --serif: 'Fraunces', Georgia, serif;
+  --sans: 'Archivo', 'Work Sans', sans-serif;
+  --gutter: 96px;
+  --section-y: 120px;
+}
+
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--sans);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+section {
+  scroll-margin-top: 64px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--clay);
+}
+
+.section-title {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(2.25rem, 4vw, 3rem);
+  line-height: 1.08;
+  color: var(--ink);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 18px 28px;
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn-clay {
+  background: var(--clay);
+  color: #fff;
+}
+
+.btn-clay:hover {
+  background: #ad623b;
+}
+
+.btn-outline-light {
+  border-color: var(--cream-bright);
+  color: var(--cream-bright);
+}
+
+.btn-outline-light:hover {
+  background: var(--cream-bright);
+  color: var(--ink);
+}
+
+.btn-outline-dark {
+  padding: 14px 22px;
+  font-size: 11px;
+  border-color: var(--ink);
+  color: var(--ink);
+  align-self: flex-start;
+}
+
+.btn-outline-dark:hover {
+  background: var(--ink);
+  color: var(--cream);
+}
+
+@media (max-width: 1200px) {
+  :root {
+    --gutter: 56px;
+  }
+}
+
+@media (max-width: 1024px) {
+  :root {
+    --gutter: 40px;
+    --section-y: 96px;
+  }
+}
+
+@media (max-width: 640px) {
+  :root {
+    --gutter: 20px;
+    --section-y: 72px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

@@ -1,0 +1,314 @@
+---
+import { logoPaths, productPath } from '../lib/site';
+
+interface Props {
+  /** Keep the dark background from the top (pages without a dark hero behind the nav). */
+  solid?: boolean;
+}
+
+const { solid = false } = Astro.props;
+
+const navLinks = [
+  { href: productPath, label: 'P1 Stove' },
+  { href: '/#product', label: 'Features' },
+  { href: `${productPath}#specifications`, label: 'Specs' },
+  { href: '/#about', label: 'About Us' },
+];
+---
+
+<nav class:list={['nav', { scrolled: solid }]} id="siteNav" data-solid={solid ? '' : undefined}>
+  <div class="nav-left">
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <div class="nav-links" id="navLinks">
+      {navLinks.map((link) => <a href={link.href} class="nav-link">{link.label}</a>)}
+      <a href="/#contact" class="nav-link nav-link-mobile">Contact</a>
+      <a href="/#contact" class="btn-preorder btn-preorder-mobile">Pre Order Now</a>
+    </div>
+  </div>
+  <a href="/" class="brand" aria-label="The Pellet Sauna Company home">
+    <svg class="brand-mark" viewBox="428 232 430 788" aria-hidden="true" focusable="false">
+      <g fill="currentColor">{logoPaths.map((d) => <path d={d} />)}</g>
+    </svg>
+    <span class="brand-text">The Pellet Sauna Company</span>
+  </a>
+  <div class="nav-right">
+    <a href="/#contact" class="nav-link nav-link-desktop">Contact</a>
+    <div class="nav-cta">
+      <a href="/#contact" class="btn-preorder">Pre Order Now</a>
+    </div>
+  </div>
+</nav>
+
+<style>
+  .nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    height: 65px;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: stretch;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+    transition: background 0.3s ease, border-color 0.3s ease;
+  }
+
+  .nav.scrolled,
+  .nav.menu-open {
+    background: rgba(30, 28, 20, 0.96);
+    border-bottom-color: rgba(246, 241, 231, 0.12);
+  }
+
+  .nav-left,
+  .nav-right {
+    display: flex;
+    align-items: center;
+  }
+
+  .nav-left {
+    padding-left: 56px;
+  }
+
+  .nav-right {
+    justify-content: flex-end;
+    gap: 32px;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 36px;
+  }
+
+  .nav-link,
+  .brand {
+    color: var(--cream-bright);
+    text-decoration: none;
+    text-shadow: 0 1px 10px rgba(0, 0, 0, 0.45);
+  }
+
+  .nav-link {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    transition: opacity 0.2s ease;
+  }
+
+  .nav-link:hover {
+    opacity: 0.75;
+  }
+
+  .nav-links .nav-link-mobile,
+  .nav-links .btn-preorder-mobile {
+    display: none;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 0 24px;
+  }
+
+  .brand-mark {
+    width: 16.4px;
+    height: 30px;
+    flex-shrink: 0;
+    filter: drop-shadow(0 1px 5px rgba(0, 0, 0, 0.45));
+  }
+
+  .brand-text {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .nav-cta {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 56px 0 32px;
+    border-left: 1px solid rgba(255, 255, 255, 0.35);
+  }
+
+  .btn-preorder {
+    display: inline-block;
+    padding: 12px 20px;
+    background: var(--cream);
+    color: var(--ink);
+    border-radius: 2px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background 0.2s ease;
+  }
+
+  .btn-preorder:hover {
+    background: var(--cream-bright);
+  }
+
+  .menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    padding: 8px;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  .menu-toggle span {
+    width: 22px;
+    height: 2px;
+    background: var(--cream-bright);
+    border-radius: 2px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+
+  .menu-toggle.active span:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+  }
+
+  .menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .menu-toggle.active span:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
+  }
+
+  @media (max-width: 1024px) {
+    .nav {
+      grid-template-columns: auto 1fr auto;
+    }
+
+    .nav-left {
+      padding-left: 16px;
+    }
+
+    .menu-toggle {
+      display: flex;
+    }
+
+    .nav-links {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      display: none;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      padding: 8px 0 20px;
+      background: rgba(30, 28, 20, 0.98);
+      border-bottom: 1px solid rgba(246, 241, 231, 0.12);
+    }
+
+    .nav-links.active {
+      display: flex;
+    }
+
+    .nav-links .nav-link {
+      padding: 14px 24px;
+      text-shadow: none;
+    }
+
+    .nav-links .nav-link-mobile {
+      display: block;
+    }
+
+    .nav-link-desktop {
+      display: none;
+    }
+
+    .brand {
+      justify-self: start;
+      padding: 0 8px;
+    }
+
+    .nav-cta {
+      padding: 0 16px 0 20px;
+    }
+  }
+
+  /* Phone: logo left, menu right */
+  @media (max-width: 640px) {
+    .nav {
+      height: 60px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .brand {
+      order: 1;
+      gap: 10px;
+      padding: 0 20px;
+    }
+
+    .brand-text {
+      font-size: 18px;
+    }
+
+    .brand-mark {
+      width: 13.1px;
+      height: 24px;
+    }
+
+    .nav-left {
+      order: 2;
+      padding: 0 12px 0 0;
+    }
+
+    .nav-right {
+      display: none;
+    }
+
+    .nav-links .btn-preorder-mobile {
+      display: block;
+      margin: 12px 24px 0;
+      text-align: center;
+    }
+  }
+</style>
+
+<script>
+  const nav = document.getElementById('siteNav');
+  const menuToggle = document.getElementById('menuToggle');
+  const navLinks = document.getElementById('navLinks');
+
+  const setMenu = (open: boolean) => {
+    menuToggle?.classList.toggle('active', open);
+    menuToggle?.setAttribute('aria-expanded', String(open));
+    navLinks?.classList.toggle('active', open);
+    nav?.classList.toggle('menu-open', open);
+  };
+
+  menuToggle?.addEventListener('click', () => setMenu(!navLinks?.classList.contains('active')));
+
+  document.addEventListener('click', (e) => {
+    const target = e.target as Node;
+    if (menuToggle && navLinks && !menuToggle.contains(target) && !navLinks.contains(target)) {
+      setMenu(false);
+    }
+  });
+
+  navLinks?.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => setMenu(false)));
+
+  // Solid nav once the page scrolls past the top of the hero.
+  if (nav && !nav.hasAttribute('data-solid')) {
+    const updateNavBackground = () => nav.classList.toggle('scrolled', window.scrollY > 40);
+    updateNavBackground();
+    window.addEventListener('scroll', updateNavBackground, { passive: true });
+  }
+</script>

@@ -1,0 +1,1659 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import SiteNav from '../components/SiteNav.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import '../styles/theme.css';
+
+// Pre-order campaign. Update `reserved` as deposits come in, and set `endsAt`
+// (e.g. '2027-01-15') when the 60-day campaign starts to show a live countdown.
+const campaign = {
+  goal: 100,
+  reserved: 0,
+  deposit: 100,
+  lengthDays: 60,
+  endsAt: null as string | null,
+};
+
+const tiers = [
+  { name: 'Tier 1', first: 1, last: 20, price: 3000 },
+  { name: 'Tier 2', first: 21, last: 50, price: 3500 },
+  { name: 'Tier 3', first: 51, last: 100, price: 3750 },
+].map((tier) => {
+  const size = tier.last - tier.first + 1;
+  const claimed = Math.min(Math.max(campaign.reserved - (tier.first - 1), 0), size);
+  return { ...tier, size, claimed, left: size - claimed };
+});
+
+const currentTier = tiers.find((tier) => tier.left > 0);
+const tierState = (tier: (typeof tiers)[number]) =>
+  tier.left === 0 ? 'sold' : tier === currentTier ? 'current' : 'next';
+
+const usd = (n: number) => `$${n.toLocaleString('en-US')}`;
+const stoveNumber = (n: number) => `#${String(n).padStart(3, '0')}`;
+const reservedPct = Math.min((campaign.reserved / campaign.goal) * 100, 100);
+const reserveHref = `/?subject=${encodeURIComponent('P1 pre-order reservation')}#contact`;
+const questionHref = `/?subject=${encodeURIComponent('Question about the P1')}#contact`;
+
+const photos = [
+  { src: '/images/p1/front-fire.jpg', alt: 'The P1 pellet sauna stove burning inside a cedar sauna wall', width: 719, height: 1080 },
+  { src: '/images/p1/hopper-wall.jpg', alt: 'The P1 pellet hopper and chimney mounted outside a cedar sauna wall', width: 719, height: 1080 },
+  { src: '/images/p1/pellet-fill.jpg', alt: 'Pouring wood pellets into the P1 hopper', width: 720, height: 1080 },
+  { src: '/images/p1/stones.jpg', alt: 'Sauna stones loaded in the top of the P1 stove', width: 1600, height: 1066 },
+];
+
+const quickStats = [
+  { value: '30 min', label: 'Heat-up' },
+  { value: '300–500 ft³', label: 'Room size' },
+  { value: '110V', label: 'Standard outlet' },
+];
+
+const assurances = [
+  { icon: 'shield-check', text: 'Lifetime warranty on the steel body' },
+  { icon: 'plug', text: 'Plugs into a standard 110V outlet — no electrician' },
+  { icon: 'smartphone', text: 'Remote start and temperature control from your phone' },
+  { icon: 'leaf', text: 'Burns clean, low-cost wood pellets' },
+] as const;
+
+const perks = [
+  { icon: 'medal', title: 'Numbered founders’ medallion', body: 'A cast medallion stamped with your stove number, #001–100.' },
+  { icon: 'gift', title: 'Founders’ sauna hat', body: 'A wool sauna hat to keep your head cool on the top bench.' },
+  { icon: 'users', title: 'Founders’ community', body: 'A private email list plus forum and chat with our team and fellow first-run owners.' },
+] as const;
+
+const paymentSteps = [
+  { title: `Reserve today — ${usd(campaign.deposit)} down`, body: `Lock in your tier price and stove number with a ${usd(campaign.deposit)} deposit.` },
+  { title: `Campaign runs ${campaign.lengthDays} days`, body: `Our goal is ${campaign.goal} stoves. Reservations stay open past ${campaign.goal} — those join the second run.` },
+  { title: 'At production — balance charged', body: 'When your run goes into production, we charge the remaining cost and keep you posted until it ships.' },
+];
+
+const sides = [
+  {
+    tag: 'Outside',
+    image: '/images/p1/pellet-fill.jpg',
+    alt: 'Pouring wood pellets into the P1 hopper outside the sauna',
+    title: 'A hopper you fill from the yard',
+    body: 'Pour in a bag of pellets, close the lid, and walk away. The steel hopper keeps fuel dry and the mess outdoors — nothing to haul through the sauna door.',
+  },
+  {
+    tag: 'Inside',
+    image: '/images/p1/stones.jpg',
+    alt: 'Sauna stones loaded in the top of the P1 firebox',
+    title: 'Real stones, real steam',
+    body: 'A steel firebox crowned with a generous basket of sauna stones delivers the soft, rolling löyly only real fire can make — throw water and feel it roll.',
+  },
+];
+
+const ritualSteps = [
+  { title: 'Fill the hopper', body: 'Top up with standard wood pellets — sold at most hardware and farm stores.' },
+  { title: 'Start it from your phone', body: 'Tap start in the app, or press the button on the stove. The P1 lights and feeds itself.' },
+  { title: 'Set your temperature', body: 'Electronic controls meter the pellet feed to hold your heat steady — no stoking, no guessing.' },
+  { title: 'Step in and sweat', body: 'Throw water on the stones, settle in, and let the P1 hold the heat while you relax.' },
+];
+
+const specs = [
+  ['Heating Capacity', '300–500 ft³ sauna'],
+  ['Fuel Type', 'Wood Pellets'],
+  ['Power Requirement', 'Standard 110V Outlet'],
+  ['Material', 'Steel'],
+  ['Weight', '110 lbs'],
+  ['Warranty', '5 Years (electrical components)<br/>Lifetime (steel body)'],
+  ['Certification', 'Certification Pending'],
+];
+---
+
+<BaseLayout
+  title="P1 Pellet Sauna Stove — Pre-Order | The Pellet Sauna Company"
+  description="Reserve the P1 pellet sauna stove with $100 down. Founders' pricing from $3,000 for the first 100 stoves, plus a numbered medallion and founders' community access."
+  lcpImage={photos[0].src}
+>
+  <SiteNav solid />
+
+  <main class="pdp">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="/">Home</a></li>
+        <li aria-current="page">P1 Pellet Sauna Stove</li>
+      </ol>
+    </nav>
+
+    <!-- Product hero -->
+    <section class="product-hero" id="p1">
+      <div class="gallery" data-gallery>
+        <div class="gallery-thumbs">
+          {photos.map((photo, i) => (
+            <button type="button" class="gallery-thumb" data-src={photo.src} data-alt={photo.alt} aria-label={`Show photo ${i + 1} of ${photos.length}`} aria-current={i === 0 ? 'true' : undefined}>
+              <img src={photo.src} alt="" width={photo.width} height={photo.height} loading={i === 0 ? 'eager' : 'lazy'} decoding="async" />
+            </button>
+          ))}
+        </div>
+        <div class="gallery-main">
+          <img class="gallery-image" src={photos[0].src} alt={photos[0].alt} width={photos[0].width} height={photos[0].height} fetchpriority="high" />
+          <div class="gallery-bar">
+            <div class="gallery-arrows">
+              <button type="button" class="gallery-arrow" data-step="-1" aria-label="Previous photo"><Icon name="arrow-left" size={16} /></button>
+              <button type="button" class="gallery-arrow" data-step="1" aria-label="Next photo"><Icon name="arrow-right" size={16} /></button>
+            </div>
+            <span class="gallery-count" aria-live="polite">1 / {photos.length}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="buy-box">
+        <div class="buy-head">
+          <p class="eyebrow buy-eyebrow"><span class="dot" aria-hidden="true"></span>Now taking pre-orders</p>
+          <h1>P1 Pellet<br />Sauna Stove</h1>
+          <p class="buy-tagline">Wood-fired heat, without the woodpile.</p>
+        </div>
+        <p class="buy-description">
+          The P1 automatically feeds clean-burning wood pellets from an outside hopper into a steel firebox inside your sauna. Real fire, real stones, real löyly — at the press of a button.
+        </p>
+        <dl class="quick-stats">
+          {quickStats.map((stat) => (
+            <div>
+              <dt>{stat.label}</dt>
+              <dd>{stat.value}</dd>
+            </div>
+          ))}
+        </dl>
+        <div class="buy-price">
+          {currentTier ? (
+            <>
+              <p class="buy-price-label">Founders’ price · {currentTier.name} of {tiers.length}</p>
+              <p class="buy-price-value">{usd(currentTier.price)}</p>
+              <p class="buy-price-note">
+                Reserve with {usd(campaign.deposit)} down — the remaining {usd(currentTier.price - campaign.deposit)} is charged when production begins. {currentTier.left} of {currentTier.size} left at this price.
+              </p>
+            </>
+          ) : (
+            <>
+              <p class="buy-price-label">Second production run</p>
+              <p class="buy-price-value">Pricing soon</p>
+              <p class="buy-price-note">All {campaign.goal} founders’ stoves are reserved. Reserve with {usd(campaign.deposit)} down to join the second run.</p>
+            </>
+          )}
+          <div class="mini-progress">
+            <div class="mini-track"><span style={`width: ${reservedPct}%`}></span></div>
+            <div class="mini-labels">
+              <span>{campaign.reserved} / {campaign.goal} reserved</span>
+              <span data-days-left={campaign.endsAt ?? undefined}>{campaign.lengthDays}-day campaign</span>
+            </div>
+          </div>
+        </div>
+        <div class="buy-actions">
+          <a href={reserveHref} class="btn btn-clay">Reserve for {usd(campaign.deposit)} <Icon name="arrow-right" size={14} /></a>
+          <a href={questionHref} class="btn btn-outline-ink">Ask a question</a>
+        </div>
+        <ul class="assurances">
+          {assurances.map((item) => (
+            <li><Icon name={item.icon} size={18} class="assurance-icon" />{item.text}</li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <!-- Pre-order campaign -->
+    <section class="campaign" id="preorder">
+      <div class="campaign-head">
+        <div>
+          <p class="eyebrow">The founders’ run · Pre-order campaign</p>
+          <h2>Help us build<br />the first {campaign.goal}.</h2>
+        </div>
+        <p>
+          We’re building the P1 in a first production run of {campaign.goal} stoves. Reserve yours with {usd(campaign.deposit)} down — the earlier you join, the lower your price. The balance is only charged once production begins.
+        </p>
+      </div>
+
+      <div class="progress-panel">
+        <div class="progress-top">
+          <p class="progress-count">
+            <span class="progress-value">{campaign.reserved}</span>
+            <span class="progress-of">of {campaign.goal} stoves reserved</span>
+          </p>
+          <p class="days-pill">
+            <Icon name="hourglass" size={17} />
+            <span data-days-left={campaign.endsAt ?? undefined}>{campaign.lengthDays}-day campaign</span>
+          </p>
+        </div>
+        <ol class="tier-bar">
+          {tiers.map((tier) => {
+            const state = tierState(tier);
+            return (
+              <li class:list={['tier-seg', `is-${state}`]} style={`flex-grow: ${tier.size}`}>
+                <span class="tier-track"><span style={`width: ${(tier.claimed / tier.size) * 100}%`}></span></span>
+                <span class="tier-label">
+                  <span class="tier-price">{usd(tier.price)}</span>
+                  <span class="tier-status">
+                    {state === 'sold' ? 'Sold out' : state === 'current' ? `${tier.left} left at this price` : 'Up next'}
+                  </span>
+                </span>
+              </li>
+            );
+          })}
+        </ol>
+        <p class="no-cap">
+          <Icon name="infinity" size={19} />
+          No cap — reservations past {stoveNumber(campaign.goal)} join our second production run.
+        </p>
+      </div>
+
+      <ul class="tier-cards">
+        {tiers.map((tier) => {
+          const state = tierState(tier);
+          return (
+            <li class:list={['tier-card', `is-${state}`]}>
+              <div class="tier-card-head">
+                <span class="tier-name">{tier.name}</span>
+                <span class="tier-badge">{state === 'sold' ? 'Sold out' : state === 'current' ? 'Current tier' : 'Up next'}</span>
+              </div>
+              <div>
+                <p class="tier-card-price">{usd(tier.price)}</p>
+                <p class="tier-range">Stoves {stoveNumber(tier.first)}–{String(tier.last).padStart(3, '0')}</p>
+              </div>
+              <dl class="tier-payment">
+                <div><dt>Today</dt><dd>{usd(campaign.deposit)} down</dd></div>
+                <div><dt>At production</dt><dd>{usd(tier.price - campaign.deposit)}</dd></div>
+              </dl>
+              {state === 'current' ? (
+                <a href={reserveHref} class="btn btn-clay tier-cta">Reserve stove {stoveNumber(campaign.reserved + 1)} <Icon name="arrow-right" size={14} /></a>
+              ) : (
+                <span class="btn tier-cta tier-cta-disabled" aria-disabled="true">
+                  {state === 'sold' ? `All ${tier.size} claimed` : `Opens at ${stoveNumber(tier.first)}`}
+                </span>
+              )}
+            </li>
+          );
+        })}
+      </ul>
+
+      <div class="campaign-details">
+        <div>
+          <p class="eyebrow">Included for all of the first {campaign.goal}</p>
+          <ul class="detail-list">
+            {perks.map((perk) => (
+              <li>
+                <span class="perk-icon"><Icon name={perk.icon} size={20} /></span>
+                <div>
+                  <h3>{perk.title}</h3>
+                  <p>{perk.body}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <p class="eyebrow">How payment works</p>
+          <ol class="detail-list">
+            {paymentSteps.map((step, i) => (
+              <li>
+                <span class="step-num">{String(i + 1).padStart(2, '0')}</span>
+                <div>
+                  <h3>{step.title}</h3>
+                  <p>{step.body}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- Inside / outside -->
+    <section class="sides">
+      <div class="sides-head">
+        <div>
+          <p class="eyebrow">One stove, two sides of the wall</p>
+          <h2>Fire inside.<br />Fuel outside.</h2>
+        </div>
+        <p>
+          The P1 installs through your sauna wall. The hopper stays outside where pellets are easy to load, while the firebox and stones heat the room inside — no fuel, dust, or ash tracked into the hot room.
+        </p>
+      </div>
+      <div class="sides-columns">
+        {sides.map((side, i) => (
+          <article class="side">
+            <div class="side-photo">
+              <img src={side.image} alt={side.alt} width="1200" height="1280" loading="lazy" decoding="async" />
+              <span class="side-tag">{side.tag}</span>
+            </div>
+            <div class="side-copy">
+              <span class="step-num">{String(i + 1).padStart(2, '0')}</span>
+              <div>
+                <h3>{side.title}</h3>
+                <p>{side.body}</p>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <!-- Ritual -->
+    <section class="ritual">
+      <div class="ritual-copy">
+        <p class="eyebrow">The backyard ritual</p>
+        <h2 class="section-title">From cold sauna to first löyly in about thirty minutes.</h2>
+        <ol class="ritual-steps">
+          {ritualSteps.map((step, i) => (
+            <li>
+              <span class="step-num">{String(i + 1).padStart(2, '0')}</span>
+              <div>
+                <h3>{step.title}</h3>
+                <p>{step.body}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+      <figure class="ritual-image">
+        <img src="/images/p1/hopper-wall.jpg" alt="The P1 hopper and chimney installed through a cedar sauna wall" width="719" height="1080" loading="lazy" decoding="async" />
+        <figcaption>
+          <span>As shown</span>
+          P1 installed through a cedar sauna wall
+        </figcaption>
+      </figure>
+    </section>
+
+    <!-- Specifications -->
+    <section class="specs" id="specifications">
+      <img
+        class="specs-image"
+        src="/images/home/p1-sketch.jpg"
+        alt="Pencil sketch of the P1 pellet sauna stove"
+        width="1352"
+        height="784"
+        loading="lazy"
+        decoding="async"
+      />
+      <div class="specs-copy">
+        <p class="eyebrow">Built to last, designed to perform</p>
+        <h2 class="section-title">Technical<br />Specifications</h2>
+        <dl class="spec-list">
+          {specs.map(([label, value]) => (
+            <div class="spec-row">
+              <dt>{label}</dt>
+              <dd set:html={value} />
+            </div>
+          ))}
+        </dl>
+      </div>
+    </section>
+
+    <!-- FAQ link -->
+    <section class="faq-link">
+      <div>
+        <p class="eyebrow">FAQ</p>
+        <h2 class="section-title">Questions about the P1?</h2>
+        <p>Heat-up time, room sizes, pellets, installation and maintenance — answers to the most common questions live on our FAQ.</p>
+      </div>
+      <a href="/#faq" class="btn btn-outline-ink">Read the FAQ <Icon name="arrow-right" size={14} /></a>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="final-cta">
+      <img class="final-cta-bg" src="/images/p1/stones.jpg" alt="" width="1600" height="1066" loading="lazy" decoding="async" />
+      <div class="final-cta-copy">
+        <p class="eyebrow">Now taking pre-orders</p>
+        <h2>Reserve your P1.</h2>
+        <p>Reserve with {usd(campaign.deposit)} down and lock in your founders’ price, numbered medallion, and community access. The balance is only charged when production begins.</p>
+        <div class="final-cta-actions">
+          <a href={reserveHref} class="btn btn-clay">Reserve for {usd(campaign.deposit)} <Icon name="arrow-right" size={14} /></a>
+          <a href="#preorder" class="btn btn-outline-light">See pricing tiers</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <SiteFooter />
+</BaseLayout>
+
+<style>
+  .pdp {
+    padding-top: 65px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-weight: 300;
+  }
+
+  .step-num {
+    flex-shrink: 0;
+    min-width: 24px;
+    font-family: var(--serif);
+    font-size: 18px;
+    font-weight: 300;
+    color: var(--clay);
+  }
+
+  .btn-outline-ink {
+    justify-content: center;
+    border-color: var(--ink);
+    color: var(--ink);
+  }
+
+  .btn-outline-ink:hover {
+    background: var(--ink);
+    color: var(--cream);
+  }
+
+  /* Breadcrumb */
+  .breadcrumb {
+    padding: 28px var(--gutter) 0;
+  }
+
+  .breadcrumb ol {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+
+  .breadcrumb li + li::before {
+    content: '/';
+    margin-right: 12px;
+    color: var(--stone);
+  }
+
+  .breadcrumb a {
+    color: #8a8575;
+    text-decoration: none;
+  }
+
+  .breadcrumb a:hover {
+    color: var(--ink);
+  }
+
+  /* Product hero */
+  .product-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 704px) minmax(0, 1fr);
+    gap: 72px;
+    padding: 32px var(--gutter) var(--section-y);
+  }
+
+  .gallery {
+    display: flex;
+    gap: 16px;
+    align-self: start;
+  }
+
+  .gallery-thumbs {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .gallery-thumb {
+    width: 88px;
+    aspect-ratio: 88 / 112;
+    padding: 0;
+    border: 1px solid rgba(43, 42, 34, 0.15);
+    background: none;
+    cursor: pointer;
+    opacity: 0.75;
+    transition: opacity 0.2s ease, border-color 0.2s ease;
+  }
+
+  .gallery-thumb:hover,
+  .gallery-thumb[aria-current='true'] {
+    opacity: 1;
+  }
+
+  .gallery-thumb[aria-current='true'] {
+    border: 1.5px solid var(--ink);
+  }
+
+  .gallery-thumb img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .gallery-main {
+    position: relative;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .gallery-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 600 / 760;
+    object-fit: cover;
+    background: var(--linen);
+  }
+
+  .gallery-bar {
+    position: absolute;
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .gallery-arrows {
+    display: flex;
+    gap: 8px;
+  }
+
+  .gallery-arrow {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 50%;
+    background: rgba(246, 241, 231, 0.9);
+    color: var(--ink);
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+
+  .gallery-arrow:hover {
+    background: var(--cream-bright);
+  }
+
+  .gallery-count {
+    padding: 8px 12px;
+    border-radius: 2px;
+    background: rgba(30, 28, 20, 0.7);
+    color: var(--cream);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2px;
+  }
+
+  .buy-box {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    padding-top: 24px;
+  }
+
+  .buy-head {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .buy-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--clay);
+  }
+
+  .buy-head h1 {
+    font-family: var(--serif);
+    font-size: clamp(2.75rem, 4.5vw, 3.5rem);
+    line-height: 1.04;
+    color: var(--ink);
+  }
+
+  .buy-tagline {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-style: italic;
+    color: var(--muted);
+  }
+
+  .buy-description {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--muted);
+  }
+
+  .quick-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid rgba(43, 42, 34, 0.15);
+    border-bottom: 1px solid rgba(43, 42, 34, 0.15);
+  }
+
+  .quick-stats div {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 6px;
+    padding: 20px 16px;
+  }
+
+  .quick-stats div:first-child {
+    padding-left: 0;
+  }
+
+  .quick-stats div + div {
+    border-left: 1px solid rgba(43, 42, 34, 0.15);
+  }
+
+  .quick-stats dd {
+    font-family: var(--serif);
+    font-size: 24px;
+    color: var(--ink);
+    white-space: nowrap;
+  }
+
+  .quick-stats dt,
+  .buy-price-label,
+  .mini-labels {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #8a8575;
+  }
+
+  .buy-price {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .buy-price-value {
+    font-family: var(--serif);
+    font-size: 32px;
+    font-weight: 300;
+    color: var(--ink);
+  }
+
+  .buy-price-note {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--muted);
+  }
+
+  .mini-progress {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 8px;
+  }
+
+  .mini-track {
+    height: 6px;
+    background: rgba(43, 42, 34, 0.1);
+  }
+
+  .mini-track span {
+    display: block;
+    height: 100%;
+    background: var(--clay);
+  }
+
+  .mini-labels {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .mini-labels span:first-child {
+    color: var(--ink);
+  }
+
+  .buy-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .buy-actions .btn {
+    justify-content: center;
+    padding: 20px 24px;
+  }
+
+  .assurances {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding-top: 4px;
+    font-size: 15px;
+    color: var(--ink);
+  }
+
+  .assurances li {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .assurances :global(.assurance-icon) {
+    flex-shrink: 0;
+    color: var(--pine);
+  }
+
+  /* Pre-order campaign */
+  .campaign {
+    background: var(--linen);
+    padding: var(--section-y) var(--gutter);
+    display: flex;
+    flex-direction: column;
+    gap: 56px;
+  }
+
+  .campaign-head,
+  .sides-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 48px;
+  }
+
+  .campaign-head > div,
+  .sides-head > div {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .campaign-head h2,
+  .sides-head h2 {
+    font-family: var(--serif);
+    font-size: clamp(2.5rem, 5vw, 3.75rem);
+    line-height: 1.05;
+    color: var(--ink);
+  }
+
+  .campaign-head > p,
+  .sides-head > p {
+    max-width: 440px;
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--muted);
+  }
+
+  .progress-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+    padding: 44px 48px 40px;
+    border-radius: 16px;
+    background: var(--char);
+    color: var(--cream);
+  }
+
+  .progress-top {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .progress-count {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    column-gap: 14px;
+    font-family: var(--serif);
+    font-weight: 300;
+  }
+
+  .progress-value {
+    font-size: 104px;
+    line-height: 0.9;
+  }
+
+  .progress-of {
+    font-size: 30px;
+    color: var(--stone);
+  }
+
+  .days-pill {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 20px;
+    border-radius: 999px;
+    background: rgba(246, 241, 231, 0.08);
+    font-size: 17px;
+    font-weight: 500;
+  }
+
+  .days-pill :global(svg) {
+    color: var(--sand-light);
+  }
+
+  .tier-bar {
+    list-style: none;
+    display: flex;
+    gap: 4px;
+  }
+
+  .tier-seg {
+    flex-basis: 0;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .tier-track {
+    display: block;
+    height: 10px;
+    border-radius: 5px;
+    background: rgba(246, 241, 231, 0.1);
+    overflow: hidden;
+  }
+
+  .tier-track span {
+    display: block;
+    height: 100%;
+    border-radius: 5px;
+    background: var(--clay);
+  }
+
+  .tier-label {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    column-gap: 12px;
+    row-gap: 4px;
+  }
+
+  .tier-price {
+    font-family: var(--serif);
+    font-size: 28px;
+    color: var(--stone);
+  }
+
+  .tier-status {
+    font-size: 17px;
+    color: #8a8575;
+  }
+
+  .tier-seg.is-current .tier-price {
+    color: var(--cream);
+  }
+
+  .tier-seg.is-current .tier-status {
+    font-weight: 500;
+    color: var(--clay);
+  }
+
+  .no-cap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 17px;
+    color: #8a8575;
+  }
+
+  .tier-cards {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .tier-card {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 32px;
+    border-radius: 2px;
+    border: 1px solid rgba(43, 42, 34, 0.1);
+    background: var(--cream);
+  }
+
+  .tier-card.is-current {
+    border: 1.5px solid var(--clay);
+  }
+
+  .tier-card.is-sold {
+    opacity: 0.6;
+  }
+
+  .tier-card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .tier-name,
+  .tier-badge {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .tier-badge {
+    padding: 6px 10px;
+    border-radius: 2px;
+    border: 1px solid rgba(43, 42, 34, 0.25);
+    font-size: 9px;
+  }
+
+  .is-current .tier-badge {
+    border-color: var(--clay);
+    background: var(--clay);
+    color: #fff;
+  }
+
+  .is-sold .tier-badge {
+    border-color: transparent;
+    background: rgba(43, 42, 34, 0.1);
+  }
+
+  .tier-card-price {
+    font-family: var(--serif);
+    font-size: 56px;
+    font-weight: 300;
+    color: var(--ink);
+  }
+
+  .is-sold .tier-card-price {
+    text-decoration: line-through;
+  }
+
+  .tier-range {
+    margin-top: 6px;
+    font-size: 15px;
+    color: var(--muted);
+  }
+
+  .tier-payment div {
+    display: flex;
+    justify-content: space-between;
+    padding: 14px 0;
+    border-top: 1px solid rgba(43, 42, 34, 0.15);
+    font-size: 14px;
+  }
+
+  .tier-payment dt {
+    color: var(--muted);
+  }
+
+  .tier-payment dd {
+    font-weight: 500;
+    color: var(--ink);
+  }
+
+  .tier-cta {
+    justify-content: center;
+    margin-top: auto;
+  }
+
+  .tier-cta-disabled {
+    border-color: rgba(43, 42, 34, 0.25);
+    color: #8a8575;
+    cursor: default;
+  }
+
+  .tier-cta-disabled:hover {
+    transform: none;
+  }
+
+  .campaign-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 96px;
+    padding-top: 24px;
+  }
+
+  .campaign-details > div {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .detail-list {
+    list-style: none;
+  }
+
+  .detail-list li,
+  .ritual-steps li {
+    display: flex;
+    gap: 24px;
+    padding: 20px 0;
+    border-top: 1px solid rgba(43, 42, 34, 0.15);
+  }
+
+  .detail-list h3,
+  .ritual-steps h3 {
+    font-family: var(--serif);
+    font-size: 21px;
+    font-weight: 400;
+    color: var(--ink);
+  }
+
+  .detail-list p,
+  .ritual-steps p {
+    margin-top: 4px;
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--muted);
+  }
+
+  .perk-icon {
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--pine);
+    color: var(--sand-light);
+  }
+
+  .detail-list li:has(.perk-icon) {
+    gap: 20px;
+  }
+
+  /* Inside / outside */
+  .sides {
+    background: var(--pine);
+    padding: var(--section-y) var(--gutter);
+    display: flex;
+    flex-direction: column;
+    gap: 72px;
+  }
+
+  .sides .eyebrow {
+    color: var(--sand-light);
+  }
+
+  .sides-head h2 {
+    color: var(--cream);
+  }
+
+  .sides-head > p {
+    color: var(--sand);
+  }
+
+  .sides-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+  }
+
+  .side {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .side + .side {
+    padding-top: 120px;
+  }
+
+  .side-photo {
+    position: relative;
+  }
+
+  .side-photo img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 600 / 640;
+    object-fit: cover;
+  }
+
+  .side + .side .side-photo img {
+    aspect-ratio: 600 / 520;
+  }
+
+  .side-tag {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    padding: 8px 12px;
+    border-radius: 2px;
+    background: var(--cream);
+    color: var(--ink);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .side-copy {
+    display: flex;
+    gap: 24px;
+  }
+
+  .side-copy h3 {
+    font-family: var(--serif);
+    font-size: 28px;
+    font-weight: 400;
+    color: var(--cream);
+  }
+
+  .side-copy p {
+    margin-top: 10px;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--sand);
+  }
+
+  /* Ritual */
+  .ritual {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 560px);
+    align-items: center;
+    gap: 96px;
+    padding: var(--section-y) var(--gutter);
+  }
+
+  .ritual-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .ritual-copy .section-title {
+    font-size: clamp(2.25rem, 3.6vw, 2.75rem);
+    line-height: 1.1;
+  }
+
+  .ritual-steps {
+    list-style: none;
+    margin-top: 20px;
+  }
+
+  .ritual-steps li {
+    gap: 28px;
+    padding: 22px 0;
+  }
+
+  .ritual-image {
+    position: relative;
+  }
+
+  .ritual-image img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 560 / 760;
+    object-fit: cover;
+  }
+
+  .ritual-image figcaption {
+    position: absolute;
+    left: 24px;
+    bottom: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 14px 18px;
+    border-radius: 2px;
+    background: var(--cream);
+    font-family: var(--serif);
+    font-size: 16px;
+    color: var(--ink);
+  }
+
+  .ritual-image figcaption span {
+    font-family: var(--sans);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #8a8575;
+  }
+
+  /* Specifications */
+  .specs {
+    background: var(--linen);
+    padding: var(--section-y) var(--gutter);
+    display: flex;
+    align-items: center;
+    gap: 80px;
+    scroll-margin-top: 64px;
+  }
+
+  .specs-image {
+    flex: 0 0 auto;
+    width: min(640px, 50%);
+    aspect-ratio: 640 / 560;
+    height: auto;
+    object-fit: cover;
+    object-position: 39% center;
+  }
+
+  .specs-copy {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .spec-list {
+    padding-top: 8px;
+  }
+
+  .spec-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 16px 0;
+    border-top: 1px solid rgba(43, 42, 34, 0.15);
+    font-size: 15px;
+  }
+
+  .spec-row dt {
+    color: var(--muted);
+  }
+
+  .spec-row dd {
+    font-weight: 500;
+    color: var(--ink);
+    text-align: right;
+  }
+
+  /* FAQ link */
+  .faq-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 48px;
+    padding: 96px var(--gutter);
+  }
+
+  .faq-link > div {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 620px;
+  }
+
+  .faq-link p:not(.eyebrow) {
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--muted);
+  }
+
+  .faq-link .btn {
+    flex-shrink: 0;
+  }
+
+  /* Final CTA */
+  .final-cta {
+    position: relative;
+    min-height: 640px;
+    display: flex;
+    align-items: center;
+    padding: 96px var(--gutter);
+    overflow: hidden;
+    background: var(--char);
+  }
+
+  .final-cta-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .final-cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(to right, rgba(30, 28, 20, 0.95) 0%, rgba(30, 28, 20, 0.7) 55%, rgba(30, 28, 20, 0.25) 100%);
+  }
+
+  .final-cta-copy {
+    position: relative;
+    z-index: 2;
+    max-width: 560px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .final-cta .eyebrow {
+    color: var(--sand-light);
+  }
+
+  .final-cta h2 {
+    font-family: var(--serif);
+    font-size: clamp(3rem, 6vw, 4.5rem);
+    color: var(--cream);
+  }
+
+  .final-cta-copy > p:not(.eyebrow) {
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--sand);
+  }
+
+  .final-cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding-top: 12px;
+  }
+
+  /* Responsive */
+  @media (max-width: 1200px) {
+    .product-hero {
+      gap: 48px;
+    }
+
+    .ritual,
+    .specs,
+    .campaign-details {
+      gap: 56px;
+    }
+
+    .tier-card {
+      padding: 28px;
+    }
+
+    .tier-card-price {
+      font-size: 48px;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .product-hero {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .gallery {
+      max-width: 704px;
+    }
+
+    .buy-box {
+      padding-top: 0;
+    }
+
+    .campaign-head,
+    .sides-head,
+    .faq-link {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .tier-cards {
+      grid-template-columns: 1fr;
+    }
+
+    .tier-card-price {
+      font-size: 48px;
+    }
+
+    .campaign-details {
+      grid-template-columns: 1fr;
+    }
+
+    .ritual {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .ritual-image {
+      max-width: 560px;
+    }
+
+    .specs {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .specs-image {
+      width: 100%;
+      max-height: 520px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .breadcrumb {
+      padding-top: 20px;
+    }
+
+    .product-hero {
+      gap: 36px;
+      padding-top: 20px;
+    }
+
+    .gallery {
+      flex-direction: column-reverse;
+      gap: 12px;
+    }
+
+    .gallery-thumbs {
+      flex-direction: row;
+      gap: 8px;
+    }
+
+    .gallery-thumb {
+      flex: 1;
+      width: auto;
+    }
+
+    .gallery-image {
+      aspect-ratio: 4 / 5;
+    }
+
+    .buy-box {
+      gap: 24px;
+    }
+
+    .buy-tagline {
+      font-size: 19px;
+    }
+
+    .quick-stats div {
+      padding: 16px 10px;
+    }
+
+    .quick-stats dd {
+      font-size: 18px;
+    }
+
+    .quick-stats dt {
+      font-size: 9px;
+      letter-spacing: 1.5px;
+    }
+
+    .campaign,
+    .sides {
+      gap: 40px;
+    }
+
+    .campaign-head h2,
+    .sides-head h2 {
+      font-size: 40px;
+    }
+
+    .campaign-head > p,
+    .sides-head > p {
+      font-size: 15px;
+    }
+
+    .progress-panel {
+      gap: 28px;
+      padding: 28px 20px;
+    }
+
+    .progress-value {
+      font-size: 72px;
+    }
+
+    .progress-of {
+      font-size: 22px;
+    }
+
+    .days-pill,
+    .no-cap {
+      font-size: 15px;
+    }
+
+    .no-cap {
+      align-items: flex-start;
+    }
+
+    .no-cap :global(svg) {
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .tier-seg {
+      gap: 12px;
+    }
+
+    .tier-price {
+      font-size: 16px;
+    }
+
+    .tier-status {
+      display: none;
+    }
+
+    .tier-card {
+      padding: 24px;
+    }
+
+    .campaign-details {
+      gap: 40px;
+      padding-top: 0;
+    }
+
+    .detail-list li,
+    .ritual-steps li {
+      gap: 16px;
+    }
+
+    .detail-list h3,
+    .ritual-steps h3 {
+      font-size: 19px;
+    }
+
+    .sides-columns {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .side + .side {
+      padding-top: 0;
+    }
+
+    .side-copy {
+      gap: 16px;
+    }
+
+    .side-copy h3 {
+      font-size: 24px;
+    }
+
+    .ritual {
+      gap: 40px;
+    }
+
+    .ritual-copy .section-title,
+    .specs .section-title,
+    .faq-link .section-title {
+      font-size: 32px;
+    }
+
+    .specs {
+      gap: 36px;
+    }
+
+    .specs-image {
+      height: 380px;
+      max-height: none;
+      aspect-ratio: auto;
+    }
+
+    .specs-copy {
+      gap: 20px;
+    }
+
+    .spec-row {
+      font-size: 14px;
+    }
+
+    .faq-link {
+      gap: 28px;
+      padding: 72px var(--gutter);
+    }
+
+    .faq-link p:not(.eyebrow) {
+      font-size: 15px;
+    }
+
+    .faq-link .btn,
+    .final-cta-actions .btn {
+      align-self: stretch;
+      justify-content: center;
+    }
+
+    .final-cta {
+      min-height: 0;
+      padding: 96px var(--gutter);
+    }
+
+    .final-cta::before {
+      background: rgba(30, 28, 20, 0.8);
+    }
+
+    .final-cta h2 {
+      font-size: 44px;
+    }
+
+    .final-cta-copy > p:not(.eyebrow) {
+      font-size: 15px;
+    }
+
+    .final-cta-actions {
+      flex-direction: column;
+    }
+  }
+</style>
+
+<script>
+  // Photo gallery: thumbnails, arrows and counter swap the main image.
+  const gallery = document.querySelector<HTMLElement>('[data-gallery]');
+  if (gallery) {
+    const thumbs = [...gallery.querySelectorAll<HTMLButtonElement>('.gallery-thumb')];
+    const mainImage = gallery.querySelector<HTMLImageElement>('.gallery-image');
+    const count = gallery.querySelector('.gallery-count');
+    let current = 0;
+
+    const show = (index: number) => {
+      current = (index + thumbs.length) % thumbs.length;
+      const thumb = thumbs[current];
+      if (mainImage) {
+        mainImage.src = thumb.dataset.src ?? '';
+        mainImage.alt = thumb.dataset.alt ?? '';
+      }
+      thumbs.forEach((t) => (t === thumb ? t.setAttribute('aria-current', 'true') : t.removeAttribute('aria-current')));
+      if (count) count.textContent = `${current + 1} / ${thumbs.length}`;
+    };
+
+    thumbs.forEach((thumb, i) => thumb.addEventListener('click', () => show(i)));
+    gallery.querySelectorAll<HTMLButtonElement>('.gallery-arrow').forEach((arrow) =>
+      arrow.addEventListener('click', () => show(current + Number(arrow.dataset.step)))
+    );
+  }
+
+  // Countdown, shown once the campaign end date is set.
+  document.querySelectorAll<HTMLElement>('[data-days-left]').forEach((el) => {
+    const endsAt = el.dataset.daysLeft;
+    if (!endsAt) return;
+    const days = Math.ceil((new Date(`${endsAt}T23:59:59`).getTime() - Date.now()) / 86_400_000);
+    el.textContent = days > 0 ? `${days} ${days === 1 ? 'day' : 'days'} left` : 'Campaign closed';
+  });
+</script>
