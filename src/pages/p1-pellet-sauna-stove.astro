@@ -13,6 +13,8 @@ const campaign = {
   deposit: 100,
   lengthDays: 60,
   endsAt: null as string | null,
+  /** When the remaining balance is charged. */
+  productionMonth: 'June',
 };
 
 const tiers = [
@@ -31,7 +33,6 @@ const tierState = (tier: (typeof tiers)[number]) =>
 
 const usd = (n: number) => `$${n.toLocaleString('en-US')}`;
 const stoveNumber = (n: number) => `#${String(n).padStart(3, '0')}`;
-const reservedPct = Math.min((campaign.reserved / campaign.goal) * 100, 100);
 const reserveHref = `/?subject=${encodeURIComponent('P1 pre-order reservation')}#contact`;
 const questionHref = `/?subject=${encodeURIComponent('Question about the P1')}#contact`;
 
@@ -62,9 +63,18 @@ const perks = [
 ] as const;
 
 const paymentSteps = [
-  { title: `Reserve today — ${usd(campaign.deposit)} down`, body: `Lock in your tier price and stove number with a ${usd(campaign.deposit)} deposit.` },
-  { title: `Campaign runs ${campaign.lengthDays} days`, body: `Our goal is ${campaign.goal} stoves. Reservations stay open past ${campaign.goal} — those join the second run.` },
-  { title: 'At production — balance charged', body: 'When your run goes into production, we charge the remaining cost and keep you posted until it ships.' },
+  {
+    title: 'Reserve today',
+    body: `Lock in your tier price and stove number with a fully refundable ${usd(campaign.deposit)} deposit. Change your mind? Get your money back anytime with a single click — no forms, no questions.`,
+  },
+  {
+    title: `Campaign runs ${campaign.lengthDays} days`,
+    body: `Every reservation counts toward our ${campaign.goal}-stove goal. Prices step up as each tier fills, so reserving early locks in the lowest price.`,
+  },
+  {
+    title: 'Production begins',
+    body: 'We’ll send you a build update every week until production. Your remaining balance isn’t charged until your stove hits the production line.',
+  },
 ];
 
 const sides = [
@@ -79,15 +89,14 @@ const sides = [
     tag: 'Inside',
     image: '/images/p1/stones.jpg',
     alt: 'Sauna stones loaded in the top of the P1 firebox',
-    title: 'Real stones, real steam',
-    body: 'A steel firebox crowned with a generous basket of sauna stones delivers the soft, rolling löyly only real fire can make — throw water and feel it roll.',
+    title: 'Set it once, stay as long as you like',
+    body: 'The P1 feeds and burns pellets on its own, holding the hot room at exactly the temperature you choose — for a quick sweat or an all-evening session. No stoking, no checking, no cooling off halfway through.',
   },
 ];
 
 const ritualSteps = [
   { title: 'Fill the hopper', body: 'Top up with standard wood pellets — sold at most hardware and farm stores.' },
-  { title: 'Start it from your phone', body: 'Tap start in the app, or press the button on the stove. The P1 lights and feeds itself.' },
-  { title: 'Set your temperature', body: 'Electronic controls meter the pellet feed to hold your heat steady — no stoking, no guessing.' },
+  { title: 'Set your temp and start it', body: 'Pick your temperature and tap start in the app, or press the button on the stove. The P1 lights itself and meters the pellet feed to hold your heat steady — no stoking, no guessing.' },
   { title: 'Step in and sweat', body: 'Throw water on the stones, settle in, and let the P1 hold the heat while you relax.' },
 ];
 
@@ -141,9 +150,7 @@ const specs = [
 
       <div class="buy-box">
         <div class="buy-head">
-          <p class="eyebrow buy-eyebrow"><span class="dot" aria-hidden="true"></span>Now taking pre-orders</p>
           <h1>P1 Pellet<br />Sauna Stove</h1>
-          <p class="buy-tagline">Wood-fired heat, without the woodpile.</p>
         </div>
         <p class="buy-description">
           The P1 automatically feeds clean-burning wood pellets from an outside hopper into a steel firebox inside your sauna. Real fire, real stones, real löyly — at the press of a button.
@@ -159,11 +166,18 @@ const specs = [
         <div class="buy-price">
           {currentTier ? (
             <>
-              <p class="buy-price-label">Founders’ price · {currentTier.name} of {tiers.length}</p>
               <p class="buy-price-value">{usd(currentTier.price)}</p>
               <p class="buy-price-note">
-                Reserve with {usd(campaign.deposit)} down — the remaining {usd(currentTier.price - campaign.deposit)} is charged when production begins. {currentTier.left} of {currentTier.size} left at this price.
+                Reserve with only <strong>{usd(campaign.deposit)} down today</strong>. Fully refundable.<br />
+                The remaining amount is charged at production time in {campaign.productionMonth}.
               </p>
+              <div class="mini-progress">
+                <div class="mini-track"><span style={`width: ${(currentTier.claimed / currentTier.size) * 100}%`}></span></div>
+                <div class="mini-labels">
+                  <span>{currentTier.left} left at this price</span>
+                  <span>{currentTier.name} · {currentTier.claimed} / {currentTier.size} claimed</span>
+                </div>
+              </div>
             </>
           ) : (
             <>
@@ -172,13 +186,6 @@ const specs = [
               <p class="buy-price-note">All {campaign.goal} founders’ stoves are reserved. Reserve with {usd(campaign.deposit)} down to join the second run.</p>
             </>
           )}
-          <div class="mini-progress">
-            <div class="mini-track"><span style={`width: ${reservedPct}%`}></span></div>
-            <div class="mini-labels">
-              <span>{campaign.reserved} / {campaign.goal} reserved</span>
-              <span data-days-left={campaign.endsAt ?? undefined}>{campaign.lengthDays}-day campaign</span>
-            </div>
-          </div>
         </div>
         <div class="buy-actions">
           <a href={reserveHref} class="btn btn-clay">Reserve for {usd(campaign.deposit)} <Icon name="arrow-right" size={14} /></a>
@@ -195,12 +202,10 @@ const specs = [
     <!-- Pre-order campaign -->
     <section class="campaign" id="preorder">
       <div class="campaign-head">
-        <div>
-          <p class="eyebrow">The founders’ run · Pre-order campaign</p>
-          <h2>Help us build<br />the first {campaign.goal}.</h2>
-        </div>
+        <h2>Help us build<br />the first {campaign.goal}.</h2>
         <p>
-          We’re building the P1 in a first production run of {campaign.goal} stoves. Reserve yours with {usd(campaign.deposit)} down — the earlier you join, the lower your price. The balance is only charged once production begins.
+          We’re building the P1 in a first production run of {campaign.goal} stoves. Reserve yours with {usd(campaign.deposit)} down.<br />
+          The earlier you join, the lower your price. The balance is only charged once production begins.
         </p>
       </div>
 
@@ -231,10 +236,7 @@ const specs = [
             );
           })}
         </ol>
-        <p class="no-cap">
-          <Icon name="infinity" size={19} />
-          No cap — reservations past {stoveNumber(campaign.goal)} join our second production run.
-        </p>
+        <p class="no-cap">*Reservations past {stoveNumber(campaign.goal)} join our second production run.</p>
       </div>
 
       <ul class="tier-cards">
@@ -398,7 +400,7 @@ const specs = [
         <p>Reserve with {usd(campaign.deposit)} down and lock in your founders’ price, numbered medallion, and community access. The balance is only charged when production begins.</p>
         <div class="final-cta-actions">
           <a href={reserveHref} class="btn btn-clay">Reserve for {usd(campaign.deposit)} <Icon name="arrow-right" size={14} /></a>
-          <a href="#preorder" class="btn btn-outline-light">See pricing tiers</a>
+          <a href={questionHref} class="btn btn-outline-light">Talk to our team</a>
         </div>
       </div>
     </section>
@@ -473,7 +475,7 @@ const specs = [
   /* Product hero */
   .product-hero {
     display: grid;
-    grid-template-columns: minmax(0, 704px) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 704px) minmax(420px, 1fr);
     gap: 72px;
     padding: 32px var(--gutter) var(--section-y);
   }
@@ -588,31 +590,11 @@ const specs = [
     gap: 16px;
   }
 
-  .buy-eyebrow {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--clay);
-  }
-
   .buy-head h1 {
     font-family: var(--serif);
     font-size: clamp(2.75rem, 4.5vw, 3.5rem);
     line-height: 1.04;
     color: var(--ink);
-  }
-
-  .buy-tagline {
-    font-family: var(--serif);
-    font-size: 22px;
-    font-style: italic;
-    color: var(--muted);
   }
 
   .buy-description {
@@ -623,7 +605,7 @@ const specs = [
 
   .quick-stats {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, auto);
     border-top: 1px solid rgba(43, 42, 34, 0.15);
     border-bottom: 1px solid rgba(43, 42, 34, 0.15);
   }
@@ -679,6 +661,11 @@ const specs = [
     color: var(--muted);
   }
 
+  .buy-price-note strong {
+    font-weight: 600;
+    color: var(--ink);
+  }
+
   .mini-progress {
     display: flex;
     flex-direction: column;
@@ -703,7 +690,7 @@ const specs = [
   }
 
   .mini-labels span:first-child {
-    color: var(--ink);
+    color: var(--clay);
   }
 
   .buy-actions {
@@ -755,7 +742,6 @@ const specs = [
     gap: 48px;
   }
 
-  .campaign-head > div,
   .sides-head > div {
     display: flex;
     flex-direction: column;
@@ -888,9 +874,6 @@ const specs = [
   }
 
   .no-cap {
-    display: flex;
-    align-items: center;
-    gap: 10px;
     font-size: 17px;
     color: #8a8575;
   }
@@ -1213,7 +1196,6 @@ const specs = [
 
   /* Specifications */
   .specs {
-    background: var(--linen);
     padding: var(--section-y) var(--gutter);
     display: flex;
     align-items: center;
@@ -1450,10 +1432,6 @@ const specs = [
       gap: 24px;
     }
 
-    .buy-tagline {
-      font-size: 19px;
-    }
-
     .quick-stats div {
       padding: 16px 10px;
     }
@@ -1498,15 +1476,6 @@ const specs = [
     .days-pill,
     .no-cap {
       font-size: 15px;
-    }
-
-    .no-cap {
-      align-items: flex-start;
-    }
-
-    .no-cap :global(svg) {
-      flex-shrink: 0;
-      margin-top: 1px;
     }
 
     .tier-seg {
