@@ -1025,6 +1025,40 @@ const contactDetails = [
     border: 1px solid rgba(176, 58, 46, 0.3);
   }
 
+  /* Wide desktop: cap content at 1088px with wider side margins */
+  @media (min-width: 1201px) {
+    .hero,
+    .pillars,
+    .how,
+    .compare,
+    .story,
+    .faq,
+    .contact {
+      --gutter: max(96px, calc((100vw - 1088px) / 2));
+    }
+
+    .hero {
+      padding: 0 calc(var(--gutter) - 16px) 140px;
+    }
+
+    .how-steps {
+      padding: 96px var(--gutter) 96px 96px;
+    }
+
+    .pillar {
+      padding: 8px 24px;
+    }
+
+    .story {
+      padding: 96px max(160px, var(--gutter));
+    }
+
+    .contact {
+      grid-template-columns: minmax(0, 1fr) 540px;
+      column-gap: 80px;
+    }
+  }
+
   /* Responsive */
   @media (max-width: 1200px) {
     .faq,
