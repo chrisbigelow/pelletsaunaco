@@ -21202,7 +21202,7 @@
                 0,
                 0,
                 0,
-                56
+                120
               ],
               "alignItems": "center",
               "children": [
@@ -21324,7 +21324,7 @@
                   },
                   "padding": [
                     0,
-                    56,
+                    120,
                     0,
                     32
                   ],
@@ -21369,9 +21369,9 @@
           "gap": 12,
           "padding": [
             28,
-            96,
+            176,
             0,
-            96
+            176
           ],
           "alignItems": "center",
           "children": [
@@ -21437,12 +21437,12 @@
           "id": "L9IK0l",
           "name": "Product Hero",
           "width": "fill_container",
-          "gap": 72,
+          "gap": 64,
           "padding": [
             32,
-            96,
+            176,
             120,
-            96
+            176
           ],
           "children": [
             {
@@ -21462,8 +21462,8 @@
                       "type": "frame",
                       "id": "x5Zwo",
                       "name": "Thumb Front — Fire",
-                      "width": 88,
-                      "height": 112,
+                      "width": 80,
+                      "height": 102,
                       "fill": {
                         "type": "image",
                         "enabled": true,
@@ -21478,8 +21478,8 @@
                       "id": "jLGi3",
                       "name": "Thumb Hopper Wall",
                       "opacity": 0.75,
-                      "width": 88,
-                      "height": 112,
+                      "width": 80,
+                      "height": 102,
                       "fill": {
                         "type": "image",
                         "enabled": true,
@@ -21494,8 +21494,8 @@
                       "id": "e8VV4",
                       "name": "Thumb Pellet Fill",
                       "opacity": 0.75,
-                      "width": 88,
-                      "height": 112,
+                      "width": 80,
+                      "height": 102,
                       "fill": {
                         "type": "image",
                         "enabled": true,
@@ -21510,8 +21510,8 @@
                       "id": "zTaxM",
                       "name": "Thumb Stones",
                       "opacity": 0.75,
-                      "width": 88,
-                      "height": 112,
+                      "width": 80,
+                      "height": 102,
                       "fill": {
                         "type": "image",
                         "enabled": true,
@@ -21527,8 +21527,8 @@
                   "type": "frame",
                   "id": "O8UG4A",
                   "name": "Main Image",
-                  "width": 600,
-                  "height": 760,
+                  "width": 512,
+                  "height": 648,
                   "fill": {
                     "type": "image",
                     "enabled": true,
@@ -21694,11 +21694,12 @@
                       "type": "frame",
                       "id": "yxZx4",
                       "name": "Stat HEAT-UP",
-                      "width": "fill_container",
                       "stroke": "#2B2A2226",
                       "layout": "vertical",
                       "gap": 6,
                       "padding": [
+                        20,
+                        20,
                         20,
                         0
                       ],
@@ -21710,7 +21711,7 @@
                           "fill": "#2B2A22",
                           "content": "30 min",
                           "fontFamily": "Fraunces",
-                          "fontSize": 24,
+                          "fontSize": 22,
                           "fontWeight": "normal"
                         },
                         {
@@ -21730,7 +21731,6 @@
                       "type": "frame",
                       "id": "x3XPTt",
                       "name": "Stat ROOM SIZE",
-                      "width": "fill_container",
                       "stroke": "#2B2A2226",
                       "strokeWidth": {
                         "left": 1
@@ -21749,7 +21749,7 @@
                           "fill": "#2B2A22",
                           "content": "300–500 ft³",
                           "fontFamily": "Fraunces",
-                          "fontSize": 24,
+                          "fontSize": 22,
                           "fontWeight": "normal"
                         },
                         {
@@ -21788,7 +21788,7 @@
                           "fill": "#2B2A22",
                           "content": "110V",
                           "fontFamily": "Fraunces",
-                          "fontSize": 24,
+                          "fontSize": 22,
                           "fontWeight": "normal"
                         },
                         {
@@ -21815,14 +21815,57 @@
                   "gap": 8,
                   "children": [
                     {
-                      "type": "text",
-                      "id": "TQjGu",
-                      "name": "Price Value",
-                      "fill": "#2B2A22",
-                      "content": "$3,500",
-                      "fontFamily": "Fraunces",
-                      "fontSize": 32,
-                      "fontWeight": "300"
+                      "type": "frame",
+                      "id": "qYefG",
+                      "name": "Price Row",
+                      "gap": 12,
+                      "alignItems": "end",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "TQjGu",
+                          "name": "Price Value",
+                          "fill": "#2B2A22",
+                          "content": "$3,500",
+                          "fontFamily": "Fraunces",
+                          "fontSize": 32,
+                          "fontWeight": "300"
+                        },
+                        {
+                          "type": "frame",
+                          "id": "QLbOk",
+                          "name": "Full Price Wrap",
+                          "padding": [
+                            0,
+                            0,
+                            4,
+                            0
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "rMP0q",
+                              "name": "Full Price",
+                              "fill": "#8A8575",
+                              "content": "$3,995",
+                              "fontFamily": "Fraunces",
+                              "fontSize": 20,
+                              "fontWeight": "300"
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "m9KFp",
+                              "layoutPosition": "absolute",
+                              "x": -2,
+                              "y": 14,
+                              "name": "Strike",
+                              "fill": "#8A8575",
+                              "width": 65,
+                              "height": 1.5
+                            }
+                          ]
+                        }
+                      ]
                     },
                     {
                       "type": "frame",
@@ -21917,7 +21960,7 @@
                               "y": 0,
                               "name": "Fill",
                               "fill": "#C2734A",
-                              "width": 267,
+                              "width": 235,
                               "height": 6
                             }
                           ]
@@ -22179,7 +22222,7 @@
           "gap": 56,
           "padding": [
             120,
-            96
+            176
           ],
           "children": [
             {
@@ -22327,7 +22370,7 @@
                       "type": "frame",
                       "id": "i6QIpj",
                       "name": "Seg 1",
-                      "width": 228,
+                      "width": 196,
                       "layout": "vertical",
                       "gap": 16,
                       "children": [
@@ -22350,7 +22393,7 @@
                               "y": 0,
                               "name": "Fill",
                               "fill": "#C2734A",
-                              "width": 228,
+                              "width": 196,
                               "height": 10
                             }
                           ]
@@ -22409,7 +22452,7 @@
                       "type": "frame",
                       "id": "kB0Vr",
                       "name": "Seg 2",
-                      "width": 343,
+                      "width": 295,
                       "layout": "vertical",
                       "gap": 16,
                       "children": [
@@ -22432,7 +22475,7 @@
                               "y": 0,
                               "name": "Fill",
                               "fill": "#C2734A",
-                              "width": 194,
+                              "width": 167,
                               "height": 10
                             }
                           ]
@@ -22472,7 +22515,7 @@
                       "type": "frame",
                       "id": "TFYEE",
                       "name": "Seg 3",
-                      "width": 573,
+                      "width": 493,
                       "layout": "vertical",
                       "gap": 16,
                       "children": [
@@ -22615,14 +22658,57 @@
                       "gap": 6,
                       "children": [
                         {
-                          "type": "text",
-                          "id": "v2rTN",
-                          "name": "Price Value",
-                          "fill": "#2B2A22",
-                          "content": "$3,000",
-                          "fontFamily": "Fraunces",
-                          "fontSize": 56,
-                          "fontWeight": "300"
+                          "type": "frame",
+                          "id": "cT016",
+                          "name": "Price Row",
+                          "gap": 12,
+                          "alignItems": "end",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "v2rTN",
+                              "name": "Price Value",
+                              "fill": "#2B2A22",
+                              "content": "$3,000",
+                              "fontFamily": "Fraunces",
+                              "fontSize": 56,
+                              "fontWeight": "300"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "a7OJb",
+                              "name": "Full Price Wrap",
+                              "padding": [
+                                0,
+                                0,
+                                9,
+                                0
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "eHYqA",
+                                  "name": "Full Price",
+                                  "fill": "#8A8575",
+                                  "content": "$3,995",
+                                  "fontFamily": "Fraunces",
+                                  "fontSize": 22,
+                                  "fontWeight": "300"
+                                },
+                                {
+                                  "type": "rectangle",
+                                  "id": "P9zvXx",
+                                  "layoutPosition": "absolute",
+                                  "x": -2,
+                                  "y": 15,
+                                  "name": "Strike",
+                                  "fill": "#8A8575",
+                                  "width": 71,
+                                  "height": 1.5
+                                }
+                              ]
+                            }
+                          ]
                         },
                         {
                           "type": "text",
@@ -22816,14 +22902,57 @@
                       "gap": 6,
                       "children": [
                         {
-                          "type": "text",
-                          "id": "dLYsj",
-                          "name": "Price Value",
-                          "fill": "#2B2A22",
-                          "content": "$3,500",
-                          "fontFamily": "Fraunces",
-                          "fontSize": 56,
-                          "fontWeight": "300"
+                          "type": "frame",
+                          "id": "sfnjo",
+                          "name": "Price Row",
+                          "gap": 12,
+                          "alignItems": "end",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "dLYsj",
+                              "name": "Price Value",
+                              "fill": "#2B2A22",
+                              "content": "$3,500",
+                              "fontFamily": "Fraunces",
+                              "fontSize": 56,
+                              "fontWeight": "300"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "Lim8p",
+                              "name": "Full Price Wrap",
+                              "padding": [
+                                0,
+                                0,
+                                9,
+                                0
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "PifuS",
+                                  "name": "Full Price",
+                                  "fill": "#8A8575",
+                                  "content": "$3,995",
+                                  "fontFamily": "Fraunces",
+                                  "fontSize": 22,
+                                  "fontWeight": "300"
+                                },
+                                {
+                                  "type": "rectangle",
+                                  "id": "VXvu2",
+                                  "layoutPosition": "absolute",
+                                  "x": -2,
+                                  "y": 15,
+                                  "name": "Strike",
+                                  "fill": "#8A8575",
+                                  "width": 71,
+                                  "height": 1.5
+                                }
+                              ]
+                            }
+                          ]
                         },
                         {
                           "type": "text",
@@ -23028,14 +23157,57 @@
                       "gap": 6,
                       "children": [
                         {
-                          "type": "text",
-                          "id": "zSgBo",
-                          "name": "Price Value",
-                          "fill": "#2B2A22",
-                          "content": "$3,750",
-                          "fontFamily": "Fraunces",
-                          "fontSize": 56,
-                          "fontWeight": "300"
+                          "type": "frame",
+                          "id": "AWkmE",
+                          "name": "Price Row",
+                          "gap": 12,
+                          "alignItems": "end",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "zSgBo",
+                              "name": "Price Value",
+                              "fill": "#2B2A22",
+                              "content": "$3,750",
+                              "fontFamily": "Fraunces",
+                              "fontSize": 56,
+                              "fontWeight": "300"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "oQ4EA",
+                              "name": "Full Price Wrap",
+                              "padding": [
+                                0,
+                                0,
+                                9,
+                                0
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "a1NYZ",
+                                  "name": "Full Price",
+                                  "fill": "#8A8575",
+                                  "content": "$3,995",
+                                  "fontFamily": "Fraunces",
+                                  "fontSize": 22,
+                                  "fontWeight": "300"
+                                },
+                                {
+                                  "type": "rectangle",
+                                  "id": "dajt2",
+                                  "layoutPosition": "absolute",
+                                  "x": -2,
+                                  "y": 15,
+                                  "name": "Strike",
+                                  "fill": "#8A8575",
+                                  "width": 71,
+                                  "height": 1.5
+                                }
+                              ]
+                            }
+                          ]
                         },
                         {
                           "type": "text",
@@ -23657,7 +23829,7 @@
           "gap": 72,
           "padding": [
             120,
-            96
+            176
           ],
           "children": [
             {
@@ -23734,7 +23906,7 @@
                       "id": "IsWkN",
                       "name": "Photo",
                       "width": "fill_container",
-                      "height": 640,
+                      "height": 560,
                       "fill": {
                         "type": "image",
                         "enabled": true,
@@ -23842,7 +24014,7 @@
                       "id": "fII74",
                       "name": "Photo",
                       "width": "fill_container",
-                      "height": 520,
+                      "height": 456,
                       "fill": {
                         "type": "image",
                         "enabled": true,
@@ -23940,10 +24112,10 @@
           "id": "ESZke",
           "name": "Ritual",
           "width": "fill_container",
-          "gap": 96,
+          "gap": 80,
           "padding": [
             120,
-            96
+            176
           ],
           "alignItems": "center",
           "children": [
@@ -24190,8 +24362,8 @@
               "type": "frame",
               "id": "qvjyd",
               "name": "Ritual Image",
-              "width": 560,
-              "height": 760,
+              "width": 488,
+              "height": 664,
               "fill": {
                 "type": "image",
                 "enabled": true,
@@ -24212,7 +24384,7 @@
           "gap": 80,
           "padding": [
             120,
-            96
+            176
           ],
           "alignItems": "center",
           "children": [
@@ -24220,8 +24392,8 @@
               "type": "frame",
               "id": "GRQrL",
               "name": "Stove Sketch",
-              "width": 640,
-              "height": 560,
+              "width": 560,
+              "height": 490,
               "fill": {
                 "type": "image",
                 "enabled": true,
@@ -24593,7 +24765,7 @@
           "gap": 28,
           "padding": [
             0,
-            96
+            176
           ],
           "justifyContent": "center",
           "children": [
@@ -24752,9 +24924,9 @@
               "gap": 64,
               "padding": [
                 0,
-                96,
+                176,
                 396,
-                96
+                176
               ],
               "children": [
                 {
