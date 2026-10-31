@@ -10233,9 +10233,9 @@
           "layout": "vertical",
           "padding": [
             0,
-            40,
+            160,
             140,
-            40
+            160
           ],
           "justifyContent": "end",
           "children": [
@@ -10409,7 +10409,7 @@
                     0,
                     0,
                     0,
-                    56
+                    120
                   ],
                   "alignItems": "center",
                   "children": [
@@ -10601,7 +10601,7 @@
                       },
                       "padding": [
                         0,
-                        56,
+                        120,
                         0,
                         32
                       ],
@@ -10992,7 +10992,7 @@
           "gap": 72,
           "padding": [
             120,
-            96
+            176
           ],
           "alignItems": "center",
           "children": [
@@ -11050,7 +11050,7 @@
                   "gap": 16,
                   "padding": [
                     8,
-                    40
+                    24
                   ],
                   "alignItems": "center",
                   "children": [
@@ -11103,7 +11103,7 @@
                   "gap": 16,
                   "padding": [
                     8,
-                    40
+                    24
                   ],
                   "alignItems": "center",
                   "children": [
@@ -11156,7 +11156,7 @@
                   "gap": 16,
                   "padding": [
                     8,
-                    40
+                    24
                   ],
                   "alignItems": "center",
                   "children": [
@@ -11237,7 +11237,12 @@
               "height": "fill_container",
               "layout": "vertical",
               "gap": 40,
-              "padding": 96,
+              "padding": [
+                96,
+                176,
+                96,
+                96
+              ],
               "justifyContent": "center",
               "children": [
                 {
@@ -11392,7 +11397,7 @@
           "gap": 56,
           "padding": [
             120,
-            96
+            176
           ],
           "alignItems": "center",
           "children": [
@@ -12239,7 +12244,7 @@
           "gap": 28,
           "padding": [
             0,
-            160
+            176
           ],
           "justifyContent": "center",
           "alignItems": "center",
@@ -12341,7 +12346,7 @@
           "gap": 96,
           "padding": [
             120,
-            96
+            176
           ],
           "children": [
             {
@@ -12512,6 +12517,8 @@
                           "id": "Q4MznM",
                           "name": "Question",
                           "fill": "#2B2A22",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
                           "content": "What is a pellet sauna stove?",
                           "fontFamily": "Fraunces",
                           "fontSize": 21,
@@ -12535,7 +12542,7 @@
                       "name": "Answer",
                       "fill": "#6B675A",
                       "textGrowth": "fixed-width",
-                      "width": 680,
+                      "width": "fill_container",
                       "content": "A pellet sauna stove is an innovative sauna heater that uses compressed wood pellets as fuel instead of traditional firewood or electricity. The P1 pellet sauna stove combines the authentic wood-fired sauna experience with modern convenience, offering precise temperature control and easy operation.",
                       "lineHeight": 1.6,
                       "fontFamily": "Archivo",
@@ -12574,6 +12581,8 @@
                           "id": "SxjJg",
                           "name": "Question",
                           "fill": "#2B2A22",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
                           "content": "Why choose a pellet sauna stove over electric or wood-burning?",
                           "fontFamily": "Fraunces",
                           "fontSize": 21,
@@ -12623,6 +12632,8 @@
                           "id": "oBPpP",
                           "name": "Question",
                           "fill": "#2B2A22",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
                           "content": "How long does it take to heat a sauna with a pellet stove?",
                           "fontFamily": "Fraunces",
                           "fontSize": 21,
@@ -12672,6 +12683,8 @@
                           "id": "PY0jn",
                           "name": "Question",
                           "fill": "#2B2A22",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
                           "content": "What size sauna can the P1 pellet stove heat?",
                           "fontFamily": "Fraunces",
                           "fontSize": 21,
@@ -12721,6 +12734,8 @@
                           "id": "ENP0f",
                           "name": "Question",
                           "fill": "#2B2A22",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
                           "content": "Are wood pellets easy to find for my pellet sauna stove?",
                           "fontFamily": "Fraunces",
                           "fontSize": 21,
@@ -12770,6 +12785,8 @@
                           "id": "M8VmS",
                           "name": "Question",
                           "fill": "#2B2A22",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
                           "content": "Does a pellet sauna stove need an electrician?",
                           "fontFamily": "Fraunces",
                           "fontSize": 21,
@@ -12819,6 +12836,8 @@
                           "id": "I3Oao",
                           "name": "Question",
                           "fill": "#2B2A22",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
                           "content": "Can a pellet sauna stove be used in an outdoor sauna?",
                           "fontFamily": "Fraunces",
                           "fontSize": 21,
@@ -12868,6 +12887,8 @@
                           "id": "EVhmr",
                           "name": "Question",
                           "fill": "#2B2A22",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
                           "content": "How many wood pellets does one sauna session use?",
                           "fontFamily": "Fraunces",
                           "fontSize": 21,
@@ -12917,6 +12938,8 @@
                           "id": "TLrIy",
                           "name": "Question",
                           "fill": "#2B2A22",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
                           "content": "What maintenance does a pellet sauna stove need?",
                           "fontFamily": "Fraunces",
                           "fontSize": 21,
@@ -12966,6 +12989,8 @@
                           "id": "H8EsC2",
                           "name": "Question",
                           "fill": "#2B2A22",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
                           "content": "Can I retrofit a pellet stove into an existing sauna?",
                           "fontFamily": "Fraunces",
                           "fontSize": 21,
@@ -13015,6 +13040,8 @@
                           "id": "u4okT",
                           "name": "Question",
                           "fill": "#2B2A22",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
                           "content": "Why does remote start matter for a sauna heater?",
                           "fontFamily": "Fraunces",
                           "fontSize": 21,
@@ -13047,7 +13074,7 @@
           "layout": "vertical",
           "padding": [
             120,
-            96
+            176
           ],
           "children": [
             {
@@ -13055,7 +13082,7 @@
               "id": "s9S2g",
               "name": "CTA Row",
               "width": "fill_container",
-              "gap": 96,
+              "gap": 80,
               "justifyContent": "space_between",
               "children": [
                 {
@@ -13386,7 +13413,7 @@
                   "type": "frame",
                   "id": "en3ca",
                   "name": "Contact Form",
-                  "width": 620,
+                  "width": 540,
                   "fill": "#F6F1E7",
                   "cornerRadius": 6,
                   "effect": {
@@ -13755,9 +13782,9 @@
               "gap": 64,
               "padding": [
                 0,
-                96,
+                176,
                 396,
-                96
+                176
               ],
               "children": [
                 {
