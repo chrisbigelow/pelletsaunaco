@@ -11202,354 +11202,6 @@
         },
         {
           "type": "frame",
-          "id": "MP8FZ",
-          "name": "Product",
-          "width": "fill_container",
-          "gap": 80,
-          "padding": [
-            120,
-            96
-          ],
-          "alignItems": "center",
-          "children": [
-            {
-              "type": "frame",
-              "id": "GRQrL",
-              "name": "Stove Sketch",
-              "width": 640,
-              "height": 560,
-              "fill": {
-                "type": "image",
-                "enabled": true,
-                "url": "pelletsaunaco-assets/p1-sketch.jpg",
-                "mode": "cover",
-                "transform": [
-                  1.5089285714285716,
-                  0,
-                  0,
-                  1,
-                  -0.1971250000000001,
-                  0
-                ]
-              }
-            },
-            {
-              "type": "frame",
-              "id": "e5F4i5",
-              "name": "Product Copy",
-              "width": "fill_container",
-              "layout": "vertical",
-              "gap": 28,
-              "children": [
-                {
-                  "type": "text",
-                  "id": "LbZkL",
-                  "name": "Eyebrow",
-                  "fill": "#C2734A",
-                  "content": "BUILT TO LAST, DESIGNED TO PERFORM",
-                  "fontFamily": "Archivo",
-                  "fontSize": 11,
-                  "fontWeight": "600",
-                  "letterSpacing": 2
-                },
-                {
-                  "type": "text",
-                  "id": "p6hxQ",
-                  "name": "Title",
-                  "fill": "#2B2A22",
-                  "content": "Technical\nSpecifications",
-                  "lineHeight": 1.08,
-                  "fontFamily": "Fraunces",
-                  "fontSize": 48,
-                  "fontWeight": "300"
-                },
-                {
-                  "type": "frame",
-                  "id": "Rr4Rs",
-                  "name": "Specs",
-                  "width": "fill_container",
-                  "layout": "vertical",
-                  "padding": [
-                    8,
-                    0,
-                    0,
-                    0
-                  ],
-                  "children": [
-                    {
-                      "type": "frame",
-                      "id": "SPKQH",
-                      "name": "Heating Capacity",
-                      "width": "fill_container",
-                      "stroke": "#2B2A2226",
-                      "strokeWidth": {
-                        "top": 1
-                      },
-                      "padding": [
-                        16,
-                        0
-                      ],
-                      "justifyContent": "space_between",
-                      "children": [
-                        {
-                          "type": "text",
-                          "id": "FPyVH",
-                          "name": "K",
-                          "fill": "#6B675A",
-                          "content": "Heating Capacity",
-                          "fontFamily": "Archivo",
-                          "fontSize": 15,
-                          "fontWeight": "normal"
-                        },
-                        {
-                          "type": "text",
-                          "id": "O2UjH",
-                          "name": "V",
-                          "fill": "#2B2A22",
-                          "content": "300–500 ft³ sauna",
-                          "textAlign": "right",
-                          "fontFamily": "Archivo",
-                          "fontSize": 15,
-                          "fontWeight": "500"
-                        }
-                      ]
-                    },
-                    {
-                      "type": "frame",
-                      "id": "JIim7",
-                      "name": "Fuel Type",
-                      "width": "fill_container",
-                      "stroke": "#2B2A2226",
-                      "strokeWidth": {
-                        "top": 1
-                      },
-                      "padding": [
-                        16,
-                        0
-                      ],
-                      "justifyContent": "space_between",
-                      "children": [
-                        {
-                          "type": "text",
-                          "id": "xguq1",
-                          "name": "K",
-                          "fill": "#6B675A",
-                          "content": "Fuel Type",
-                          "fontFamily": "Archivo",
-                          "fontSize": 15,
-                          "fontWeight": "normal"
-                        },
-                        {
-                          "type": "text",
-                          "id": "n0DEoo",
-                          "name": "V",
-                          "fill": "#2B2A22",
-                          "content": "Wood Pellets",
-                          "textAlign": "right",
-                          "fontFamily": "Archivo",
-                          "fontSize": 15,
-                          "fontWeight": "500"
-                        }
-                      ]
-                    },
-                    {
-                      "type": "frame",
-                      "id": "pCgne",
-                      "name": "Power Requirement",
-                      "width": "fill_container",
-                      "stroke": "#2B2A2226",
-                      "strokeWidth": {
-                        "top": 1
-                      },
-                      "padding": [
-                        16,
-                        0
-                      ],
-                      "justifyContent": "space_between",
-                      "children": [
-                        {
-                          "type": "text",
-                          "id": "zbNYu",
-                          "name": "K",
-                          "fill": "#6B675A",
-                          "content": "Power Requirement",
-                          "fontFamily": "Archivo",
-                          "fontSize": 15,
-                          "fontWeight": "normal"
-                        },
-                        {
-                          "type": "text",
-                          "id": "sYahX",
-                          "name": "V",
-                          "fill": "#2B2A22",
-                          "content": "Standard 110V Outlet",
-                          "textAlign": "right",
-                          "fontFamily": "Archivo",
-                          "fontSize": 15,
-                          "fontWeight": "500"
-                        }
-                      ]
-                    },
-                    {
-                      "type": "frame",
-                      "id": "gtZAV",
-                      "name": "Material",
-                      "width": "fill_container",
-                      "stroke": "#2B2A2226",
-                      "strokeWidth": {
-                        "top": 1
-                      },
-                      "padding": [
-                        16,
-                        0
-                      ],
-                      "justifyContent": "space_between",
-                      "children": [
-                        {
-                          "type": "text",
-                          "id": "Zb4Yk",
-                          "name": "K",
-                          "fill": "#6B675A",
-                          "content": "Material",
-                          "fontFamily": "Archivo",
-                          "fontSize": 15,
-                          "fontWeight": "normal"
-                        },
-                        {
-                          "type": "text",
-                          "id": "N53RF",
-                          "name": "V",
-                          "fill": "#2B2A22",
-                          "content": "Steel",
-                          "textAlign": "right",
-                          "fontFamily": "Archivo",
-                          "fontSize": 15,
-                          "fontWeight": "500"
-                        }
-                      ]
-                    },
-                    {
-                      "type": "frame",
-                      "id": "RsY0G",
-                      "name": "Weight",
-                      "width": "fill_container",
-                      "stroke": "#2B2A2226",
-                      "strokeWidth": {
-                        "top": 1
-                      },
-                      "padding": [
-                        16,
-                        0
-                      ],
-                      "justifyContent": "space_between",
-                      "children": [
-                        {
-                          "type": "text",
-                          "id": "vRHMP",
-                          "name": "K",
-                          "fill": "#6B675A",
-                          "content": "Weight",
-                          "fontFamily": "Archivo",
-                          "fontSize": 15,
-                          "fontWeight": "normal"
-                        },
-                        {
-                          "type": "text",
-                          "id": "ESs6T",
-                          "name": "V",
-                          "fill": "#2B2A22",
-                          "content": "110 lbs",
-                          "textAlign": "right",
-                          "fontFamily": "Archivo",
-                          "fontSize": 15,
-                          "fontWeight": "500"
-                        }
-                      ]
-                    },
-                    {
-                      "type": "frame",
-                      "id": "wloRX",
-                      "name": "Warranty",
-                      "width": "fill_container",
-                      "stroke": "#2B2A2226",
-                      "strokeWidth": {
-                        "top": 1
-                      },
-                      "padding": [
-                        16,
-                        0
-                      ],
-                      "justifyContent": "space_between",
-                      "children": [
-                        {
-                          "type": "text",
-                          "id": "O9tyyl",
-                          "name": "K",
-                          "fill": "#6B675A",
-                          "content": "Warranty",
-                          "fontFamily": "Archivo",
-                          "fontSize": 15,
-                          "fontWeight": "normal"
-                        },
-                        {
-                          "type": "text",
-                          "id": "bdjXl",
-                          "name": "V",
-                          "fill": "#2B2A22",
-                          "content": "5 Years (electrical components)\nLifetime (steel body)",
-                          "textAlign": "right",
-                          "fontFamily": "Archivo",
-                          "fontSize": 15,
-                          "fontWeight": "500"
-                        }
-                      ]
-                    },
-                    {
-                      "type": "frame",
-                      "id": "nlLMH",
-                      "name": "Certification",
-                      "width": "fill_container",
-                      "stroke": "#2B2A2226",
-                      "strokeWidth": {
-                        "top": 1
-                      },
-                      "padding": [
-                        16,
-                        0
-                      ],
-                      "justifyContent": "space_between",
-                      "children": [
-                        {
-                          "type": "text",
-                          "id": "M3x06j",
-                          "name": "K",
-                          "fill": "#6B675A",
-                          "content": "Certification",
-                          "fontFamily": "Archivo",
-                          "fontSize": 15,
-                          "fontWeight": "normal"
-                        },
-                        {
-                          "type": "text",
-                          "id": "SFQK1",
-                          "name": "V",
-                          "fill": "#2B2A22",
-                          "content": "CE Certified",
-                          "textAlign": "right",
-                          "fontFamily": "Archivo",
-                          "fontSize": 15,
-                          "fontWeight": "500"
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "frame",
           "id": "SvAmD",
           "name": "How It Works",
           "width": "fill_container",
@@ -14406,7 +14058,7 @@
     {
       "type": "frame",
       "id": "C1hCc",
-      "x": 5500,
+      "x": 8710,
       "y": 0,
       "name": "Mockup C — Nordic Editorial",
       "clip": true,
@@ -22002,34 +21654,6 @@
                   "gap": 16,
                   "children": [
                     {
-                      "type": "frame",
-                      "id": "zCkR2",
-                      "name": "Eyebrow Row",
-                      "gap": 10,
-                      "alignItems": "center",
-                      "children": [
-                        {
-                          "type": "ellipse",
-                          "id": "AAzW5",
-                          "name": "Dot",
-                          "fill": "#C2734A",
-                          "width": 6,
-                          "height": 6
-                        },
-                        {
-                          "type": "text",
-                          "id": "xlqOX",
-                          "name": "Eyebrow",
-                          "fill": "#C2734A",
-                          "content": "NOW TAKING PRE-ORDERS",
-                          "fontFamily": "Archivo",
-                          "fontSize": 11,
-                          "fontWeight": "600",
-                          "letterSpacing": 2
-                        }
-                      ]
-                    },
-                    {
                       "type": "text",
                       "id": "z74kR",
                       "name": "Title",
@@ -22039,17 +21663,6 @@
                       "fontFamily": "Fraunces",
                       "fontSize": 56,
                       "fontWeight": "300"
-                    },
-                    {
-                      "type": "text",
-                      "id": "SMe9t",
-                      "name": "Tagline",
-                      "fill": "#6B675A",
-                      "content": "Wood-fired heat, without the woodpile.",
-                      "fontFamily": "Fraunces",
-                      "fontSize": 22,
-                      "fontWeight": "300",
-                      "fontStyle": "italic"
                     }
                   ]
                 },
@@ -22203,17 +21816,6 @@
                   "children": [
                     {
                       "type": "text",
-                      "id": "KcPXw",
-                      "name": "Price Label",
-                      "fill": "#8A8575",
-                      "content": "FOUNDERS’ PRICE · TIER 2 OF 3",
-                      "fontFamily": "Archivo",
-                      "fontSize": 10,
-                      "fontWeight": "600",
-                      "letterSpacing": 2
-                    },
-                    {
-                      "type": "text",
                       "id": "TQjGu",
                       "name": "Price Value",
                       "fill": "#2B2A22",
@@ -22223,17 +21825,67 @@
                       "fontWeight": "300"
                     },
                     {
-                      "type": "text",
-                      "id": "e6MRh",
+                      "type": "frame",
+                      "id": "mKQDg",
                       "name": "Price Note",
-                      "fill": "#6B675A",
-                      "textGrowth": "fixed-width",
                       "width": "fill_container",
-                      "content": "Reserve with $100 down — the remaining $3,400 is charged when production begins. 13 of 30 left at this price.",
-                      "lineHeight": 1.5,
-                      "fontFamily": "Archivo",
-                      "fontSize": 14,
-                      "fontWeight": "normal"
+                      "layout": "vertical",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "C3TsGj",
+                          "name": "Line 1",
+                          "width": "fill_container",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "hm7Eh",
+                              "name": "Lead",
+                              "fill": "#6B675A",
+                              "content": "Reserve with only ",
+                              "lineHeight": 1.5,
+                              "fontFamily": "Archivo",
+                              "fontSize": 14,
+                              "fontWeight": "normal"
+                            },
+                            {
+                              "type": "text",
+                              "id": "JiYK4",
+                              "name": "Deposit",
+                              "fill": "#2B2A22",
+                              "content": "$100 down today",
+                              "lineHeight": 1.5,
+                              "fontFamily": "Archivo",
+                              "fontSize": 14,
+                              "fontWeight": "700"
+                            },
+                            {
+                              "type": "text",
+                              "id": "fSEPo",
+                              "name": "Refundable",
+                              "fill": "#6B675A",
+                              "content": ". Fully refundable.",
+                              "lineHeight": 1.5,
+                              "fontFamily": "Archivo",
+                              "fontSize": 14,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "text",
+                          "id": "jtrLx",
+                          "name": "Balance",
+                          "fill": "#6B675A",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "The remaining amount is charged at production time in June.",
+                          "lineHeight": 1.5,
+                          "fontFamily": "Archivo",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        }
+                      ]
                     },
                     {
                       "type": "frame",
@@ -22265,7 +21917,7 @@
                               "y": 0,
                               "name": "Fill",
                               "fill": "#C2734A",
-                              "width": 175,
+                              "width": 267,
                               "height": 6
                             }
                           ]
@@ -22281,8 +21933,8 @@
                               "type": "text",
                               "id": "hkPMg",
                               "name": "Left",
-                              "fill": "#2B2A22",
-                              "content": "37 / 100 RESERVED",
+                              "fill": "#C2734A",
+                              "content": "13 LEFT AT THIS PRICE",
                               "fontFamily": "Archivo",
                               "fontSize": 10,
                               "fontWeight": "600",
@@ -22293,7 +21945,7 @@
                               "id": "JF04S",
                               "name": "Right",
                               "fill": "#8A8575",
-                              "content": "41 DAYS LEFT",
+                              "content": "TIER 2 · 17 / 30 CLAIMED",
                               "fontFamily": "Archivo",
                               "fontSize": 10,
                               "fontWeight": "600",
@@ -22547,17 +22199,6 @@
                   "children": [
                     {
                       "type": "text",
-                      "id": "H2KY4",
-                      "name": "Eyebrow",
-                      "fill": "#C2734A",
-                      "content": "THE FOUNDERS’ RUN · PRE-ORDER CAMPAIGN",
-                      "fontFamily": "Archivo",
-                      "fontSize": 11,
-                      "fontWeight": "600",
-                      "letterSpacing": 2
-                    },
-                    {
-                      "type": "text",
                       "id": "OODIh",
                       "name": "Title",
                       "fill": "#2B2A22",
@@ -22576,7 +22217,7 @@
                   "fill": "#6B675A",
                   "textGrowth": "fixed-width",
                   "width": 440,
-                  "content": "We’re building the P1 in a first production run of 100 stoves. Reserve yours with $100 down — the earlier you join, the lower your price. The balance is only charged once production begins.",
+                  "content": "We’re building the P1 in a first production run of 100 stoves. Reserve yours with $100 down.  \nThe earlier you join, the lower your price. The balance is only charged once production begins.",
                   "lineHeight": 1.6,
                   "fontFamily": "Archivo",
                   "fontSize": 17,
@@ -22722,14 +22363,33 @@
                           "alignItems": "end",
                           "children": [
                             {
-                              "type": "text",
-                              "id": "Q0M7pC",
-                              "name": "Price",
-                              "fill": "#B5AE9C",
-                              "content": "$3,000",
-                              "fontFamily": "Fraunces",
-                              "fontSize": 28,
-                              "fontWeight": "normal"
+                              "type": "frame",
+                              "id": "A7GXH",
+                              "name": "Price Struck",
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "Q0M7pC",
+                                  "name": "Price",
+                                  "fill": "#B5AE9C",
+                                  "content": "$3,000",
+                                  "fontFamily": "Fraunces",
+                                  "fontSize": 28,
+                                  "fontWeight": "normal"
+                                },
+                                {
+                                  "type": "rectangle",
+                                  "id": "TPNE7",
+                                  "layoutPosition": "absolute",
+                                  "x": -2,
+                                  "y": 19,
+                                  "name": "Strike",
+                                  "fill": "#B5AE9C",
+                                  "width": 98,
+                                  "height": 1.5
+                                }
+                              ]
                             },
                             {
                               "type": "text",
@@ -22868,21 +22528,11 @@
                   "alignItems": "center",
                   "children": [
                     {
-                      "type": "icon",
-                      "id": "HgaSH",
-                      "name": "Icon",
-                      "width": 19,
-                      "height": 19,
-                      "icon": "infinity",
-                      "library": "lucide",
-                      "fill": "#8A8575"
-                    },
-                    {
                       "type": "text",
                       "id": "KpzbT",
                       "name": "Text",
                       "fill": "#8A8575",
-                      "content": "No cap — reservations past #100 join our second production run.",
+                      "content": "*Reservations past #100 join our second production run.",
                       "fontFamily": "Archivo",
                       "fontSize": 17,
                       "fontWeight": "normal"
@@ -23823,6 +23473,8 @@
                               "id": "D6Jow",
                               "name": "Num",
                               "fill": "#C2734A",
+                              "textGrowth": "fixed-width",
+                              "width": 24,
                               "content": "01",
                               "fontFamily": "Fraunces",
                               "fontSize": 18,
@@ -23841,7 +23493,7 @@
                                   "id": "yumNM",
                                   "name": "Title",
                                   "fill": "#2B2A22",
-                                  "content": "Reserve today — $100 down",
+                                  "content": "Reserve today",
                                   "fontFamily": "Fraunces",
                                   "fontSize": 21,
                                   "fontWeight": "normal"
@@ -23853,7 +23505,7 @@
                                   "fill": "#6B675A",
                                   "textGrowth": "fixed-width",
                                   "width": "fill_container",
-                                  "content": "Lock in your tier price and stove number with a $100 deposit.",
+                                  "content": "Lock in your tier price and stove number with a fully refundable $100 deposit. Change your mind? Get your money back anytime with a single click — no forms, no questions.",
                                   "lineHeight": 1.5,
                                   "fontFamily": "Archivo",
                                   "fontSize": 15,
@@ -23883,6 +23535,8 @@
                               "id": "gUNql",
                               "name": "Num",
                               "fill": "#C2734A",
+                              "textGrowth": "fixed-width",
+                              "width": 24,
                               "content": "02",
                               "fontFamily": "Fraunces",
                               "fontSize": 18,
@@ -23913,7 +23567,7 @@
                                   "fill": "#6B675A",
                                   "textGrowth": "fixed-width",
                                   "width": "fill_container",
-                                  "content": "Our goal is 100 stoves. Reservations stay open past 100 — those join the second run.",
+                                  "content": "Every reservation counts toward our 100-stove goal. Prices step up as each tier fills, so reserving early locks in the lowest price.",
                                   "lineHeight": 1.5,
                                   "fontFamily": "Archivo",
                                   "fontSize": 15,
@@ -23943,6 +23597,8 @@
                               "id": "qNzt6",
                               "name": "Num",
                               "fill": "#C2734A",
+                              "textGrowth": "fixed-width",
+                              "width": 24,
                               "content": "03",
                               "fontFamily": "Fraunces",
                               "fontSize": 18,
@@ -23961,7 +23617,7 @@
                                   "id": "ZuLEI",
                                   "name": "Title",
                                   "fill": "#2B2A22",
-                                  "content": "At production — balance charged",
+                                  "content": "Production Begins",
                                   "fontFamily": "Fraunces",
                                   "fontSize": 21,
                                   "fontWeight": "normal"
@@ -23973,7 +23629,7 @@
                                   "fill": "#6B675A",
                                   "textGrowth": "fixed-width",
                                   "width": "fill_container",
-                                  "content": "When your run goes into production, we charge the remaining cost and keep you posted until it ships.",
+                                  "content": "We’ll send you a build update every week until production. Your remaining balance isn’t charged until your stove hits the production line.",
                                   "lineHeight": 1.5,
                                   "fontFamily": "Archivo",
                                   "fontSize": 15,
@@ -24251,7 +23907,7 @@
                               "id": "g5srKK",
                               "name": "Title",
                               "fill": "#F6F1E7",
-                              "content": "Real stones, real steam",
+                              "content": "Set it once, stay as long as you like",
                               "fontFamily": "Fraunces",
                               "fontSize": 28,
                               "fontWeight": "normal"
@@ -24263,7 +23919,7 @@
                               "fill": "#D9CFB4",
                               "textGrowth": "fixed-width",
                               "width": "fill_container",
-                              "content": "A steel firebox crowned with a generous basket of sauna stones delivers the soft, rolling löyly only real fire can make — throw water and feel it roll.",
+                              "content": "The P1 feeds and burns pellets on its own, holding the hot room at exactly the temperature you choose — for a quick sweat or an all-evening session. No stoking, no checking, no cooling off halfway through.",
                               "lineHeight": 1.6,
                               "fontFamily": "Archivo",
                               "fontSize": 15,
@@ -24360,6 +24016,8 @@
                           "id": "eTD8G",
                           "name": "Num",
                           "fill": "#C2734A",
+                          "textGrowth": "fixed-width",
+                          "width": 24,
                           "content": "01",
                           "fontFamily": "Fraunces",
                           "fontSize": 18,
@@ -24420,6 +24078,8 @@
                           "id": "N2Lgw0",
                           "name": "Num",
                           "fill": "#C2734A",
+                          "textGrowth": "fixed-width",
+                          "width": 24,
                           "content": "02",
                           "fontFamily": "Fraunces",
                           "fontSize": 18,
@@ -24438,7 +24098,7 @@
                               "id": "hCyY0",
                               "name": "Title",
                               "fill": "#2B2A22",
-                              "content": "Start it from your phone",
+                              "content": "Set your temp and start it",
                               "fontFamily": "Fraunces",
                               "fontSize": 21,
                               "fontWeight": "normal"
@@ -24450,67 +24110,7 @@
                               "fill": "#6B675A",
                               "textGrowth": "fixed-width",
                               "width": "fill_container",
-                              "content": "Tap start in the app, or press the button on the stove. The P1 lights and feeds itself.",
-                              "lineHeight": 1.55,
-                              "fontFamily": "Archivo",
-                              "fontSize": 15,
-                              "fontWeight": "normal"
-                            }
-                          ]
-                        }
-                      ]
-                    },
-                    {
-                      "type": "frame",
-                      "id": "V9sUO",
-                      "name": "Step 03",
-                      "width": "fill_container",
-                      "stroke": "#2B2A2226",
-                      "strokeWidth": {
-                        "top": 1
-                      },
-                      "gap": 28,
-                      "padding": [
-                        22,
-                        0
-                      ],
-                      "children": [
-                        {
-                          "type": "text",
-                          "id": "CjyKb",
-                          "name": "Num",
-                          "fill": "#C2734A",
-                          "content": "03",
-                          "fontFamily": "Fraunces",
-                          "fontSize": 18,
-                          "fontWeight": "300"
-                        },
-                        {
-                          "type": "frame",
-                          "id": "sXUfW",
-                          "name": "Text",
-                          "width": "fill_container",
-                          "layout": "vertical",
-                          "gap": 6,
-                          "children": [
-                            {
-                              "type": "text",
-                              "id": "P18p2",
-                              "name": "Title",
-                              "fill": "#2B2A22",
-                              "content": "Set your temperature",
-                              "fontFamily": "Fraunces",
-                              "fontSize": 21,
-                              "fontWeight": "normal"
-                            },
-                            {
-                              "type": "text",
-                              "id": "dyshX",
-                              "name": "Body",
-                              "fill": "#6B675A",
-                              "textGrowth": "fixed-width",
-                              "width": "fill_container",
-                              "content": "Electronic controls meter the pellet feed to hold your heat steady — no stoking, no guessing.",
+                              "content": "Pick your temperature and tap start in the app, or press the button on the stove. The P1 lights itself and meters the pellet feed to hold your heat steady — no stoking, no guessing.",
                               "lineHeight": 1.55,
                               "fontFamily": "Archivo",
                               "fontSize": 15,
@@ -24540,7 +24140,9 @@
                           "id": "y9Syh",
                           "name": "Num",
                           "fill": "#C2734A",
-                          "content": "04",
+                          "textGrowth": "fixed-width",
+                          "width": 24,
+                          "content": "03",
                           "fontFamily": "Fraunces",
                           "fontSize": 18,
                           "fontWeight": "300"
@@ -24598,54 +24200,15 @@
               },
               "layout": "vertical",
               "padding": 24,
-              "justifyContent": "end",
-              "children": [
-                {
-                  "type": "frame",
-                  "id": "LgYcO",
-                  "name": "Caption",
-                  "fill": "#F6F1E7",
-                  "cornerRadius": 2,
-                  "layout": "vertical",
-                  "gap": 4,
-                  "padding": [
-                    14,
-                    18
-                  ],
-                  "children": [
-                    {
-                      "type": "text",
-                      "id": "Y1lJp",
-                      "name": "Cap Eyebrow",
-                      "fill": "#8A8575",
-                      "content": "AS SHOWN",
-                      "fontFamily": "Archivo",
-                      "fontSize": 10,
-                      "fontWeight": "600",
-                      "letterSpacing": 2
-                    },
-                    {
-                      "type": "text",
-                      "id": "IjfZn",
-                      "name": "Cap Text",
-                      "fill": "#2B2A22",
-                      "content": "P1 installed through a cedar sauna wall",
-                      "fontFamily": "Fraunces",
-                      "fontSize": 16,
-                      "fontWeight": "normal"
-                    }
-                  ]
-                }
-              ]
+              "justifyContent": "end"
             }
           ]
         },
         {
           "type": "frame",
-          "id": "OjPJC",
-          "name": "Specs",
+          "id": "MP8FZ",
+          "name": "Product",
           "width": "fill_container",
-          "fill": "#ECE4D4",
           "gap": 80,
           "padding": [
             120,
@@ -24655,7 +24218,7 @@
           "children": [
             {
               "type": "frame",
-              "id": "TFF1c",
+              "id": "GRQrL",
               "name": "Stove Sketch",
               "width": 640,
               "height": 560,
@@ -24676,7 +24239,7 @@
             },
             {
               "type": "frame",
-              "id": "zhVZL",
+              "id": "e5F4i5",
               "name": "Product Copy",
               "width": "fill_container",
               "layout": "vertical",
@@ -24684,7 +24247,7 @@
               "children": [
                 {
                   "type": "text",
-                  "id": "EJifl",
+                  "id": "LbZkL",
                   "name": "Eyebrow",
                   "fill": "#C2734A",
                   "content": "BUILT TO LAST, DESIGNED TO PERFORM",
@@ -24695,7 +24258,7 @@
                 },
                 {
                   "type": "text",
-                  "id": "AYmYc",
+                  "id": "p6hxQ",
                   "name": "Title",
                   "fill": "#2B2A22",
                   "content": "Technical\nSpecifications",
@@ -24706,7 +24269,7 @@
                 },
                 {
                   "type": "frame",
-                  "id": "L03uP",
+                  "id": "Rr4Rs",
                   "name": "Specs",
                   "width": "fill_container",
                   "layout": "vertical",
@@ -24719,7 +24282,7 @@
                   "children": [
                     {
                       "type": "frame",
-                      "id": "WzGmC",
+                      "id": "SPKQH",
                       "name": "Heating Capacity",
                       "width": "fill_container",
                       "stroke": "#2B2A2226",
@@ -24734,7 +24297,7 @@
                       "children": [
                         {
                           "type": "text",
-                          "id": "KbrbV",
+                          "id": "FPyVH",
                           "name": "K",
                           "fill": "#6B675A",
                           "content": "Heating Capacity",
@@ -24744,7 +24307,7 @@
                         },
                         {
                           "type": "text",
-                          "id": "f5m4Zu",
+                          "id": "O2UjH",
                           "name": "V",
                           "fill": "#2B2A22",
                           "content": "300–500 ft³ sauna",
@@ -24757,7 +24320,7 @@
                     },
                     {
                       "type": "frame",
-                      "id": "kRBhP",
+                      "id": "JIim7",
                       "name": "Fuel Type",
                       "width": "fill_container",
                       "stroke": "#2B2A2226",
@@ -24772,7 +24335,7 @@
                       "children": [
                         {
                           "type": "text",
-                          "id": "kpabG",
+                          "id": "xguq1",
                           "name": "K",
                           "fill": "#6B675A",
                           "content": "Fuel Type",
@@ -24782,7 +24345,7 @@
                         },
                         {
                           "type": "text",
-                          "id": "lEe6r",
+                          "id": "n0DEoo",
                           "name": "V",
                           "fill": "#2B2A22",
                           "content": "Wood Pellets",
@@ -24795,7 +24358,7 @@
                     },
                     {
                       "type": "frame",
-                      "id": "K1dLC",
+                      "id": "pCgne",
                       "name": "Power Requirement",
                       "width": "fill_container",
                       "stroke": "#2B2A2226",
@@ -24810,7 +24373,7 @@
                       "children": [
                         {
                           "type": "text",
-                          "id": "Xctnn",
+                          "id": "zbNYu",
                           "name": "K",
                           "fill": "#6B675A",
                           "content": "Power Requirement",
@@ -24820,7 +24383,7 @@
                         },
                         {
                           "type": "text",
-                          "id": "VA9OB",
+                          "id": "sYahX",
                           "name": "V",
                           "fill": "#2B2A22",
                           "content": "Standard 110V Outlet",
@@ -24833,7 +24396,7 @@
                     },
                     {
                       "type": "frame",
-                      "id": "hTlE1",
+                      "id": "gtZAV",
                       "name": "Material",
                       "width": "fill_container",
                       "stroke": "#2B2A2226",
@@ -24848,7 +24411,7 @@
                       "children": [
                         {
                           "type": "text",
-                          "id": "kaF9c",
+                          "id": "Zb4Yk",
                           "name": "K",
                           "fill": "#6B675A",
                           "content": "Material",
@@ -24858,7 +24421,7 @@
                         },
                         {
                           "type": "text",
-                          "id": "tveA5",
+                          "id": "N53RF",
                           "name": "V",
                           "fill": "#2B2A22",
                           "content": "Steel",
@@ -24871,7 +24434,7 @@
                     },
                     {
                       "type": "frame",
-                      "id": "IKzfY",
+                      "id": "RsY0G",
                       "name": "Weight",
                       "width": "fill_container",
                       "stroke": "#2B2A2226",
@@ -24886,7 +24449,7 @@
                       "children": [
                         {
                           "type": "text",
-                          "id": "f6vSLe",
+                          "id": "vRHMP",
                           "name": "K",
                           "fill": "#6B675A",
                           "content": "Weight",
@@ -24896,7 +24459,7 @@
                         },
                         {
                           "type": "text",
-                          "id": "YCIuV",
+                          "id": "ESs6T",
                           "name": "V",
                           "fill": "#2B2A22",
                           "content": "110 lbs",
@@ -24909,7 +24472,7 @@
                     },
                     {
                       "type": "frame",
-                      "id": "mj4EL",
+                      "id": "wloRX",
                       "name": "Warranty",
                       "width": "fill_container",
                       "stroke": "#2B2A2226",
@@ -24924,7 +24487,7 @@
                       "children": [
                         {
                           "type": "text",
-                          "id": "DnzI9",
+                          "id": "O9tyyl",
                           "name": "K",
                           "fill": "#6B675A",
                           "content": "Warranty",
@@ -24934,7 +24497,7 @@
                         },
                         {
                           "type": "text",
-                          "id": "Bfk6Q",
+                          "id": "bdjXl",
                           "name": "V",
                           "fill": "#2B2A22",
                           "content": "5 Years (electrical components)\nLifetime (steel body)",
@@ -24947,7 +24510,7 @@
                     },
                     {
                       "type": "frame",
-                      "id": "v0h6F",
+                      "id": "nlLMH",
                       "name": "Certification",
                       "width": "fill_container",
                       "stroke": "#2B2A2226",
@@ -24962,7 +24525,7 @@
                       "children": [
                         {
                           "type": "text",
-                          "id": "VkVgp",
+                          "id": "M3x06j",
                           "name": "K",
                           "fill": "#6B675A",
                           "content": "Certification",
@@ -24972,7 +24535,7 @@
                         },
                         {
                           "type": "text",
-                          "id": "LGcUd",
+                          "id": "SFQK1",
                           "name": "V",
                           "fill": "#2B2A22",
                           "content": "CE Certified",
@@ -24980,515 +24543,6 @@
                           "fontFamily": "Archivo",
                           "fontSize": 15,
                           "fontWeight": "500"
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "frame",
-          "id": "YI9Ai",
-          "name": "FAQ",
-          "width": "fill_container",
-          "gap": 96,
-          "padding": [
-            120,
-            96
-          ],
-          "children": [
-            {
-              "type": "frame",
-              "id": "r2InzT",
-              "name": "FAQ Head",
-              "width": 380,
-              "layout": "vertical",
-              "gap": 24,
-              "children": [
-                {
-                  "type": "text",
-                  "id": "FstXS",
-                  "name": "Title",
-                  "fill": "#2B2A22",
-                  "content": "Frequently Asked\nQuestions",
-                  "lineHeight": 1.1,
-                  "fontFamily": "Fraunces",
-                  "fontSize": 44,
-                  "fontWeight": "300"
-                },
-                {
-                  "type": "text",
-                  "id": "xdj6S",
-                  "name": "Body",
-                  "fill": "#6B675A",
-                  "textGrowth": "fixed-width",
-                  "width": "fill_container",
-                  "content": "Everything you need to know about pellet sauna stoves",
-                  "lineHeight": 1.6,
-                  "fontFamily": "Archivo",
-                  "fontSize": 16,
-                  "fontWeight": "normal"
-                },
-                {
-                  "type": "frame",
-                  "id": "n4EpL",
-                  "name": "Ask Btn",
-                  "stroke": "#2B2A22",
-                  "strokeWidth": 1,
-                  "padding": [
-                    14,
-                    22
-                  ],
-                  "children": [
-                    {
-                      "type": "text",
-                      "id": "giwOH",
-                      "name": "GET IN TOUCH",
-                      "fill": "#2B2A22",
-                      "content": "GET IN TOUCH",
-                      "fontFamily": "Archivo",
-                      "fontSize": 11,
-                      "fontWeight": "600",
-                      "letterSpacing": 2
-                    }
-                  ]
-                },
-                {
-                  "type": "frame",
-                  "id": "P43Yv",
-                  "name": "Sauna Arch",
-                  "width": 376,
-                  "height": 404,
-                  "layout": "none",
-                  "children": [
-                    {
-                      "type": "frame",
-                      "id": "KwENn",
-                      "x": 0,
-                      "y": 0,
-                      "name": "Arch Photo",
-                      "rotation": 2,
-                      "width": 340,
-                      "height": 380,
-                      "fill": {
-                        "type": "image",
-                        "enabled": true,
-                        "url": "pelletsaunaco-assets/sauna-arch-wide.jpg",
-                        "mode": "cover"
-                      },
-                      "cornerRadius": [
-                        170,
-                        170,
-                        14,
-                        14
-                      ],
-                      "stroke": "#F6F1E7",
-                      "strokeWidth": 6,
-                      "strokeAlignment": "outer",
-                      "effect": {
-                        "type": "shadow",
-                        "shadowType": "outer",
-                        "color": "#2B2A2226",
-                        "offset": {
-                          "x": 0,
-                          "y": 8
-                        },
-                        "blur": 24
-                      }
-                    },
-                    {
-                      "type": "frame",
-                      "id": "c5LrTC",
-                      "x": 296,
-                      "y": 316,
-                      "name": "Flame Badge",
-                      "width": 72,
-                      "height": 72,
-                      "fill": "#C2734A",
-                      "cornerRadius": 36,
-                      "stroke": "#F6F1E7",
-                      "strokeWidth": 4,
-                      "strokeAlignment": "outer",
-                      "justifyContent": "center",
-                      "alignItems": "center",
-                      "children": [
-                        {
-                          "type": "icon",
-                          "id": "x2CQ8q",
-                          "name": "Flame",
-                          "width": 30,
-                          "height": 30,
-                          "icon": "flame",
-                          "library": "lucide",
-                          "fill": "#FFFCF6"
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "type": "frame",
-              "id": "qaM9B",
-              "name": "FAQ List",
-              "width": "fill_container",
-              "layout": "vertical",
-              "children": [
-                {
-                  "type": "frame",
-                  "id": "R8Q9C",
-                  "name": "Q What is a pellet sauna stove?",
-                  "width": "fill_container",
-                  "stroke": "#2B2A2226",
-                  "strokeWidth": {
-                    "top": 1
-                  },
-                  "layout": "vertical",
-                  "gap": 12,
-                  "padding": [
-                    22,
-                    0
-                  ],
-                  "children": [
-                    {
-                      "type": "frame",
-                      "id": "BDRnH",
-                      "name": "Row",
-                      "width": "fill_container",
-                      "gap": 24,
-                      "justifyContent": "space_between",
-                      "alignItems": "center",
-                      "children": [
-                        {
-                          "type": "text",
-                          "id": "F68kG",
-                          "name": "Question",
-                          "fill": "#2B2A22",
-                          "content": "What is a pellet sauna stove?",
-                          "fontFamily": "Fraunces",
-                          "fontSize": 21,
-                          "fontWeight": "normal"
-                        },
-                        {
-                          "type": "icon",
-                          "id": "Qp2Z7",
-                          "name": "Toggle",
-                          "width": 20,
-                          "height": 20,
-                          "icon": "minus",
-                          "library": "lucide",
-                          "fill": "#2B2A22"
-                        }
-                      ]
-                    },
-                    {
-                      "type": "text",
-                      "id": "G5Mli",
-                      "name": "Answer",
-                      "fill": "#6B675A",
-                      "textGrowth": "fixed-width",
-                      "width": 680,
-                      "content": "A pellet sauna stove is an innovative sauna heater that uses compressed wood pellets as fuel instead of traditional firewood or electricity. The P1 pellet sauna stove combines the authentic wood-fired sauna experience with modern convenience, offering precise temperature control and easy operation.",
-                      "lineHeight": 1.6,
-                      "fontFamily": "Archivo",
-                      "fontSize": 16,
-                      "fontWeight": "normal"
-                    }
-                  ]
-                },
-                {
-                  "type": "frame",
-                  "id": "o0huG",
-                  "name": "Q How long does it take to heat a sauna with a pellet stove?",
-                  "width": "fill_container",
-                  "stroke": "#2B2A2226",
-                  "strokeWidth": {
-                    "top": 1
-                  },
-                  "layout": "vertical",
-                  "gap": 12,
-                  "padding": [
-                    22,
-                    0
-                  ],
-                  "children": [
-                    {
-                      "type": "frame",
-                      "id": "JT1Zw",
-                      "name": "Row",
-                      "width": "fill_container",
-                      "gap": 24,
-                      "justifyContent": "space_between",
-                      "alignItems": "center",
-                      "children": [
-                        {
-                          "type": "text",
-                          "id": "sE45A",
-                          "name": "Question",
-                          "fill": "#2B2A22",
-                          "content": "How long does it take to heat a sauna with a pellet stove?",
-                          "fontFamily": "Fraunces",
-                          "fontSize": 21,
-                          "fontWeight": "normal"
-                        },
-                        {
-                          "type": "icon",
-                          "id": "QXDnS",
-                          "name": "Toggle",
-                          "width": 20,
-                          "height": 20,
-                          "icon": "plus",
-                          "library": "lucide",
-                          "fill": "#2B2A22"
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "type": "frame",
-                  "id": "bPcwS",
-                  "name": "Q What size sauna can the P1 pellet stove heat?",
-                  "width": "fill_container",
-                  "stroke": "#2B2A2226",
-                  "strokeWidth": {
-                    "top": 1
-                  },
-                  "layout": "vertical",
-                  "gap": 12,
-                  "padding": [
-                    22,
-                    0
-                  ],
-                  "children": [
-                    {
-                      "type": "frame",
-                      "id": "r9uIt",
-                      "name": "Row",
-                      "width": "fill_container",
-                      "gap": 24,
-                      "justifyContent": "space_between",
-                      "alignItems": "center",
-                      "children": [
-                        {
-                          "type": "text",
-                          "id": "n15hg",
-                          "name": "Question",
-                          "fill": "#2B2A22",
-                          "content": "What size sauna can the P1 pellet stove heat?",
-                          "fontFamily": "Fraunces",
-                          "fontSize": 21,
-                          "fontWeight": "normal"
-                        },
-                        {
-                          "type": "icon",
-                          "id": "lJRtg",
-                          "name": "Toggle",
-                          "width": 20,
-                          "height": 20,
-                          "icon": "plus",
-                          "library": "lucide",
-                          "fill": "#2B2A22"
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "type": "frame",
-                  "id": "UVx3F",
-                  "name": "Q Does a pellet sauna stove need an electrician?",
-                  "width": "fill_container",
-                  "stroke": "#2B2A2226",
-                  "strokeWidth": {
-                    "top": 1
-                  },
-                  "layout": "vertical",
-                  "gap": 12,
-                  "padding": [
-                    22,
-                    0
-                  ],
-                  "children": [
-                    {
-                      "type": "frame",
-                      "id": "YCESU",
-                      "name": "Row",
-                      "width": "fill_container",
-                      "gap": 24,
-                      "justifyContent": "space_between",
-                      "alignItems": "center",
-                      "children": [
-                        {
-                          "type": "text",
-                          "id": "qmSVd",
-                          "name": "Question",
-                          "fill": "#2B2A22",
-                          "content": "Does a pellet sauna stove need an electrician?",
-                          "fontFamily": "Fraunces",
-                          "fontSize": 21,
-                          "fontWeight": "normal"
-                        },
-                        {
-                          "type": "icon",
-                          "id": "UgjsL",
-                          "name": "Toggle",
-                          "width": 20,
-                          "height": 20,
-                          "icon": "plus",
-                          "library": "lucide",
-                          "fill": "#2B2A22"
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "type": "frame",
-                  "id": "OMow6",
-                  "name": "Q Can a pellet sauna stove be used in an outdoor sauna?",
-                  "width": "fill_container",
-                  "stroke": "#2B2A2226",
-                  "strokeWidth": {
-                    "top": 1
-                  },
-                  "layout": "vertical",
-                  "gap": 12,
-                  "padding": [
-                    22,
-                    0
-                  ],
-                  "children": [
-                    {
-                      "type": "frame",
-                      "id": "PYwu2",
-                      "name": "Row",
-                      "width": "fill_container",
-                      "gap": 24,
-                      "justifyContent": "space_between",
-                      "alignItems": "center",
-                      "children": [
-                        {
-                          "type": "text",
-                          "id": "o3ppr",
-                          "name": "Question",
-                          "fill": "#2B2A22",
-                          "content": "Can a pellet sauna stove be used in an outdoor sauna?",
-                          "fontFamily": "Fraunces",
-                          "fontSize": 21,
-                          "fontWeight": "normal"
-                        },
-                        {
-                          "type": "icon",
-                          "id": "MyEp8",
-                          "name": "Toggle",
-                          "width": 20,
-                          "height": 20,
-                          "icon": "plus",
-                          "library": "lucide",
-                          "fill": "#2B2A22"
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "type": "frame",
-                  "id": "avlL4",
-                  "name": "Q How many wood pellets does one sauna session use?",
-                  "width": "fill_container",
-                  "stroke": "#2B2A2226",
-                  "strokeWidth": {
-                    "top": 1
-                  },
-                  "layout": "vertical",
-                  "gap": 12,
-                  "padding": [
-                    22,
-                    0
-                  ],
-                  "children": [
-                    {
-                      "type": "frame",
-                      "id": "VehXM",
-                      "name": "Row",
-                      "width": "fill_container",
-                      "gap": 24,
-                      "justifyContent": "space_between",
-                      "alignItems": "center",
-                      "children": [
-                        {
-                          "type": "text",
-                          "id": "jp0Gg",
-                          "name": "Question",
-                          "fill": "#2B2A22",
-                          "content": "How many wood pellets does one sauna session use?",
-                          "fontFamily": "Fraunces",
-                          "fontSize": 21,
-                          "fontWeight": "normal"
-                        },
-                        {
-                          "type": "icon",
-                          "id": "lBkBY",
-                          "name": "Toggle",
-                          "width": 20,
-                          "height": 20,
-                          "icon": "plus",
-                          "library": "lucide",
-                          "fill": "#2B2A22"
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "type": "frame",
-                  "id": "Wd2rU",
-                  "name": "Q What maintenance does a pellet sauna stove need?",
-                  "width": "fill_container",
-                  "stroke": "#2B2A2226",
-                  "strokeWidth": {
-                    "top": 1
-                  },
-                  "layout": "vertical",
-                  "gap": 12,
-                  "padding": [
-                    22,
-                    0
-                  ],
-                  "children": [
-                    {
-                      "type": "frame",
-                      "id": "BiWIi",
-                      "name": "Row",
-                      "width": "fill_container",
-                      "gap": 24,
-                      "justifyContent": "space_between",
-                      "alignItems": "center",
-                      "children": [
-                        {
-                          "type": "text",
-                          "id": "z8Lai",
-                          "name": "Question",
-                          "fill": "#2B2A22",
-                          "content": "What maintenance does a pellet sauna stove need?",
-                          "fontFamily": "Fraunces",
-                          "fontSize": 21,
-                          "fontWeight": "normal"
-                        },
-                        {
-                          "type": "icon",
-                          "id": "a6Vie0",
-                          "name": "Toggle",
-                          "width": 20,
-                          "height": 20,
-                          "icon": "plus",
-                          "library": "lucide",
-                          "fill": "#2B2A22"
                         }
                       ]
                     }

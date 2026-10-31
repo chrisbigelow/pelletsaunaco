@@ -414,6 +414,12 @@ const specs = [
     padding-top: 65px;
   }
 
+  @media (min-width: 1025px) {
+    .pdp {
+      --section-y: 96px;
+    }
+  }
+
   h1,
   h2,
   h3 {
@@ -475,9 +481,9 @@ const specs = [
   /* Product hero */
   .product-hero {
     display: grid;
-    grid-template-columns: minmax(0, 704px) minmax(420px, 1fr);
-    gap: 72px;
-    padding: 32px var(--gutter) var(--section-y);
+    grid-template-columns: minmax(0, 600px) minmax(420px, 520px);
+    gap: 80px;
+    padding: 28px var(--gutter) var(--section-y);
   }
 
   .gallery {
@@ -493,7 +499,7 @@ const specs = [
   }
 
   .gallery-thumb {
-    width: 88px;
+    width: 72px;
     aspect-ratio: 88 / 112;
     padding: 0;
     border: 1px solid rgba(43, 42, 34, 0.15);
@@ -529,6 +535,7 @@ const specs = [
     display: block;
     width: 100%;
     height: auto;
+    max-height: max(480px, calc(100vh - 210px));
     aspect-ratio: 600 / 760;
     object-fit: cover;
     background: var(--linen);
@@ -580,8 +587,8 @@ const specs = [
   .buy-box {
     display: flex;
     flex-direction: column;
-    gap: 28px;
-    padding-top: 24px;
+    gap: 24px;
+    padding-top: 16px;
   }
 
   .buy-head {
@@ -592,13 +599,13 @@ const specs = [
 
   .buy-head h1 {
     font-family: var(--serif);
-    font-size: clamp(2.75rem, 4.5vw, 3.5rem);
+    font-size: clamp(2.5rem, 3.6vw, 3rem);
     line-height: 1.04;
     color: var(--ink);
   }
 
   .buy-description {
-    font-size: 16px;
+    font-size: 15px;
     line-height: 1.6;
     color: var(--muted);
   }
@@ -614,7 +621,7 @@ const specs = [
     display: flex;
     flex-direction: column-reverse;
     gap: 6px;
-    padding: 20px 16px;
+    padding: 16px;
   }
 
   .quick-stats div:first-child {
@@ -627,7 +634,7 @@ const specs = [
 
   .quick-stats dd {
     font-family: var(--serif);
-    font-size: 24px;
+    font-size: 21px;
     color: var(--ink);
     white-space: nowrap;
   }
@@ -650,7 +657,7 @@ const specs = [
 
   .buy-price-value {
     font-family: var(--serif);
-    font-size: 32px;
+    font-size: 28px;
     font-weight: 300;
     color: var(--ink);
   }
@@ -701,7 +708,7 @@ const specs = [
 
   .buy-actions .btn {
     justify-content: center;
-    padding: 20px 24px;
+    padding: 17px 24px;
   }
 
   .assurances {
@@ -710,7 +717,7 @@ const specs = [
     flex-direction: column;
     gap: 14px;
     padding-top: 4px;
-    font-size: 15px;
+    font-size: 14px;
     color: var(--ink);
   }
 
@@ -731,7 +738,7 @@ const specs = [
     padding: var(--section-y) var(--gutter);
     display: flex;
     flex-direction: column;
-    gap: 56px;
+    gap: 48px;
   }
 
   .campaign-head,
@@ -751,7 +758,7 @@ const specs = [
   .campaign-head h2,
   .sides-head h2 {
     font-family: var(--serif);
-    font-size: clamp(2.5rem, 5vw, 3.75rem);
+    font-size: clamp(2.25rem, 4vw, 3rem);
     line-height: 1.05;
     color: var(--ink);
   }
@@ -759,7 +766,7 @@ const specs = [
   .campaign-head > p,
   .sides-head > p {
     max-width: 440px;
-    font-size: 17px;
+    font-size: 16px;
     line-height: 1.6;
     color: var(--muted);
   }
@@ -767,8 +774,8 @@ const specs = [
   .progress-panel {
     display: flex;
     flex-direction: column;
-    gap: 36px;
-    padding: 44px 48px 40px;
+    gap: 28px;
+    padding: 36px 40px 32px;
     border-radius: 16px;
     background: var(--char);
     color: var(--cream);
@@ -792,12 +799,12 @@ const specs = [
   }
 
   .progress-value {
-    font-size: 104px;
+    font-size: 80px;
     line-height: 0.9;
   }
 
   .progress-of {
-    font-size: 30px;
+    font-size: 24px;
     color: var(--stone);
   }
 
@@ -808,7 +815,7 @@ const specs = [
     padding: 12px 20px;
     border-radius: 999px;
     background: rgba(246, 241, 231, 0.08);
-    font-size: 17px;
+    font-size: 15px;
     font-weight: 500;
   }
 
@@ -855,12 +862,12 @@ const specs = [
 
   .tier-price {
     font-family: var(--serif);
-    font-size: 28px;
+    font-size: 24px;
     color: var(--stone);
   }
 
   .tier-status {
-    font-size: 17px;
+    font-size: 15px;
     color: #8a8575;
   }
 
@@ -874,7 +881,7 @@ const specs = [
   }
 
   .no-cap {
-    font-size: 17px;
+    font-size: 15px;
     color: #8a8575;
   }
 
@@ -888,8 +895,8 @@ const specs = [
   .tier-card {
     display: flex;
     flex-direction: column;
-    gap: 24px;
-    padding: 32px;
+    gap: 20px;
+    padding: 28px;
     border-radius: 2px;
     border: 1px solid rgba(43, 42, 34, 0.1);
     background: var(--cream);
@@ -938,7 +945,7 @@ const specs = [
 
   .tier-card-price {
     font-family: var(--serif);
-    font-size: 56px;
+    font-size: 44px;
     font-weight: 300;
     color: var(--ink);
   }
@@ -988,8 +995,8 @@ const specs = [
   .campaign-details {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 96px;
-    padding-top: 24px;
+    gap: 80px;
+    padding-top: 16px;
   }
 
   .campaign-details > div {
@@ -1013,7 +1020,7 @@ const specs = [
   .detail-list h3,
   .ritual-steps h3 {
     font-family: var(--serif);
-    font-size: 21px;
+    font-size: 19px;
     font-weight: 400;
     color: var(--ink);
   }
@@ -1021,15 +1028,15 @@ const specs = [
   .detail-list p,
   .ritual-steps p {
     margin-top: 4px;
-    font-size: 15px;
+    font-size: 14px;
     line-height: 1.5;
     color: var(--muted);
   }
 
   .perk-icon {
     flex-shrink: 0;
-    width: 44px;
-    height: 44px;
+    width: 40px;
+    height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1048,7 +1055,7 @@ const specs = [
     padding: var(--section-y) var(--gutter);
     display: flex;
     flex-direction: column;
-    gap: 72px;
+    gap: 56px;
   }
 
   .sides .eyebrow {
@@ -1076,7 +1083,7 @@ const specs = [
   }
 
   .side + .side {
-    padding-top: 120px;
+    padding-top: 96px;
   }
 
   .side-photo {
@@ -1116,7 +1123,7 @@ const specs = [
 
   .side-copy h3 {
     font-family: var(--serif);
-    font-size: 28px;
+    font-size: 24px;
     font-weight: 400;
     color: var(--cream);
   }
@@ -1131,7 +1138,7 @@ const specs = [
   /* Ritual */
   .ritual {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 560px);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 480px);
     align-items: center;
     gap: 96px;
     padding: var(--section-y) var(--gutter);
@@ -1144,7 +1151,7 @@ const specs = [
   }
 
   .ritual-copy .section-title {
-    font-size: clamp(2.25rem, 3.6vw, 2.75rem);
+    font-size: clamp(2.25rem, 3.2vw, 2.5rem);
     line-height: 1.1;
   }
 
@@ -1154,8 +1161,8 @@ const specs = [
   }
 
   .ritual-steps li {
-    gap: 28px;
-    padding: 22px 0;
+    gap: 24px;
+    padding: 18px 0;
   }
 
   .ritual-image {
@@ -1205,7 +1212,7 @@ const specs = [
 
   .specs-image {
     flex: 0 0 auto;
-    width: min(640px, 50%);
+    width: min(560px, 46%);
     aspect-ratio: 640 / 560;
     height: auto;
     object-fit: cover;
@@ -1248,7 +1255,7 @@ const specs = [
     justify-content: space-between;
     align-items: flex-end;
     gap: 48px;
-    padding: 96px var(--gutter);
+    padding: 80px var(--gutter);
   }
 
   .faq-link > div {
@@ -1259,7 +1266,7 @@ const specs = [
   }
 
   .faq-link p:not(.eyebrow) {
-    font-size: 17px;
+    font-size: 16px;
     line-height: 1.6;
     color: var(--muted);
   }
@@ -1271,7 +1278,7 @@ const specs = [
   /* Final CTA */
   .final-cta {
     position: relative;
-    min-height: 640px;
+    min-height: 540px;
     display: flex;
     align-items: center;
     padding: 96px var(--gutter);
@@ -1310,12 +1317,12 @@ const specs = [
 
   .final-cta h2 {
     font-family: var(--serif);
-    font-size: clamp(3rem, 6vw, 4.5rem);
+    font-size: clamp(2.75rem, 5vw, 3.75rem);
     color: var(--cream);
   }
 
   .final-cta-copy > p:not(.eyebrow) {
-    font-size: 17px;
+    font-size: 16px;
     line-height: 1.6;
     color: var(--sand);
   }
@@ -1340,11 +1347,11 @@ const specs = [
     }
 
     .tier-card {
-      padding: 28px;
+      padding: 24px;
     }
 
     .tier-card-price {
-      font-size: 48px;
+      font-size: 40px;
     }
   }
 
