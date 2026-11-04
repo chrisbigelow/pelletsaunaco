@@ -3,40 +3,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Icon from '../components/Icon.astro';
 import SiteNav from '../components/SiteNav.astro';
 import SiteFooter from '../components/SiteFooter.astro';
+import { campaign, tiers, currentTier, deposit, usd, reserveHref } from '../lib/campaign';
 import '../styles/theme.css';
 
-// Pre-order campaign. Update `reserved` as deposits come in, and set `endsAt`
-// (e.g. '2027-01-15') when the 60-day campaign starts to show a live countdown.
-const campaign = {
-  goal: 100,
-  reserved: 0,
-  /** Regular price after the founders' run, shown struck through next to tier prices. */
-  fullPrice: 3995,
-  lengthDays: 60,
-  endsAt: null as string | null,
-  /** When the remaining balance is charged. */
-  productionMonth: 'June',
-};
-
-const tiers = [
-  { name: 'Tier 1', first: 1, last: 20, price: 3000, deposit: 500 },
-  { name: 'Tier 2', first: 21, last: 50, price: 3500, deposit: 200 },
-  { name: 'Tier 3', first: 51, last: 100, price: 3750, deposit: 100 },
-].map((tier) => {
-  const size = tier.last - tier.first + 1;
-  const claimed = Math.min(Math.max(campaign.reserved - (tier.first - 1), 0), size);
-  return { ...tier, size, claimed, left: size - claimed };
-});
-
-const currentTier = tiers.find((tier) => tier.left > 0);
-/** Amount down today: the current tier's deposit, or the last tier's once the founders' run is full. */
-const deposit = (currentTier ?? tiers[tiers.length - 1]).deposit;
 const tierState = (tier: (typeof tiers)[number]) =>
   tier.left === 0 ? 'sold' : tier === currentTier ? 'current' : 'next';
 
-const usd = (n: number) => `$${n.toLocaleString('en-US')}`;
 const stoveNumber = (n: number) => `#${String(n).padStart(3, '0')}`;
-const reserveHref = `/?subject=${encodeURIComponent('P1 pre-order reservation')}#contact`;
 const questionHref = `/?subject=${encodeURIComponent('Question about the P1')}#contact`;
 
 const photos = [
@@ -121,22 +94,6 @@ const specs = [
   lcpImage={photos[0].src}
 >
   <SiteNav solid />
-
-  <!-- Campaign status bar: pinned under the nav -->
-  <aside class="campaign-bar" data-campaign-bar aria-label="Pre-order campaign status">
-    <div class="campaign-bar-inner">
-      <span class="campaign-bar-live"><span class="live-dot" aria-hidden="true"></span>Pre-orders live</span>
-      <div class="campaign-bar-progress">
-        <span class="campaign-bar-count"><strong>{campaign.reserved}</strong> / {campaign.goal} reserved</span>
-        <span class="campaign-bar-track"><span style={`width: ${(campaign.reserved / campaign.goal) * 100}%`}></span></span>
-      </div>
-      {currentTier && (
-        <span class="campaign-bar-tier">{currentTier.name} · {usd(currentTier.price)} · {currentTier.left} left</span>
-      )}
-      <span class="campaign-bar-days" data-days-left={campaign.endsAt ?? undefined}>{campaign.lengthDays}-day campaign</span>
-      <a href={reserveHref} class="campaign-bar-cta">Reserve for {usd(deposit)} <Icon name="arrow-right" size={12} /></a>
-    </div>
-  </aside>
 
   <main class="pdp">
     <nav class="breadcrumb" aria-label="Breadcrumb">
@@ -438,160 +395,12 @@ const specs = [
 
 <style>
   .pdp {
-    padding-top: calc(65px + 48px);
-  }
-
-  .pdp section {
-    scroll-margin-top: calc(64px + 48px);
-  }
-
-  /* Campaign status bar */
-  .campaign-bar {
-    position: fixed;
-    top: 65px;
-    left: 0;
-    right: 0;
-    z-index: 999;
-    background: var(--pine);
-    color: var(--sand-pale);
-  }
-
-  .campaign-bar-inner {
-    display: flex;
-    align-items: center;
-    gap: 28px;
-    height: 48px;
-    padding: 0 var(--gutter);
-    font-size: 13px;
-  }
-
-  .campaign-bar-live,
-  .campaign-bar-days {
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    white-space: nowrap;
-  }
-
-  .campaign-bar-live {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: var(--cream-bright);
-  }
-
-  .live-dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: #8fc46a;
-    box-shadow: 0 0 0 0 rgba(143, 196, 106, 0.6);
-    animation: live-pulse 2s ease-out infinite;
-  }
-
-  @keyframes live-pulse {
-    to {
-      box-shadow: 0 0 0 7px rgba(143, 196, 106, 0);
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .live-dot {
-      animation: none;
-    }
-  }
-
-  .campaign-bar-progress {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    min-width: 0;
-  }
-
-  .campaign-bar-count {
-    white-space: nowrap;
-  }
-
-  .campaign-bar-count strong {
-    font-weight: 600;
-    color: var(--cream-bright);
-  }
-
-  .campaign-bar-track {
-    flex: 1;
-    max-width: 280px;
-    height: 4px;
-    background: rgba(246, 241, 231, 0.2);
-  }
-
-  .campaign-bar-track span {
-    display: block;
-    height: 100%;
-    min-width: 4px;
-    background: var(--clay);
-  }
-
-  .campaign-bar-tier {
-    white-space: nowrap;
-  }
-
-  .campaign-bar-days {
-    color: var(--sand);
-  }
-
-  .campaign-bar-cta {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 14px;
-    background: var(--clay);
-    color: var(--cream-bright);
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    text-decoration: none;
-    white-space: nowrap;
-  }
-
-  .campaign-bar-cta:hover {
-    background: #b0653e;
-  }
-
-  @media (max-width: 1024px) {
-    .campaign-bar-days {
-      display: none;
-    }
+    padding-top: calc(65px + var(--campaign-bar-h));
   }
 
   @media (max-width: 640px) {
     .pdp {
-      padding-top: calc(60px + 44px);
-    }
-
-    .pdp section {
-      scroll-margin-top: calc(60px + 44px);
-    }
-
-    .campaign-bar {
-      top: 60px;
-    }
-
-    .campaign-bar-inner {
-      gap: 14px;
-      height: 44px;
-      font-size: 12px;
-    }
-
-    .campaign-bar-live,
-    .campaign-bar-tier {
-      display: none;
-    }
-
-    .campaign-bar-cta {
-      padding: 7px 12px;
+      padding-top: calc(60px + var(--campaign-bar-h));
     }
   }
 
@@ -1842,12 +1651,4 @@ const specs = [
       arrow.addEventListener('click', () => show(current + Number(arrow.dataset.step)))
     );
   }
-
-  // Countdown, shown once the campaign end date is set.
-  document.querySelectorAll<HTMLElement>('[data-days-left]').forEach((el) => {
-    const endsAt = el.dataset.daysLeft;
-    if (!endsAt) return;
-    const days = Math.ceil((new Date(`${endsAt}T23:59:59`).getTime() - Date.now()) / 86_400_000);
-    el.textContent = days > 0 ? `${days} ${days === 1 ? 'day' : 'days'} left` : 'Campaign closed';
-  });
 </script>

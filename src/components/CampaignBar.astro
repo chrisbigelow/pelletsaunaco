@@ -1,0 +1,192 @@
+---
+import Icon from './Icon.astro';
+import { campaign, currentTier, deposit, usd, reserveHref } from '../lib/campaign';
+---
+
+<!-- Campaign status bar: fixed to the top of every page, under the nav where there is one -->
+<aside class="campaign-bar" aria-label="Pre-order campaign status">
+  <div class="campaign-bar-inner">
+    <span class="campaign-bar-live"><span class="live-dot" aria-hidden="true"></span>Pre-orders live</span>
+    <div class="campaign-bar-progress">
+      <span class="campaign-bar-count"><strong>{campaign.reserved}</strong> / {campaign.goal} reserved</span>
+      <span class="campaign-bar-track"><span style={`width: ${(campaign.reserved / campaign.goal) * 100}%`}></span></span>
+    </div>
+    {currentTier && (
+      <span class="campaign-bar-tier">{currentTier.name} · {usd(currentTier.price)} · {currentTier.left} left</span>
+    )}
+    <span class="campaign-bar-days" data-days-left={campaign.endsAt ?? undefined}>{campaign.lengthDays}-day campaign</span>
+    <a href={reserveHref} class="campaign-bar-cta">Reserve for {usd(deposit)} <Icon name="arrow-right" size={12} /></a>
+  </div>
+</aside>
+
+<style>
+  :global(:root) {
+    --campaign-bar-h: 48px;
+  }
+
+  .campaign-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    background: #384629;
+    color: #f1eadc;
+    font-family: 'Archivo', 'Work Sans', sans-serif;
+  }
+
+  /* Pages without the site nav: push content below the bar */
+  :global(body:not(:has(#siteNav))) {
+    padding-top: var(--campaign-bar-h);
+  }
+
+  /* Pages with the site nav: sit directly under it */
+  :global(body:has(#siteNav)) .campaign-bar {
+    top: 65px;
+  }
+
+  .campaign-bar-inner {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    height: var(--campaign-bar-h);
+    padding: 0 var(--gutter, 96px);
+    font-size: 13px;
+  }
+
+  .campaign-bar-live,
+  .campaign-bar-days {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .campaign-bar-live {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #fffcf6;
+  }
+
+  .live-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #8fc46a;
+    box-shadow: 0 0 0 0 rgba(143, 196, 106, 0.6);
+    animation: live-pulse 2s ease-out infinite;
+  }
+
+  @keyframes live-pulse {
+    to {
+      box-shadow: 0 0 0 7px rgba(143, 196, 106, 0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .live-dot {
+      animation: none;
+    }
+  }
+
+  .campaign-bar-progress {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-width: 0;
+  }
+
+  .campaign-bar-count {
+    white-space: nowrap;
+  }
+
+  .campaign-bar-count strong {
+    font-weight: 600;
+    color: #fffcf6;
+  }
+
+  .campaign-bar-track {
+    flex: 1;
+    max-width: 280px;
+    height: 4px;
+    background: rgba(246, 241, 231, 0.2);
+  }
+
+  .campaign-bar-track span {
+    display: block;
+    height: 100%;
+    min-width: 4px;
+    background: #c2734a;
+  }
+
+  .campaign-bar-tier {
+    white-space: nowrap;
+  }
+
+  .campaign-bar-days {
+    color: #d9cfb4;
+  }
+
+  .campaign-bar-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    background: #c2734a;
+    color: #fffcf6;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .campaign-bar-cta:hover {
+    background: #b0653e;
+  }
+
+  @media (max-width: 1024px) {
+    .campaign-bar-days {
+      display: none;
+    }
+  }
+
+  @media (max-width: 640px) {
+    :global(:root) {
+      --campaign-bar-h: 44px;
+    }
+
+    :global(body:has(#siteNav)) .campaign-bar {
+      top: 60px;
+    }
+
+    .campaign-bar-inner {
+      gap: 14px;
+      padding: 0 var(--gutter, 20px);
+      font-size: 12px;
+    }
+
+    .campaign-bar-live,
+    .campaign-bar-tier {
+      display: none;
+    }
+
+    .campaign-bar-cta {
+      padding: 7px 12px;
+    }
+  }
+</style>
+
+<script>
+  // Countdown, shown once the campaign end date is set.
+  document.querySelectorAll<HTMLElement>('[data-days-left]').forEach((el) => {
+    const endsAt = el.dataset.daysLeft;
+    if (!endsAt) return;
+    const days = Math.ceil((new Date(`${endsAt}T23:59:59`).getTime() - Date.now()) / 86_400_000);
+    el.textContent = days > 0 ? `${days} ${days === 1 ? 'day' : 'days'} left` : 'Campaign closed';
+  });
+</script>

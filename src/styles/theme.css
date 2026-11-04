@@ -29,7 +29,7 @@ html {
 }
 
 section {
-  scroll-margin-top: 64px;
+  scroll-margin-top: calc(64px + var(--campaign-bar-h, 0px));
 }
 
 .visually-hidden {
