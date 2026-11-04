@@ -37,6 +37,7 @@ const assurances = [
   { icon: 'sun', text: 'Solar compatible with an off-the-shelf battery, inverter and solar panel' },
   { icon: 'smartphone', text: 'Remote start and temperature control from your phone' },
   { icon: 'leaf', text: 'Burns clean, low-cost wood pellets' },
+  { icon: 'map-pin', text: 'Currently sold and shipped to the US and Canada only' },
 ] as const;
 
 const perks = [
@@ -388,7 +389,7 @@ const specs = [
       <div class="final-cta-copy">
         <p class="eyebrow">Now taking pre-orders</p>
         <h2>Reserve your P1.</h2>
-        <p>Reserve with {usd(deposit)} down and lock in your founders’ price, numbered medallion, and community access. The balance is only charged when production begins.</p>
+        <p>Reserve with {usd(deposit)} down and lock in your founders’ price, numbered medallion, and community access. The balance is only charged when production begins. Currently available in the US and Canada only.</p>
         <div class="final-cta-actions">
           <a href={reserveHref} class="btn btn-clay">Reserve for {usd(deposit)} <Icon name="arrow-right" size={14} /></a>
           <a href={questionHref} class="btn btn-outline-light">Talk to our team</a>
