@@ -46,8 +46,8 @@ const photos = [
 ];
 
 const quickStats = [
-  { value: '30 min', label: 'Heat-up' },
-  { value: '300–500 ft³', label: 'Room size' },
+  { value: '40 min', label: 'Heat-up', footnote: true },
+  { value: '210–500 ft³', label: 'Room size' },
   { value: '110V', label: 'Standard outlet' },
 ];
 
@@ -103,7 +103,7 @@ const ritualSteps = [
 ];
 
 const specs = [
-  ['Heating Capacity', '300–500 ft³ sauna'],
+  ['Heating Capacity', '210–500 ft³ sauna'],
   ['Fuel Type', 'Wood Pellets'],
   ['Power Requirement', 'Standard 110V Outlet'],
   ['Material', 'Steel'],
@@ -161,10 +161,11 @@ const specs = [
           {quickStats.map((stat) => (
             <div>
               <dt>{stat.label}</dt>
-              <dd>{stat.value}</dd>
+              <dd>{stat.value}{stat.footnote && <sup aria-describedby="heatup-note">*</sup>}</dd>
             </div>
           ))}
         </dl>
+        <p class="quick-stats-note" id="heatup-note">* Heat-up time measured from 17°C (63°F) in a 325 ft³ sauna.</p>
         <div class="buy-price">
           {currentTier ? (
             <>
@@ -342,7 +343,7 @@ const specs = [
     <section class="ritual">
       <div class="ritual-copy">
         <p class="eyebrow">The backyard ritual</p>
-        <h2 class="section-title">From cold sauna to first löyly in about thirty minutes.</h2>
+        <h2 class="section-title">From cold sauna to first löyly in about forty minutes.</h2>
         <ol class="ritual-steps">
           {ritualSteps.map((step, i) => (
             <li>
@@ -651,6 +652,19 @@ const specs = [
     font-size: 21px;
     color: var(--ink);
     white-space: nowrap;
+  }
+
+  .quick-stats sup {
+    font-size: 0.6em;
+    vertical-align: super;
+    line-height: 0;
+  }
+
+  .quick-stats-note {
+    margin-top: -12px;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #8a8575;
   }
 
   .quick-stats dt,
