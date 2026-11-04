@@ -121,6 +121,22 @@ const specs = [
 >
   <SiteNav solid />
 
+  <!-- Campaign status bar: slides in under the nav once the buy box scrolls away -->
+  <aside class="campaign-bar" data-campaign-bar aria-label="Pre-order campaign status">
+    <div class="campaign-bar-inner">
+      <span class="campaign-bar-live"><span class="live-dot" aria-hidden="true"></span>Pre-orders live</span>
+      <div class="campaign-bar-progress">
+        <span class="campaign-bar-count"><strong>{campaign.reserved}</strong> / {campaign.goal} reserved</span>
+        <span class="campaign-bar-track"><span style={`width: ${(campaign.reserved / campaign.goal) * 100}%`}></span></span>
+      </div>
+      {currentTier && (
+        <span class="campaign-bar-tier">{currentTier.name} · {usd(currentTier.price)} · {currentTier.left} left</span>
+      )}
+      <span class="campaign-bar-days" data-days-left={campaign.endsAt ?? undefined}>{campaign.lengthDays}-day campaign</span>
+      <a href={reserveHref} class="campaign-bar-cta">Reserve for {usd(campaign.deposit)} <Icon name="arrow-right" size={12} /></a>
+    </div>
+  </aside>
+
   <main class="pdp">
     <nav class="breadcrumb" aria-label="Breadcrumb">
       <ol>
@@ -422,6 +438,162 @@ const specs = [
 <style>
   .pdp {
     padding-top: 65px;
+  }
+
+  /* Campaign status bar */
+  .campaign-bar {
+    position: fixed;
+    top: 65px;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    background: var(--pine);
+    color: var(--sand-pale);
+    transform: translateY(-100%);
+    visibility: hidden;
+    transition: transform 0.3s ease, visibility 0s linear 0.3s;
+  }
+
+  .campaign-bar.is-visible {
+    transform: none;
+    visibility: visible;
+    transition: transform 0.3s ease;
+  }
+
+  .campaign-bar-inner {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    height: 48px;
+    padding: 0 var(--gutter);
+    font-size: 13px;
+  }
+
+  .campaign-bar-live,
+  .campaign-bar-days {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .campaign-bar-live {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--cream-bright);
+  }
+
+  .live-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #8fc46a;
+    box-shadow: 0 0 0 0 rgba(143, 196, 106, 0.6);
+    animation: live-pulse 2s ease-out infinite;
+  }
+
+  @keyframes live-pulse {
+    to {
+      box-shadow: 0 0 0 7px rgba(143, 196, 106, 0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .campaign-bar,
+    .campaign-bar.is-visible {
+      transition: none;
+    }
+
+    .live-dot {
+      animation: none;
+    }
+  }
+
+  .campaign-bar-progress {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-width: 0;
+  }
+
+  .campaign-bar-count {
+    white-space: nowrap;
+  }
+
+  .campaign-bar-count strong {
+    font-weight: 600;
+    color: var(--cream-bright);
+  }
+
+  .campaign-bar-track {
+    flex: 1;
+    max-width: 280px;
+    height: 4px;
+    background: rgba(246, 241, 231, 0.2);
+  }
+
+  .campaign-bar-track span {
+    display: block;
+    height: 100%;
+    min-width: 4px;
+    background: var(--clay);
+  }
+
+  .campaign-bar-tier {
+    white-space: nowrap;
+  }
+
+  .campaign-bar-days {
+    color: var(--sand);
+  }
+
+  .campaign-bar-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    background: var(--clay);
+    color: var(--cream-bright);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .campaign-bar-cta:hover {
+    background: #b0653e;
+  }
+
+  @media (max-width: 1024px) {
+    .campaign-bar-days {
+      display: none;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .campaign-bar {
+      top: 60px;
+    }
+
+    .campaign-bar-inner {
+      gap: 14px;
+      height: 44px;
+      font-size: 12px;
+    }
+
+    .campaign-bar-live,
+    .campaign-bar-tier {
+      display: none;
+    }
+
+    .campaign-bar-cta {
+      padding: 7px 12px;
+    }
   }
 
   @media (min-width: 1025px) {
@@ -1671,6 +1843,15 @@ const specs = [
     gallery.querySelectorAll<HTMLButtonElement>('.gallery-arrow').forEach((arrow) =>
       arrow.addEventListener('click', () => show(current + Number(arrow.dataset.step)))
     );
+  }
+
+  // Campaign status bar: show once the buy box has scrolled up out of view.
+  const campaignBar = document.querySelector<HTMLElement>('[data-campaign-bar]');
+  const buyBox = document.querySelector<HTMLElement>('.buy-box');
+  if (campaignBar && buyBox) {
+    new IntersectionObserver(([entry]) => {
+      campaignBar.classList.toggle('is-visible', !entry.isIntersecting && entry.boundingClientRect.top < 0);
+    }).observe(buyBox);
   }
 
   // Countdown, shown once the campaign end date is set.
