@@ -1,6 +1,6 @@
 ---
 import Icon from './Icon.astro';
-import { logoPaths, productPath } from '../lib/site';
+import { aboutPath, logoPaths, productPath } from '../lib/site';
 
 // TODO: add profile URLs.
 const socials = [
@@ -38,7 +38,7 @@ const socials = [
         </div>
         <div class="footer-column">
           <h4>Company</h4>
-          <a href="/#about">About Us</a>
+          <a href={aboutPath}>About Us</a>
           <a href="/#contact">Contact</a>
           <a href="/privacy">Privacy</a>
         </div>

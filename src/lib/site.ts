@@ -1,4 +1,5 @@
 export const productPath = '/p1-pellet-sauna-stove';
+export const aboutPath = '/about';
 
 export const logoPaths = [
   'M428 322 A90 90 0 0 1 518 232 L628 232 L628 920 A100 100 0 0 1 528 1020 L428 1020 Z',
