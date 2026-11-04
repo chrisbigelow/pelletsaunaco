@@ -5,6 +5,28 @@ import SiteNav from '../components/SiteNav.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import { productPath } from '../lib/site';
 import '../styles/theme.css';
+
+const team = [
+  {
+    name: 'Jared',
+    role: 'Founder, Head of Engineering',
+    photo: { src: '/images/about/jared.jpg', alt: 'Jared and his family sitting in front of a P1 pellet sauna stove in a cedar sauna wall', width: 900, height: 1200 },
+    bio: [
+      'Jared studied mechanical engineering at North Dakota State University with an emphasis on composite materials and lightweight design. During his education, he interned at TEAM and Polaris Inc., focusing on testing, validation, and design.',
+      'After graduating, Jared was accepted into the engineering development program at Polaris Inc., where he gained extensive experience as a project engineer, manufacturing engineer, systems engineer, and design engineer. Most recently, he served as a head vehicle architect for heavy land vehicles, bringing his expertise in mechanical engineering and systems design to complex vehicle development projects.',
+      'Somewhere between the test track and the drawing board, Jared fell hard for sauna — and for the stoves that make it. He’s happiest tinkering with fireboxes, airflow, and stone mass in search of perfect löyly, and the P1 is the stove he always wanted for his own backyard: real fire, steady heat, and none of the babysitting.',
+    ],
+  },
+  {
+    name: 'Chris',
+    role: 'Head of Software',
+    photo: { src: '/images/about/chris.jpg', alt: 'Chris smiling in a towel in front of a snow-covered barrel sauna at night', width: 900, height: 1200 },
+    bio: [
+      'Chris is the software guy with a serious sauna habit. He builds the digital side of the P1 — the app that lets you start your stove from your phone, the controls that hold your temperature steady, and this website.',
+      'His favorite session is a winter night: a hot room, a roll in the snow, and back in for another round. He wants every P1 owner to get there with a single tap.',
+    ],
+  },
+];
 ---
 
 <BaseLayout
@@ -41,6 +63,26 @@ import '../styles/theme.css';
         </div>
       </div>
       <img class="about-mission-image" src="/images/p1/front-fire.jpg" alt="The P1 pellet sauna stove burning inside a cedar sauna wall" width="719" height="1080" loading="lazy" decoding="async" />
+    </section>
+
+    <!-- Team -->
+    <section class="team">
+      <div class="team-head">
+        <p class="eyebrow">The team</p>
+        <h2 class="section-title">The people behind the P1</h2>
+      </div>
+      <div class="team-grid">
+        {team.map((person) => (
+          <article class="team-member">
+            <img src={person.photo.src} alt={person.photo.alt} width={person.photo.width} height={person.photo.height} loading="lazy" decoding="async" />
+            <div class="team-copy">
+              <h3>{person.name}</h3>
+              <p class="team-role">{person.role}</p>
+              {person.bio.map((paragraph) => <p>{paragraph}</p>)}
+            </div>
+          </article>
+        ))}
+      </div>
     </section>
   </main>
 
@@ -147,9 +189,71 @@ import '../styles/theme.css';
     object-fit: cover;
   }
 
+  .team {
+    background: var(--linen);
+    padding: var(--section-y) var(--gutter);
+    display: flex;
+    flex-direction: column;
+    gap: 56px;
+  }
+
+  .team-head {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 64px;
+  }
+
+  .team-member {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .team-member img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+  }
+
+  .team-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .team-copy h3 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 1.1;
+    color: var(--ink);
+  }
+
+  .team-role {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--clay);
+  }
+
+  .team-copy p:not(.team-role) {
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--muted);
+  }
+
   @media (min-width: 1201px) {
     .about-hero,
-    .about-mission {
+    .about-mission,
+    .team {
       --gutter: max(96px, calc((100vw - 1088px) / 2));
     }
   }
@@ -161,6 +265,15 @@ import '../styles/theme.css';
     }
 
     .about-mission-image {
+      max-width: 480px;
+    }
+
+    .team-grid {
+      grid-template-columns: 1fr;
+      gap: 72px;
+    }
+
+    .team-member img {
       max-width: 480px;
     }
   }
