@@ -10,7 +10,6 @@ import '../styles/theme.css';
 const campaign = {
   goal: 100,
   reserved: 0,
-  deposit: 100,
   /** Regular price after the founders' run, shown struck through next to tier prices. */
   fullPrice: 3995,
   lengthDays: 60,
@@ -20,9 +19,9 @@ const campaign = {
 };
 
 const tiers = [
-  { name: 'Tier 1', first: 1, last: 20, price: 3000 },
-  { name: 'Tier 2', first: 21, last: 50, price: 3500 },
-  { name: 'Tier 3', first: 51, last: 100, price: 3750 },
+  { name: 'Tier 1', first: 1, last: 20, price: 3000, deposit: 500 },
+  { name: 'Tier 2', first: 21, last: 50, price: 3500, deposit: 200 },
+  { name: 'Tier 3', first: 51, last: 100, price: 3750, deposit: 100 },
 ].map((tier) => {
   const size = tier.last - tier.first + 1;
   const claimed = Math.min(Math.max(campaign.reserved - (tier.first - 1), 0), size);
@@ -30,6 +29,8 @@ const tiers = [
 });
 
 const currentTier = tiers.find((tier) => tier.left > 0);
+/** Amount down today: the current tier's deposit, or the last tier's once the founders' run is full. */
+const deposit = (currentTier ?? tiers[tiers.length - 1]).deposit;
 const tierState = (tier: (typeof tiers)[number]) =>
   tier.left === 0 ? 'sold' : tier === currentTier ? 'current' : 'next';
 
@@ -68,7 +69,7 @@ const perks = [
 const paymentSteps = [
   {
     title: 'Reserve today',
-    body: `Lock in your tier price and stove number with a fully refundable ${usd(campaign.deposit)} deposit. Change your mind? Get your money back anytime with a single click — no forms, no questions.`,
+    body: `Lock in your tier price and stove number with a fully refundable deposit — ${tiers.map((tier) => usd(tier.deposit)).join(', ')} down for tiers 1–${tiers.length}. Change your mind? Get your money back anytime with a single click — no forms, no questions.`,
   },
   {
     title: `Campaign runs ${campaign.lengthDays} days`,
@@ -116,7 +117,7 @@ const specs = [
 
 <BaseLayout
   title="P1 Pellet Sauna Stove — Pre-Order | The Pellet Sauna Company"
-  description="Reserve the P1 pellet sauna stove with $100 down. Founders' pricing from $3,000 for the first 100 stoves, plus a numbered medallion and founders' community access."
+  description="Reserve the P1 pellet sauna stove with a fully refundable deposit. Founders' pricing from $3,000 for the first 100 stoves, plus a numbered medallion and founders' community access."
   lcpImage={photos[0].src}
 >
   <SiteNav solid />
@@ -133,7 +134,7 @@ const specs = [
         <span class="campaign-bar-tier">{currentTier.name} · {usd(currentTier.price)} · {currentTier.left} left</span>
       )}
       <span class="campaign-bar-days" data-days-left={campaign.endsAt ?? undefined}>{campaign.lengthDays}-day campaign</span>
-      <a href={reserveHref} class="campaign-bar-cta">Reserve for {usd(campaign.deposit)} <Icon name="arrow-right" size={12} /></a>
+      <a href={reserveHref} class="campaign-bar-cta">Reserve for {usd(deposit)} <Icon name="arrow-right" size={12} /></a>
     </div>
   </aside>
 
@@ -191,7 +192,7 @@ const specs = [
                 <s class="full-price"><span class="visually-hidden">Regular price </span>{usd(campaign.fullPrice)}</s>
               </p>
               <p class="buy-price-note">
-                Reserve with only <strong>{usd(campaign.deposit)} down today</strong>. Fully refundable.<br />
+                Reserve with only <strong>{usd(deposit)} down today</strong>. Fully refundable.<br />
                 The remaining amount is charged at production time in {campaign.productionMonth}.
               </p>
               <div class="mini-progress">
@@ -206,12 +207,12 @@ const specs = [
             <>
               <p class="buy-price-label">Second production run</p>
               <p class="buy-price-value">Pricing soon</p>
-              <p class="buy-price-note">All {campaign.goal} founders’ stoves are reserved. Reserve with {usd(campaign.deposit)} down to join the second run.</p>
+              <p class="buy-price-note">All {campaign.goal} founders’ stoves are reserved. Reserve with {usd(deposit)} down to join the second run.</p>
             </>
           )}
         </div>
         <div class="buy-actions">
-          <a href={reserveHref} class="btn btn-clay">Reserve for {usd(campaign.deposit)} <Icon name="arrow-right" size={14} /></a>
+          <a href={reserveHref} class="btn btn-clay">Reserve for {usd(deposit)} <Icon name="arrow-right" size={14} /></a>
           <a href={questionHref} class="btn btn-outline-ink">Ask a question</a>
         </div>
         <ul class="assurances">
@@ -227,7 +228,7 @@ const specs = [
       <div class="campaign-head">
         <h2>Help us build<br />the first {campaign.goal}.</h2>
         <p>
-          We’re building the P1 in a first production run of {campaign.goal} stoves. Reserve yours with {usd(campaign.deposit)} down.<br />
+          We’re building the P1 in a first production run of {campaign.goal} stoves. Reserve yours with {usd(deposit)} down.<br />
           The earlier you join, the lower your price. The balance is only charged once production begins.
         </p>
       </div>
@@ -279,8 +280,8 @@ const specs = [
                 <p class="tier-range">Stoves {stoveNumber(tier.first)}–{String(tier.last).padStart(3, '0')}</p>
               </div>
               <dl class="tier-payment">
-                <div><dt>Today</dt><dd>{usd(campaign.deposit)} down</dd></div>
-                <div><dt>At production</dt><dd>{usd(tier.price - campaign.deposit)}</dd></div>
+                <div><dt>Today</dt><dd>{usd(tier.deposit)} down</dd></div>
+                <div><dt>At production</dt><dd>{usd(tier.price - tier.deposit)}</dd></div>
               </dl>
               {state === 'current' ? (
                 <a href={reserveHref} class="btn btn-clay tier-cta">Reserve stove {stoveNumber(campaign.reserved + 1)} <Icon name="arrow-right" size={14} /></a>
@@ -423,9 +424,9 @@ const specs = [
       <div class="final-cta-copy">
         <p class="eyebrow">Now taking pre-orders</p>
         <h2>Reserve your P1.</h2>
-        <p>Reserve with {usd(campaign.deposit)} down and lock in your founders’ price, numbered medallion, and community access. The balance is only charged when production begins.</p>
+        <p>Reserve with {usd(deposit)} down and lock in your founders’ price, numbered medallion, and community access. The balance is only charged when production begins.</p>
         <div class="final-cta-actions">
-          <a href={reserveHref} class="btn btn-clay">Reserve for {usd(campaign.deposit)} <Icon name="arrow-right" size={14} /></a>
+          <a href={reserveHref} class="btn btn-clay">Reserve for {usd(deposit)} <Icon name="arrow-right" size={14} /></a>
           <a href={questionHref} class="btn btn-outline-light">Talk to our team</a>
         </div>
       </div>
