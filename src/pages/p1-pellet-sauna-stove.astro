@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Icon from '../components/Icon.astro';
 import SiteNav from '../components/SiteNav.astro';
 import SiteFooter from '../components/SiteFooter.astro';
+import CompareTable from '../components/CompareTable.astro';
 import { campaign, tiers, currentTier, deposit, usd, reserveHref } from '../lib/campaign';
 import '../styles/theme.css';
 
@@ -349,6 +350,8 @@ const specs = [
         </figcaption>
       </figure>
     </section>
+
+    <CompareTable />
 
     <!-- Specifications -->
     <section class="specs" id="specifications">

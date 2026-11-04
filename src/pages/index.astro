@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Icon from '../components/Icon.astro';
 import SiteNav from '../components/SiteNav.astro';
 import SiteFooter from '../components/SiteFooter.astro';
+import CompareTable from '../components/CompareTable.astro';
 import { productPath } from '../lib/site';
 import '../styles/theme.css';
 
@@ -26,15 +27,6 @@ const steps = [
   'The P1 pellet sauna stove automatically feeds wood pellets from a built-in hopper into a combustion chamber.',
   'An electronic control system manages the pellet feed rate to maintain your desired temperature, and the unit runs by plugging into a standard 110V outlet.',
   'You can even start your pellet sauna stove remotely using our app, so your sauna is hot when you arrive.',
-];
-
-// [feature, wood-fired, electric, P1]
-const comparisonRows: [string, boolean, boolean, boolean][] = [
-  ['Heats up to 220°F', true, false, true],
-  ['No Electrician Required', true, false, true],
-  ['Remote start', false, true, true],
-  ['Precise temperature control', false, true, true],
-  ['Traditional wood-fired experience', true, false, true],
 ];
 
 // Must stay in sync with the FAQPage schema in BaseLayout.astro.
@@ -124,6 +116,8 @@ const contactDetails = [
     </ul>
   </section>
 
+  <CompareTable />
+
   <!-- How it works -->
   <section class="how" id="how-it-works">
     <img
@@ -145,45 +139,6 @@ const contactDetails = [
           </li>
         ))}
       </ol>
-    </div>
-  </section>
-
-  <!-- Product comparison -->
-  <section class="compare" id="comparison">
-    <div class="compare-head">
-      <h2 class="section-title">Product Comparison</h2>
-      <p>See how the P1 stacks up against traditional options</p>
-    </div>
-    <div class="compare-table-wrapper">
-      <table class="compare-table" aria-label="Sauna stove comparison table">
-        <thead>
-          <tr>
-            <th scope="col">Feature</th>
-            <th scope="col"><span class="label-full">Wood-Fired Stove</span><span class="label-short" aria-hidden="true">Wood</span></th>
-            <th scope="col"><span class="label-full">Electric Stove</span><span class="label-short" aria-hidden="true">Electric</span></th>
-            <th scope="col" class="col-p1"><span class="label-full">The P1 Pellet Stove</span><span class="label-short" aria-hidden="true">P1</span></th>
-          </tr>
-        </thead>
-        <tbody>
-          {comparisonRows.map(([feature, ...values]) => (
-            <tr>
-              <th scope="row">{feature}</th>
-              {values.map((yes, i) => (
-                <td class:list={[{ 'col-p1': i === 2 }]}>
-                  <span class="visually-hidden">{yes ? 'Yes' : 'No'}</span>
-                  <Icon name={yes ? 'check' : 'minus'} size={20} class={yes ? 'mark-yes' : 'mark-no'} />
-                </td>
-              ))}
-            </tr>
-          ))}
-          <tr class="cost-row">
-            <th scope="row">Cost Per Sauna (1 hr 45 min)</th>
-            <td>$3.20</td>
-            <td>$1.90</td>
-            <td class="col-p1">$1.50</td>
-          </tr>
-        </tbody>
-      </table>
     </div>
   </section>
 
@@ -550,116 +505,6 @@ const contactDetails = [
     color: var(--ink);
   }
 
-  /* Comparison */
-  .compare {
-    background: var(--cream);
-    padding: var(--section-y) var(--gutter);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 56px;
-  }
-
-  .compare-head {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
-    text-align: center;
-  }
-
-  .compare-head p {
-    font-size: 18px;
-    color: var(--muted);
-  }
-
-  .compare-table-wrapper {
-    position: relative;
-    width: 100%;
-    max-width: 1000px;
-    overflow-x: auto;
-  }
-
-  .compare-table {
-    width: 100%;
-    min-width: 680px;
-    border-collapse: collapse;
-  }
-
-  .compare-table th,
-  .compare-table td {
-    padding: 18px 24px;
-    text-align: center;
-    vertical-align: middle;
-  }
-
-  .compare-table thead th {
-    height: 52px;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-
-  .compare-table thead th:first-child,
-  .compare-table tbody th {
-    min-width: 220px;
-    text-align: left;
-  }
-
-  .compare-table thead th:not(:first-child) {
-    width: 180px;
-    padding-inline: 12px;
-    white-space: nowrap;
-  }
-
-  .compare-table tbody tr {
-    height: 68px;
-    border-top: 1px solid rgba(43, 42, 34, 0.12);
-  }
-
-  .compare-table tbody th {
-    font-size: 16px;
-    font-weight: 400;
-    color: var(--ink);
-  }
-
-  .compare-table td :global(svg) {
-    display: block;
-    margin: 0 auto;
-  }
-
-  .compare-table :global(.mark-yes) {
-    color: var(--ink);
-  }
-
-  .compare-table :global(.mark-no) {
-    color: var(--stone);
-  }
-
-  .compare-table .col-p1,
-  .compare-table thead th.col-p1 {
-    background: var(--pine);
-    color: var(--cream);
-  }
-
-  .compare-table .col-p1 :global(.mark-yes) {
-    color: var(--cream);
-  }
-
-  .cost-row td {
-    font-family: var(--serif);
-    font-weight: 300;
-    font-size: 22px;
-    color: var(--muted);
-  }
-
-  .cost-row td.col-p1 {
-    font-weight: 500;
-    color: var(--cream);
-  }
-
   /* Story */
   .story {
     position: relative;
@@ -835,8 +680,7 @@ const contactDetails = [
 
   /* Mobile-only FAQ extras (shown in the 640px breakpoint). */
   .hero-contact-mobile,
-  .faq-eyebrow,
-  .label-short {
+  .faq-eyebrow {
     display: none;
   }
 
@@ -1051,7 +895,6 @@ const contactDetails = [
     .hero,
     .pillars,
     .how,
-    .compare,
     .story,
     .faq,
     .contact {
@@ -1326,71 +1169,6 @@ const contactDetails = [
 
     .how-steps li p {
       font-size: 17px;
-    }
-
-    /* Comparison: fits the screen, short column labels */
-    .compare {
-      gap: 32px;
-    }
-
-    .compare-head {
-      gap: 12px;
-    }
-
-    .compare .section-title {
-      font-size: 34px;
-    }
-
-    .compare-head p {
-      font-size: 15px;
-      line-height: 1.5;
-    }
-
-    .compare-table {
-      min-width: 0;
-    }
-
-    .compare-table th,
-    .compare-table td {
-      padding: 12px 4px;
-    }
-
-    .compare-table thead th {
-      height: 44px;
-      font-size: 9px;
-      letter-spacing: 1.2px;
-    }
-
-    .compare-table thead th:not(:first-child) {
-      width: 68px;
-      padding-inline: 4px;
-    }
-
-    .compare-table thead th:first-child,
-    .compare-table tbody th {
-      min-width: 0;
-      padding: 12px 12px 12px 0;
-    }
-
-    .compare-table tbody tr {
-      height: 64px;
-    }
-
-    .compare-table tbody th {
-      font-size: 14px;
-      line-height: 1.35;
-    }
-
-    .cost-row td {
-      font-size: 18px;
-    }
-
-    .label-full {
-      display: none;
-    }
-
-    .label-short {
-      display: inline;
     }
 
     /* Story */
