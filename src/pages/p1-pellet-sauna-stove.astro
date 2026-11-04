@@ -28,7 +28,7 @@ const photos = [
 const quickStats = [
   { value: '40 min', label: 'Heat-up', footnote: true },
   { value: '210–500 ft³', label: 'Room size' },
-  { value: '110V', label: 'Standard outlet' },
+  { value: '110V', label: 'Standard outlet (Solar Compatible)' },
 ];
 
 const assurances = [
@@ -191,7 +191,7 @@ const specs = [
     <!-- Pre-order campaign -->
     <section class="campaign" id="preorder">
       <div class="campaign-head">
-        <h2>Help us build<br />the first {campaign.goal}.</h2>
+        <h2>Help build<br />the first {campaign.goal}.</h2>
         <p>
           We’re building the P1 in a first production run of {campaign.goal} stoves. Reserve yours with {usd(deposit)} down.<br />
           The earlier you join, the lower your price. The balance is only charged once production begins.
@@ -624,6 +624,8 @@ const specs = [
   .quick-stats div {
     display: flex;
     flex-direction: column-reverse;
+    /* Pin values to the top so they line up when a label wraps */
+    justify-content: flex-end;
     gap: 6px;
     padding: 16px;
   }
