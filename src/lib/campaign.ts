@@ -13,8 +13,8 @@ export const campaign = {
 };
 
 export const tiers = [
-  { name: 'Tier 1', first: 1, last: 20, price: 3000, deposit: 500 },
-  { name: 'Tier 2', first: 21, last: 50, price: 3500, deposit: 200 },
+  { name: 'Tier 1', first: 1, last: 20, price: 3000, deposit: 100 },
+  { name: 'Tier 2', first: 21, last: 50, price: 3500, deposit: 100 },
   { name: 'Tier 3', first: 51, last: 100, price: 3750, deposit: 100 },
 ].map((tier) => {
   const size = tier.last - tier.first + 1;

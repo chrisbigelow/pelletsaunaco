@@ -9,6 +9,12 @@ import '../styles/theme.css';
 const tierState = (tier: (typeof tiers)[number]) =>
   tier.left === 0 ? 'sold' : tier === currentTier ? 'current' : 'next';
 
+const depositAmounts = [...new Set(tiers.map((tier) => tier.deposit))];
+const depositSummary =
+  depositAmounts.length === 1
+    ? `${usd(depositAmounts[0])} deposit`
+    : `deposit — ${tiers.map((tier) => usd(tier.deposit)).join(', ')} down for tiers 1–${tiers.length}`;
+
 const stoveNumber = (n: number) => `#${String(n).padStart(3, '0')}`;
 const questionHref = `/?subject=${encodeURIComponent('Question about the P1')}#contact`;
 
@@ -42,7 +48,7 @@ const perks = [
 const paymentSteps = [
   {
     title: 'Reserve today',
-    body: `Lock in your tier price and stove number with a fully refundable deposit — ${tiers.map((tier) => usd(tier.deposit)).join(', ')} down for tiers 1–${tiers.length}. Change your mind? Get your money back anytime with a single click — no forms, no questions.`,
+    body: `Lock in your tier price and stove number with a fully refundable ${depositSummary}. Change your mind? Get your money back anytime with a single click — no forms, no questions.`,
   },
   {
     title: `Campaign runs ${campaign.lengthDays} days`,
@@ -90,7 +96,7 @@ const specs = [
 
 <BaseLayout
   title="P1 Pellet Sauna Stove — Pre-Order | The Pellet Sauna Company"
-  description="Reserve the P1 pellet sauna stove with a fully refundable deposit. Founders' pricing from $3,000 for the first 100 stoves, plus a numbered medallion and founders' community access."
+  description="Reserve the P1 pellet sauna stove with $100 down. Founders' pricing from $3,000 for the first 100 stoves, plus a numbered medallion and founders' community access."
   lcpImage={photos[0].src}
 >
   <SiteNav solid />
