@@ -1,9 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Icon from '../components/Icon.astro';
 import SiteNav from '../components/SiteNav.astro';
 import SiteFooter from '../components/SiteFooter.astro';
-import { productPath } from '../lib/site';
 import '../styles/theme.css';
 
 const team = [
@@ -44,25 +42,6 @@ const team = [
       <blockquote class="about-quote">
         “The best sauna experiences come from a harmony of tradition and innovation.”
       </blockquote>
-    </section>
-
-    <!-- Mission -->
-    <section class="about-mission">
-      <div class="about-mission-copy">
-        <p class="eyebrow">What we build</p>
-        <h2 class="section-title">Real fire, made easy.</h2>
-        <p>
-          The P1 embodies our commitment to crafting sauna stoves that honor the environment and the timeless sauna ritual. Each stove is engineered for performance, designed for beauty, and built to endure for generations.
-        </p>
-        <p>
-          It's the world's first wood pellet sauna stove: the warmth and löyly of a wood-fired sauna, with remote start, precise temperature control, and no electrician required.
-        </p>
-        <div class="about-actions">
-          <a href={productPath} class="btn btn-clay">Explore the P1 <Icon name="arrow-right" size={14} /></a>
-          <a href="/#contact" class="btn btn-outline-ink">Get in touch</a>
-        </div>
-      </div>
-      <img class="about-mission-image" src="/images/p1/front-fire.jpg" alt="The P1 pellet sauna stove burning inside a cedar sauna wall" width="719" height="1080" loading="lazy" decoding="async" />
     </section>
 
     <!-- Team -->
@@ -144,51 +123,6 @@ const team = [
     color: #f8f3ea;
   }
 
-  .about-mission {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 420px);
-    align-items: center;
-    gap: 80px;
-    padding: var(--section-y) var(--gutter);
-  }
-
-  .about-mission-copy {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  .about-mission-copy p:not(.eyebrow) {
-    font-size: 17px;
-    line-height: 1.65;
-    color: var(--muted);
-  }
-
-  .about-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    padding-top: 12px;
-  }
-
-  .btn-outline-ink {
-    justify-content: center;
-    border-color: var(--ink);
-    color: var(--ink);
-  }
-
-  .btn-outline-ink:hover {
-    background: var(--ink);
-    color: var(--cream);
-  }
-
-  .about-mission-image {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 4 / 5;
-    object-fit: cover;
-  }
-
   .team {
     background: var(--linen);
     padding: var(--section-y) var(--gutter);
@@ -252,22 +186,12 @@ const team = [
 
   @media (min-width: 1201px) {
     .about-hero,
-    .about-mission,
     .team {
       --gutter: max(96px, calc((100vw - 1088px) / 2));
     }
   }
 
   @media (max-width: 1024px) {
-    .about-mission {
-      grid-template-columns: 1fr;
-      gap: 48px;
-    }
-
-    .about-mission-image {
-      max-width: 480px;
-    }
-
     .team-grid {
       grid-template-columns: 1fr;
       gap: 72px;
@@ -286,11 +210,6 @@ const team = [
     .about-hero {
       min-height: 420px;
       padding: 72px var(--gutter);
-    }
-
-    .about-actions .btn {
-      flex: 1 1 100%;
-      justify-content: center;
     }
   }
 </style>
