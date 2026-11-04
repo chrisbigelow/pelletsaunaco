@@ -259,12 +259,13 @@ const contactDetails = [
     padding: 0 40px 140px;
   }
 
+  /* The video and scrims start below the site-wide campaign bar so it never covers the stove. */
   .hero-video {
     position: absolute;
-    top: 80px;
+    top: calc(80px + var(--campaign-bar-h, 0px));
     left: 70px;
     width: 100%;
-    height: calc(100% - 80px);
+    height: calc(100% - 80px - var(--campaign-bar-h, 0px));
     object-fit: cover;
     object-position: 0% center;
     /* Fades the video's left edge into the dark base. */
@@ -274,7 +275,7 @@ const contactDetails = [
 
   .hero-scrims {
     position: absolute;
-    inset: 0;
+    inset: var(--campaign-bar-h, 0px) 0 0;
     pointer-events: none;
     background:
       linear-gradient(to bottom, #1e1c14 0%, #1e1c14 8.5%, rgba(30, 28, 20, 0.6) 16%, rgba(30, 28, 20, 0) 30%, rgba(30, 28, 20, 0) 62%, rgba(30, 28, 20, 0.8) 100%),
@@ -1047,11 +1048,11 @@ const contactDetails = [
     .hero {
       height: auto;
       min-height: 0;
-      padding: 430px 20px 40px;
+      padding: calc(430px + var(--campaign-bar-h, 0px)) 20px 40px;
     }
 
     .hero-video {
-      top: 50px;
+      top: calc(50px + var(--campaign-bar-h, 0px));
       left: calc(50% - 385px);
       width: 760px;
       height: 464px;
