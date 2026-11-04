@@ -122,7 +122,7 @@ const specs = [
 >
   <SiteNav solid />
 
-  <!-- Campaign status bar: slides in under the nav once the buy box scrolls away -->
+  <!-- Campaign status bar: pinned under the nav -->
   <aside class="campaign-bar" data-campaign-bar aria-label="Pre-order campaign status">
     <div class="campaign-bar-inner">
       <span class="campaign-bar-live"><span class="live-dot" aria-hidden="true"></span>Pre-orders live</span>
@@ -438,7 +438,11 @@ const specs = [
 
 <style>
   .pdp {
-    padding-top: 65px;
+    padding-top: calc(65px + 48px);
+  }
+
+  .pdp section {
+    scroll-margin-top: calc(64px + 48px);
   }
 
   /* Campaign status bar */
@@ -450,15 +454,6 @@ const specs = [
     z-index: 999;
     background: var(--pine);
     color: var(--sand-pale);
-    transform: translateY(-100%);
-    visibility: hidden;
-    transition: transform 0.3s ease, visibility 0s linear 0.3s;
-  }
-
-  .campaign-bar.is-visible {
-    transform: none;
-    visibility: visible;
-    transition: transform 0.3s ease;
   }
 
   .campaign-bar-inner {
@@ -502,11 +497,6 @@ const specs = [
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .campaign-bar,
-    .campaign-bar.is-visible {
-      transition: none;
-    }
-
     .live-dot {
       animation: none;
     }
@@ -577,6 +567,14 @@ const specs = [
   }
 
   @media (max-width: 640px) {
+    .pdp {
+      padding-top: calc(60px + 44px);
+    }
+
+    .pdp section {
+      scroll-margin-top: calc(60px + 44px);
+    }
+
     .campaign-bar {
       top: 60px;
     }
@@ -1428,7 +1426,6 @@ const specs = [
     display: flex;
     align-items: center;
     gap: 80px;
-    scroll-margin-top: 64px;
   }
 
   .specs-image {
@@ -1844,15 +1841,6 @@ const specs = [
     gallery.querySelectorAll<HTMLButtonElement>('.gallery-arrow').forEach((arrow) =>
       arrow.addEventListener('click', () => show(current + Number(arrow.dataset.step)))
     );
-  }
-
-  // Campaign status bar: show once the buy box has scrolled up out of view.
-  const campaignBar = document.querySelector<HTMLElement>('[data-campaign-bar]');
-  const buyBox = document.querySelector<HTMLElement>('.buy-box');
-  if (campaignBar && buyBox) {
-    new IntersectionObserver(([entry]) => {
-      campaignBar.classList.toggle('is-visible', !entry.isIntersecting && entry.boundingClientRect.top < 0);
-    }).observe(buyBox);
   }
 
   // Countdown, shown once the campaign end date is set.
