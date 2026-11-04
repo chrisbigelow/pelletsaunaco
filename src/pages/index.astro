@@ -7,7 +7,7 @@ import { productPath } from '../lib/site';
 import '../styles/theme.css';
 
 const heroStats = [
-  { value: '30 min', label: 'Heatup time' },
+  { value: '40 min', label: 'Heatup time', footnote: true },
   { value: 'up to 500 ft³', label: 'Hot room size' },
   { value: 'Remote Start', label: 'Built in' },
 ];
@@ -41,15 +41,15 @@ const comparisonRows: [string, boolean, boolean, boolean][] = [
 const faqs = [
   ['What is a pellet sauna stove?', 'A pellet sauna stove is an innovative sauna heater that uses compressed wood pellets as fuel instead of traditional firewood or electricity. The P1 pellet sauna stove combines the authentic wood-fired sauna experience with modern convenience, offering precise temperature control and easy operation.'],
   ['Why choose a pellet sauna stove over electric or wood-burning?', 'A pellet sauna stove offers the best of both worlds: the authentic warmth and ambiance of wood-fired heat without the hassle of chopping and storing firewood, and without the high electrical costs or installation requirements of electric heaters. Wood pellets are also more eco-friendly and cost-effective than other fuel sources.'],
-  ['How long does it take to heat a sauna with a pellet stove?', 'The P1 pellet sauna stove heats your sauna to optimal temperature in approximately 30 minutes. This is comparable to electric heaters and faster than traditional wood-burning stoves, making it convenient for spontaneous sauna sessions.'],
-  ['What size sauna can the P1 pellet stove heat?', 'The P1 pellet sauna stove is designed to efficiently heat saunas ranging from 300 to 500 cubic feet. This covers most residential sauna sizes, from compact home saunas to larger family-sized installations.'],
+  ['How long does it take to heat a sauna with a pellet stove?', 'The P1 pellet sauna stove heats your sauna to optimal temperature in approximately 40 minutes (measured from 63°F (17°C) in a 325 cubic foot sauna). This is comparable to electric heaters and faster than traditional wood-burning stoves, making it convenient for spontaneous sauna sessions.'],
+  ['What size sauna can the P1 pellet stove heat?', 'The P1 pellet sauna stove is designed to efficiently heat saunas ranging from 210 to 500 cubic feet. This covers most residential sauna sizes, from compact home saunas to larger family-sized installations.'],
   ['Are wood pellets easy to find for my pellet sauna stove?', "Yes! Wood pellets are widely available at hardware stores, home improvement centers, and online retailers. They're the same pellets used in pellet grills and home heating systems, making them convenient and affordable to purchase year-round."],
   ['Does a pellet sauna stove need an electrician?', 'The P1 is designed to plug into a standard 110V outlet, avoiding the dedicated high-voltage electrical work commonly required for many electric sauna heaters. Always follow the installation manual and local code requirements for your sauna setup.'],
-  ['Can a pellet sauna stove be used in an outdoor sauna?', 'Yes. The P1 is designed for residential sauna rooms from 300 to 500 cubic feet, including many backyard and cabin sauna installations, when installed with proper clearances, ventilation, and venting.'],
+  ['Can a pellet sauna stove be used in an outdoor sauna?', 'Yes. The P1 is designed for residential sauna rooms from 210 to 500 cubic feet, including many backyard and cabin sauna installations, when installed with proper clearances, ventilation, and venting.'],
   ['How many wood pellets does one sauna session use?', 'Pellet use depends on room size, outside temperature, target temperature, insulation, and session length. Because pellets are compact and widely available, they are easy to store and restock compared with split firewood.'],
   ['What maintenance does a pellet sauna stove need?', 'Like other pellet appliances, a pellet sauna stove should be kept clean and inspected regularly. Owners should empty ash as needed, keep air pathways clear, use quality dry pellets, and follow the maintenance schedule in the product manual.'],
-  ['Can I retrofit a pellet stove into an existing sauna?', 'Many existing sauna rooms in the 300 to 500 cubic foot range may be candidates for a P1 retrofit. Final fit depends on room volume, clearances, venting path, floor protection, and the existing heater location.'],
-  ['Why does remote start matter for a sauna heater?', "Remote start lets you begin heating before you walk outside or arrive at the sauna. With the P1's approximately 30-minute heat-up time, that convenience can turn sauna use from a planned chore into a more spontaneous routine."],
+  ['Can I retrofit a pellet stove into an existing sauna?', 'Many existing sauna rooms in the 210 to 500 cubic foot range may be candidates for a P1 retrofit. Final fit depends on room volume, clearances, venting path, floor protection, and the existing heater location.'],
+  ['Why does remote start matter for a sauna heater?', "Remote start lets you begin heating before you walk outside or arrive at the sauna. With the P1's approximately 40-minute heat-up time, that convenience can turn sauna use from a planned chore into a more spontaneous routine."],
 ];
 
 // TODO: hours are a placeholder from the mockup; confirm before launch.
@@ -92,14 +92,17 @@ const contactDetails = [
         </div>
       </div>
 
-      <dl class="hero-stats">
-        {heroStats.map((stat) => (
-          <div class="hero-stat">
-            <dt>{stat.label}</dt>
-            <dd>{stat.value}</dd>
-          </div>
-        ))}
-      </dl>
+      <div class="hero-stats-wrap">
+        <dl class="hero-stats">
+          {heroStats.map((stat) => (
+            <div class="hero-stat">
+              <dt>{stat.label}</dt>
+              <dd>{stat.value}{stat.footnote && <sup aria-describedby="hero-heatup-note">*</sup>}</dd>
+            </div>
+          ))}
+        </dl>
+        <p class="hero-stats-note" id="hero-heatup-note">* Heat-up time measured from 17°C (63°F) in a 325 ft³ sauna.</p>
+      </div>
     </div>
   </section>
 
@@ -367,8 +370,11 @@ const contactDetails = [
     padding-top: 12px;
   }
 
-  .hero-stats {
+  .hero-stats-wrap {
     width: 240px;
+  }
+
+  .hero-stats {
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -388,6 +394,20 @@ const contactDetails = [
     font-family: var(--serif);
     font-size: 32px;
     color: var(--cream-bright);
+  }
+
+  .hero-stat sup {
+    font-size: 0.55em;
+    vertical-align: super;
+    line-height: 0;
+  }
+
+  .hero-stats-note {
+    margin-top: 12px;
+    font-size: 11px;
+    line-height: 1.5;
+    color: var(--sand-pale);
+    text-shadow: 0 1px 18px rgba(0, 0, 0, 0.35);
   }
 
   .hero-stat dt {
@@ -1101,8 +1121,11 @@ const contactDetails = [
       padding: 0;
     }
 
-    .hero-stats {
+    .hero-stats-wrap {
       width: 100%;
+    }
+
+    .hero-stats {
       flex-direction: row;
       gap: 24px;
     }
