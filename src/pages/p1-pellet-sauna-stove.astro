@@ -147,7 +147,7 @@ const specs = [
             {usd(campaign.price)}
             <s class="full-price"><span class="visually-hidden">Regular price </span>{usd(campaign.fullPrice)}</s>
           </p>
-          <p class="buy-price-save">Founders’ price · Save {usd(savings)}</p>
+          <p class="buy-price-save">Founders’ price for our first batch · Save {usd(savings)}</p>
           <p class="buy-price-note">
             Reserve with only <strong>{usd(campaign.deposit)} down today</strong>. Fully refundable.<br />
             The remaining balance is charged when production begins in {campaign.productionMonth}.
@@ -182,7 +182,7 @@ const specs = [
             <span class="founders-price-value">{usd(campaign.price)}</span>
             <s class="full-price"><span class="visually-hidden">Regular price </span>{usd(campaign.fullPrice)}</s>
           </p>
-          <p class="founders-save">Save {usd(savings)} when you reserve early.</p>
+          <p class="founders-save">Founders’ price {usd(campaign.price)} for our first batch; {usd(campaign.fullPrice)} after.</p>
         </div>
         <div class="founders-pay">
           <dl class="founders-payment">
