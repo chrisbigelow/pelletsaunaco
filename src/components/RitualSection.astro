@@ -1,0 +1,184 @@
+---
+// "From cold sauna to first löyly": the P1 user journey, shared by the home and product pages.
+interface Props {
+  photo: { src: string; alt: string; width: number; height: number; position?: string };
+  caption?: { label: string; text: string };
+  /** Background tone, so the section can alternate with its neighbours. */
+  tone?: 'cream' | 'linen';
+}
+
+const { photo, caption, tone = 'cream' } = Astro.props;
+
+const ritualSteps = [
+  { title: 'Fill the hopper', body: 'Top up with standard wood pellets — sold at most hardware and farm stores.' },
+  { title: 'Set your temp and start it', body: 'Pick your temperature and tap start in the app, or press the button on the stove. The P1 lights itself and meters the pellet feed to hold your heat steady — no stoking, no guessing.' },
+  { title: 'Step in and sweat', body: 'Throw water on the stones, settle in, and let the P1 hold the heat while you relax.' },
+];
+---
+
+<section class:list={['ritual', `tone-${tone}`]}>
+  <div class="ritual-copy">
+    <h2 class="section-title">From cold sauna to first löyly in about forty minutes.</h2>
+    <ol class="ritual-steps">
+      {ritualSteps.map((step, i) => (
+        <li>
+          <span class="step-num">{String(i + 1).padStart(2, '0')}</span>
+          <div>
+            <h3>{step.title}</h3>
+            <p>{step.body}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+  <figure class="ritual-image">
+    <img
+      src={photo.src}
+      alt={photo.alt}
+      width={photo.width}
+      height={photo.height}
+      style={photo.position ? `object-position: ${photo.position}` : undefined}
+      loading="lazy"
+      decoding="async"
+    />
+    {caption && (
+      <figcaption>
+        <span>{caption.label}</span>
+        {caption.text}
+      </figcaption>
+    )}
+  </figure>
+</section>
+
+<style>
+  .ritual {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 480px);
+    align-items: center;
+    gap: 96px;
+    padding: var(--section-y) var(--gutter);
+  }
+
+  .tone-linen {
+    background: var(--linen);
+  }
+
+  .ritual-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .ritual-copy .section-title {
+    font-size: clamp(2.25rem, 3.2vw, 2.5rem);
+    line-height: 1.1;
+  }
+
+  .ritual-steps {
+    list-style: none;
+    margin-top: 20px;
+  }
+
+  .ritual-steps li {
+    display: flex;
+    gap: 24px;
+    padding: 18px 0;
+    border-top: 1px solid rgba(43, 42, 34, 0.15);
+  }
+
+  .step-num {
+    flex-shrink: 0;
+    min-width: 24px;
+    font-family: var(--serif);
+    font-size: 18px;
+    font-weight: 300;
+    color: var(--clay);
+  }
+
+  .ritual-steps h3 {
+    font-family: var(--serif);
+    font-size: 19px;
+    font-weight: 400;
+    color: var(--ink);
+  }
+
+  .ritual-steps p {
+    margin-top: 4px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--muted);
+  }
+
+  .ritual-image {
+    position: relative;
+  }
+
+  .ritual-image img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 560 / 760;
+    object-fit: cover;
+  }
+
+  .ritual-image figcaption {
+    position: absolute;
+    left: 24px;
+    bottom: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 14px 18px;
+    border-radius: 2px;
+    background: var(--cream);
+    font-family: var(--serif);
+    font-size: 16px;
+    color: var(--ink);
+  }
+
+  .ritual-image figcaption span {
+    font-family: var(--sans);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #8a8575;
+  }
+
+  /* Wide desktop: cap content at 1088px with wider side margins */
+  @media (min-width: 1201px) {
+    .ritual {
+      --gutter: max(96px, calc((100vw - 1088px) / 2));
+    }
+  }
+
+  @media (max-width: 1200px) {
+    .ritual {
+      gap: 56px;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .ritual {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .ritual-image {
+      max-width: 560px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .ritual {
+      gap: 40px;
+    }
+
+    .ritual-copy .section-title {
+      font-size: 32px;
+    }
+
+    .ritual-steps li {
+      gap: 16px;
+    }
+  }
+</style>
