@@ -6,6 +6,10 @@ export const campaign = {
   price: 3250,
   /** Refundable amount charged today. */
   deposit: 100,
+  /** Stoves in the first batch at the founders' price. */
+  batchSize: 100,
+  /** Deposits received so far. Update as reservations come in; it drives the progress bars. */
+  reserved: 0,
   /** When the remaining balance is charged. */
   productionMonth: 'June',
 };

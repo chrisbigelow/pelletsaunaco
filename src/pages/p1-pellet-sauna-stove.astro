@@ -6,6 +6,7 @@ import SiteFooter from '../components/SiteFooter.astro';
 import CompareTable from '../components/CompareTable.astro';
 import RitualSection from '../components/RitualSection.astro';
 import InfoTip from '../components/InfoTip.astro';
+import BatchProgress from '../components/BatchProgress.astro';
 import { campaign, savings, balance, usd, reserveHref } from '../lib/campaign';
 import '../styles/theme.css';
 
@@ -152,6 +153,7 @@ const specs = [
             Reserve with only <strong>{usd(campaign.deposit)} down today</strong>. Fully refundable.<br />
             The remaining balance is charged when production begins in {campaign.productionMonth}.
           </p>
+          <BatchProgress size="compact" />
         </div>
         <div class="buy-actions">
           <a href={reserveHref} class="btn btn-clay">Reserve for {usd(campaign.deposit)} <Icon name="arrow-right" size={14} /></a>
@@ -183,6 +185,7 @@ const specs = [
             <s class="full-price"><span class="visually-hidden">Regular price </span>{usd(campaign.fullPrice)}</s>
           </p>
           <p class="founders-save">Founders’ price {usd(campaign.price)} for our first batch; {usd(campaign.fullPrice)} after.</p>
+          <BatchProgress />
         </div>
         <div class="founders-pay">
           <dl class="founders-payment">
