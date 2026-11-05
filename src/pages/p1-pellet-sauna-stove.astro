@@ -20,10 +20,14 @@ const stoveNumber = (n: number) => `#${String(n).padStart(3, '0')}`;
 const questionHref = `/?subject=${encodeURIComponent('Question about the P1')}#contact`;
 
 const photos = [
-  { src: '/images/p1/front-fire.jpg', alt: 'The P1 pellet sauna stove burning inside a cedar sauna wall', width: 719, height: 1080 },
-  { src: '/images/p1/hopper-wall.jpg', alt: 'The P1 pellet hopper and chimney mounted outside a cedar sauna wall', width: 719, height: 1080 },
-  { src: '/images/p1/pellet-fill.jpg', alt: 'Pouring wood pellets into the P1 hopper', width: 720, height: 1080 },
-  { src: '/images/p1/stones.jpg', alt: 'Sauna stones loaded in the top of the P1 stove', width: 1600, height: 1066 },
+  // Photos by Liz Drevlow Photography.
+  { src: '/images/p1/ld-front-chimney.jpg', alt: 'The P1 pellet sauna stove burning against a cedar sauna wall, chimney rising above, autumn trees behind', width: 1066, height: 1600 },
+  { src: '/images/p1/ld-angle-sunset.jpg', alt: 'The P1 stove at an angle on a cedar deck with the sun setting through autumn trees', width: 1800, height: 1200 },
+  { src: '/images/p1/ld-front-fire.jpg', alt: 'Front view of the P1 with a bright fire in the window', width: 1200, height: 1800 },
+  { src: '/images/p1/ld-fire-glass.jpg', alt: 'Close-up of flames through the P1 firebox window', width: 1200, height: 1800 },
+  { src: '/images/p1/ld-stones-top.jpg', alt: 'Sauna stones piled on top of the P1 stove', width: 1800, height: 1200 },
+  { src: '/images/p1/ld-hopper-outside.jpg', alt: 'The P1 pellet hopper and chimney mounted on the outside of a cedar sauna wall', width: 1066, height: 1600 },
+  { src: '/images/p1/ld-hopper-carry.jpg', alt: 'Carrying a bucket of pellets to the P1 hopper outside the sauna', width: 1800, height: 1200 },
 ];
 
 const quickStats = [
@@ -65,15 +69,15 @@ const paymentSteps = [
 const sides = [
   {
     tag: 'Outside',
-    image: '/images/p1/pellet-fill.jpg',
-    alt: 'Pouring wood pellets into the P1 hopper outside the sauna',
+    image: '/images/p1/ld-pellet-pour.jpg',
+    alt: 'Pouring wood pellets from a bucket into the P1 hopper outside the sauna',
     title: 'A hopper you fill from the yard',
     body: 'Pour in a bag of pellets, close the lid, and walk away. The steel hopper keeps fuel dry and the mess outdoors — nothing to haul through the sauna door.',
   },
   {
     tag: 'Inside',
-    image: '/images/p1/stones.jpg',
-    alt: 'Sauna stones loaded in the top of the P1 firebox',
+    image: '/images/p1/ld-stones-close.jpg',
+    alt: 'Close-up of sauna stones loaded in the top of the P1',
     title: 'Set it once, stay as long as you like',
     body: 'The P1 feeds and burns pellets on its own, holding the hot room at exactly the temperature you choose — for a quick sweat or an all-evening session. No stoking, no checking, no cooling off halfway through.',
   },
@@ -343,7 +347,7 @@ const specs = [
         </ol>
       </div>
       <figure class="ritual-image">
-        <img src="/images/p1/hopper-wall.jpg" alt="The P1 hopper and chimney installed through a cedar sauna wall" width="719" height="1080" loading="lazy" decoding="async" />
+        <img src="/images/p1/ld-through-wall.jpg" alt="Side view of the P1 installed through a cedar sauna wall, hopper outside and stove inside" width="1066" height="1600" loading="lazy" decoding="async" />
         <figcaption>
           <span>As shown</span>
           P1 installed through a cedar sauna wall
@@ -390,7 +394,7 @@ const specs = [
 
     <!-- Final CTA -->
     <section class="final-cta">
-      <img class="final-cta-bg" src="/images/p1/stones.jpg" alt="" width="1600" height="1066" loading="lazy" decoding="async" />
+      <img class="final-cta-bg" src="/images/p1/ld-sunset-wide.jpg" alt="" width="2000" height="1333" loading="lazy" decoding="async" />
       <div class="final-cta-copy">
         <p class="eyebrow">Now taking pre-orders</p>
         <h2>Reserve your P1.</h2>
@@ -504,11 +508,11 @@ const specs = [
   .gallery-thumbs {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
   }
 
   .gallery-thumb {
-    width: 72px;
+    width: 60px;
     aspect-ratio: 88 / 112;
     padding: 0;
     border: 1px solid rgba(43, 42, 34, 0.15);
