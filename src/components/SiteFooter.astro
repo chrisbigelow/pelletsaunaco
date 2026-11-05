@@ -2,11 +2,10 @@
 import Icon from './Icon.astro';
 import { aboutPath, logoPaths, productPath } from '../lib/site';
 
-// TODO: add profile URLs.
+// TODO: add Instagram and Facebook profile URLs.
 const socials = [
   { icon: 'instagram', label: 'Instagram', href: '#' },
   { icon: 'facebook', label: 'Facebook', href: '#' },
-  { icon: 'youtube', label: 'YouTube', href: '#' },
 ] as const;
 ---
 
@@ -18,10 +17,7 @@ const socials = [
           <svg class="footer-mark" viewBox="428 232 430 788" aria-hidden="true" focusable="false">
             <g fill="currentColor">{logoPaths.map((d) => <path d={d} />)}</g>
           </svg>
-          <div>
-            <p class="footer-name">The Pellet Sauna Company</p>
-            <p class="footer-tagline">Effortless Wood-Fired Saunas</p>
-          </div>
+          <p class="footer-name">The Pellet Sauna Company</p>
         </div>
         <ul class="footer-social">
           {socials.map((s) => (
@@ -114,12 +110,6 @@ const socials = [
     font-family: var(--serif);
     font-size: 20px;
     color: var(--cream);
-  }
-
-  .footer-tagline {
-    margin-top: 6px;
-    font-size: 13px;
-    color: var(--sand);
   }
 
   .footer-social {

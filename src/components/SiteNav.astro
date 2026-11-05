@@ -11,10 +11,10 @@ interface Props {
 
 const { solid = false, variant = 'site' } = Astro.props;
 
+// The logo links home, so no page needs a separate "Home" link.
 const navLinks =
   variant === 'product'
     ? [
-        { href: '/', label: 'Home' },
         { href: `${productPath}#features`, label: 'Features' },
         { href: `${productPath}#specifications`, label: 'Specs' },
         { href: aboutPath, label: 'About Us' },
@@ -30,6 +30,12 @@ const cta = variant === 'product' ? { href: reserveHref, label: 'Reserve Now' } 
 ---
 
 <nav class:list={['nav', { scrolled: solid }]} id="siteNav" data-solid={solid ? '' : undefined}>
+  <a href="/" class="brand" aria-label="The Pellet Sauna Company home">
+    <svg class="brand-mark" viewBox="428 232 430 788" aria-hidden="true" focusable="false">
+      <g fill="currentColor">{logoPaths.map((d) => <path d={d} />)}</g>
+    </svg>
+    <span class="brand-text">The Pellet Sauna Company</span>
+  </a>
   <div class="nav-left">
     <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks">
       <span></span>
@@ -42,12 +48,6 @@ const cta = variant === 'product' ? { href: reserveHref, label: 'Reserve Now' } 
       <a href={cta.href} class="btn-preorder btn-preorder-mobile">{cta.label}</a>
     </div>
   </div>
-  <a href="/" class="brand" aria-label="The Pellet Sauna Company home">
-    <svg class="brand-mark" viewBox="428 232 430 788" aria-hidden="true" focusable="false">
-      <g fill="currentColor">{logoPaths.map((d) => <path d={d} />)}</g>
-    </svg>
-    <span class="brand-text">The Pellet Sauna Company</span>
-  </a>
   <div class="nav-right">
     <a href="/#contact" class="nav-link nav-link-desktop">Contact</a>
     <div class="nav-cta">
@@ -57,6 +57,7 @@ const cta = variant === 'product' ? { href: reserveHref, label: 'Reserve Now' } 
 </nav>
 
 <style>
+  /* Desktop: logo top left, page links beside it, contact and button on the right. */
   .nav {
     position: fixed;
     top: 0;
@@ -64,8 +65,7 @@ const cta = variant === 'product' ? { href: reserveHref, label: 'Reserve Now' } 
     right: 0;
     z-index: 1000;
     height: 65px;
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
+    display: flex;
     align-items: stretch;
     border-bottom: 1px solid rgba(255, 255, 255, 0.35);
     transition: background 0.3s ease, border-color 0.3s ease;
@@ -84,7 +84,8 @@ const cta = variant === 'product' ? { href: reserveHref, label: 'Reserve Now' } 
   }
 
   .nav-left {
-    padding-left: 56px;
+    flex: 1;
+    min-width: 0;
   }
 
   .nav-right {
@@ -95,7 +96,7 @@ const cta = variant === 'product' ? { href: reserveHref, label: 'Reserve Now' } 
   .nav-links {
     display: flex;
     align-items: center;
-    gap: 36px;
+    gap: 32px;
   }
 
   .nav-link,
@@ -127,7 +128,7 @@ const cta = variant === 'product' ? { href: reserveHref, label: 'Reserve Now' } 
     display: flex;
     align-items: center;
     gap: 14px;
-    padding: 0 24px;
+    padding: 0 48px 0 56px;
   }
 
   .brand-mark {
@@ -201,13 +202,36 @@ const cta = variant === 'product' ? { href: reserveHref, label: 'Reserve Now' } 
     transform: translateY(-6px) rotate(-45deg);
   }
 
-  @media (max-width: 1024px) {
-    .nav {
-      grid-template-columns: auto 1fr auto;
+  /* Narrow desktop: tighten spacing so the links still fit beside the logo. */
+  @media (max-width: 1200px) {
+    .brand {
+      padding: 0 32px 0 32px;
     }
 
+    .nav-links {
+      gap: 24px;
+    }
+
+    .nav-right {
+      gap: 24px;
+    }
+
+    .nav-cta {
+      padding: 0 32px 0 24px;
+    }
+  }
+
+  /* Tablet: logo left, button and menu toggle on the right. */
+  @media (max-width: 1024px) {
     .nav-left {
-      padding-left: 16px;
+      order: 3;
+      flex: 0 0 auto;
+      padding-right: 12px;
+    }
+
+    .nav-right {
+      order: 2;
+      margin-left: auto;
     }
 
     .menu-toggle {
@@ -246,25 +270,21 @@ const cta = variant === 'product' ? { href: reserveHref, label: 'Reserve Now' } 
     }
 
     .brand {
-      justify-self: start;
-      padding: 0 8px;
+      padding: 0 16px 0 24px;
     }
 
     .nav-cta {
-      padding: 0 16px 0 20px;
+      padding: 0 12px 0 20px;
     }
   }
 
-  /* Phone: logo left, menu right */
+  /* Phone: logo left, menu right; the button moves into the menu. */
   @media (max-width: 640px) {
     .nav {
       height: 60px;
-      display: flex;
-      justify-content: space-between;
     }
 
     .brand {
-      order: 1;
       gap: 10px;
       padding: 0 20px;
     }
@@ -279,8 +299,7 @@ const cta = variant === 'product' ? { href: reserveHref, label: 'Reserve Now' } 
     }
 
     .nav-left {
-      order: 2;
-      padding: 0 12px 0 0;
+      margin-left: auto;
     }
 
     .nav-right {

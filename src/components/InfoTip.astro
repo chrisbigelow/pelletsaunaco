@@ -1,0 +1,134 @@
+---
+// Small ⓘ button that reveals a note on hover, keyboard focus, or tap.
+interface Props {
+  /** The note shown in the bubble. */
+  text: string;
+  /** Accessible name for the button, e.g. "About heat-up time". */
+  label: string;
+  /** 'light' for dark backgrounds (icon in cream), 'dark' for light backgrounds. */
+  tone?: 'light' | 'dark';
+}
+
+const { text, label, tone = 'dark' } = Astro.props;
+const id = `tip-${Math.random().toString(36).slice(2, 9)}`;
+---
+
+<span class:list={['info-tip', `tone-${tone}`]} data-info-tip>
+  <button type="button" class="info-tip-button" aria-label={label} aria-describedby={id} aria-expanded="false">
+    <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true" focusable="false">
+      <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.6" />
+      <path d="M12 11v6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+      <circle cx="12" cy="7.5" r="1.1" fill="currentColor" />
+    </svg>
+  </button>
+  <span class="info-tip-bubble" role="tooltip" id={id}>{text}</span>
+</span>
+
+<style>
+  .info-tip {
+    position: relative;
+    display: inline-flex;
+    vertical-align: middle;
+    margin-left: 6px;
+  }
+
+  .info-tip-button {
+    display: inline-flex;
+    padding: 2px;
+    border: 0;
+    background: none;
+    cursor: pointer;
+    border-radius: 50%;
+    opacity: 0.75;
+    transition: opacity 0.15s ease;
+  }
+
+  .tone-dark .info-tip-button {
+    color: var(--muted, #6b675a);
+  }
+
+  .tone-light .info-tip-button {
+    color: var(--sand-pale, #f1eadc);
+  }
+
+  .info-tip-button:hover,
+  .info-tip-button:focus-visible,
+  .info-tip.is-open .info-tip-button {
+    opacity: 1;
+  }
+
+  .info-tip-button:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+  }
+
+  .info-tip-bubble {
+    position: absolute;
+    left: -12px;
+    bottom: calc(100% + 10px);
+    z-index: 20;
+    width: max-content;
+    max-width: 220px;
+    padding: 10px 12px;
+    border-radius: 4px;
+    background: var(--char, #1e1c14);
+    color: var(--cream, #f6f1e7);
+    font-family: var(--sans);
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.45;
+    letter-spacing: normal;
+    text-transform: none;
+    text-shadow: none;
+    white-space: normal;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(4px);
+    transition: opacity 0.15s ease, transform 0.15s ease, visibility 0s linear 0.15s;
+    pointer-events: none;
+  }
+
+  .tone-light .info-tip-bubble {
+    background: var(--cream, #f6f1e7);
+    color: var(--ink, #2b2a22);
+  }
+
+  .info-tip:hover .info-tip-bubble,
+  .info-tip:focus-within .info-tip-bubble,
+  .info-tip.is-open .info-tip-bubble {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    transition: opacity 0.15s ease, transform 0.15s ease;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .info-tip-bubble {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  // Tap to toggle on touch screens; tap elsewhere or press Escape to close.
+  const tips = [...document.querySelectorAll<HTMLElement>('[data-info-tip]')];
+  const setOpen = (tip: HTMLElement, open: boolean) => {
+    tip.classList.toggle('is-open', open);
+    tip.querySelector('button')?.setAttribute('aria-expanded', String(open));
+  };
+
+  tips.forEach((tip) => {
+    tip.querySelector('button')?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const open = !tip.classList.contains('is-open');
+      tips.forEach((other) => setOpen(other, false));
+      setOpen(tip, open);
+    });
+  });
+
+  document.addEventListener('click', () => tips.forEach((tip) => setOpen(tip, false)));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') tips.forEach((tip) => setOpen(tip, false));
+  });
+</script>

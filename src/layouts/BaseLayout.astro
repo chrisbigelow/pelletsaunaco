@@ -1,5 +1,4 @@
 ---
-import CampaignBar from '../components/CampaignBar.astro';
 interface Props {
   title?: string;
   description?: string;
@@ -226,7 +225,6 @@ const schemas = [organizationSchema, webPageSchema, ...(isHome ? [faqSchema] : [
     ))}
   </head>
   <body>
-    <CampaignBar />
     <slot />
 
     <div id="cookie-banner" class="cookie-banner" hidden>
