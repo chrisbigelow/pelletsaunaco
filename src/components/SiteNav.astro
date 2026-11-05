@@ -1,5 +1,6 @@
 ---
 import { aboutPath, logoPaths, productPath } from '../lib/site';
+import { reserveHref } from '../lib/campaign';
 
 interface Props {
   /** Keep the dark background from the top (pages without a dark hero behind the nav). */
@@ -25,7 +26,7 @@ const navLinks =
         { href: aboutPath, label: 'About Us' },
       ];
 
-const cta = variant === 'product' ? { href: '/#contact', label: 'Pre Order Now' } : { href: productPath, label: 'Explore the P1' };
+const cta = variant === 'product' ? { href: reserveHref, label: 'Reserve Now' } : { href: productPath, label: 'Explore the P1' };
 ---
 
 <nav class:list={['nav', { scrolled: solid }]} id="siteNav" data-solid={solid ? '' : undefined}>

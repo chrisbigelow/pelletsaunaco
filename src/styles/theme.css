@@ -26,6 +26,8 @@ body {
 
 html {
   scroll-behavior: smooth;
+  /* Dark canvas so pulling past the top or bottom shows the nav/footer tone, not cream. */
+  background: var(--char);
 }
 
 section {
