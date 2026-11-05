@@ -1164,11 +1164,11 @@ const contactDetails = [
     heroVideo.preload = 'none';
   }
 
-  // Slowed to 0.3x: real-time flames read as busy, slower ones as calm.
+  // Half speed: real-time flames read as busy, slower ones as calm.
   if (heroVideo) {
     const slowDown = () => {
-      heroVideo.defaultPlaybackRate = 0.3;
-      heroVideo.playbackRate = 0.3;
+      heroVideo.defaultPlaybackRate = 0.5;
+      heroVideo.playbackRate = 0.5;
     };
     slowDown();
     heroVideo.addEventListener('loadedmetadata', slowDown);
