@@ -1,5 +1,6 @@
 ---
 import CampaignBar from '../components/CampaignBar.astro';
+import { socialLinks } from '../lib/site';
 interface Props {
   title?: string;
   description?: string;
@@ -38,7 +39,7 @@ const organizationSchema = {
     height: 512
   },
   description: "Manufacturer of the world's first wood pellet sauna stove. We combine traditional sauna warmth with modern pellet fuel convenience.",
-  sameAs: []
+  sameAs: [socialLinks.instagram, socialLinks.facebook]
 };
 
 const webPageSchema = {

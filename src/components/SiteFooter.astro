@@ -1,12 +1,10 @@
 ---
 import Icon from './Icon.astro';
-import { aboutPath, logoPaths, productPath } from '../lib/site';
+import { aboutPath, logoPaths, productPath, socialLinks } from '../lib/site';
 
-// TODO: add profile URLs.
 const socials = [
-  { icon: 'instagram', label: 'Instagram', href: '#' },
-  { icon: 'facebook', label: 'Facebook', href: '#' },
-  { icon: 'youtube', label: 'YouTube', href: '#' },
+  { icon: 'instagram', label: 'Instagram', href: socialLinks.instagram },
+  { icon: 'facebook', label: 'Facebook', href: socialLinks.facebook },
 ] as const;
 ---
 
@@ -25,7 +23,7 @@ const socials = [
         </div>
         <ul class="footer-social">
           {socials.map((s) => (
-            <li><a href={s.href} aria-label={s.label}><Icon name={s.icon} size={17} /></a></li>
+            <li><a href={s.href} aria-label={s.label} target="_blank" rel="noopener noreferrer"><Icon name={s.icon} size={17} /></a></li>
           ))}
         </ul>
       </div>
