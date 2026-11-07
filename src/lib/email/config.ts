@@ -31,8 +31,8 @@ export function emailConfig() {
       .map((address) => address.trim())
       .filter(Boolean),
     segmentId: env('RESEND_SEGMENT_ID'),
-    // Resend template (ID or alias) for the welcome email; set to "" to use the built-in copy.
-    welcomeTemplateId: process.env.RESEND_WELCOME_TEMPLATE ?? 'welcome-email',
+    // Resend template (ID or alias) for the welcome email.
+    welcomeTemplateId: env('RESEND_WELCOME_TEMPLATE') ?? 'welcome-email',
     siteUrl: 'https://www.pelletsauna.com',
   };
 }

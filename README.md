@@ -144,7 +144,7 @@ The email list, welcome email, and contact form run on [Resend](https://resend.c
 | `POST /api/subscribe` | Footer signup form | Adds the email to Resend Contacts + the list segment, sends the welcome email (first signup only) |
 | `POST /api/contact` | Contact form | Emails the message to every address in `CONTACT_INBOX` (comma-separated) (reply goes to the sender); if "Add me to the email list" is checked, also subscribes them |
 
-Shared code lives in `src/lib/email/` (`subscribers.ts`, `send.ts`, `templates/`).
+Shared code lives in `src/lib/email/` (`subscribers.ts`, `send.ts`). The only email built in code is the internal contact-form notification (`templates/contact-notification.ts`).
 
 ### Setup
 
@@ -155,7 +155,7 @@ Shared code lives in `src/lib/email/` (`subscribers.ts`, `send.ts`, `templates/`
 
 **Email templates (in Resend):**
 - **Campaigns:** Broadcasts → "★ TEMPLATE — Campaign (duplicate me)". Duplicate it for each campaign, edit the text in the visual editor, and send to the newsletter segment.
-- **Welcome email:** Templates → "Welcome — new email list signup" (alias `welcome-email`). `/api/subscribe` sends it with a `NAME` variable; edit the wording in Resend and re-publish. If the template is missing or unpublished, the built-in copy in `src/lib/email/templates/welcome.ts` is sent instead.
+- **Welcome email:** Templates → "Welcome — new email list signup" (alias `welcome-email`). `/api/subscribe` sends it with a `NAME` variable. Its wording lives only in Resend: edit it there and re-publish. It must be published or no welcome email is sent.
 - Brand images for emails live in `public/email/` (header lockup rendered from the site logo in Instrument Serif, and the footer landscape).
 
 Campaigns are sent from Resend → Broadcasts to the list segment; Resend adds the unsubscribe link and keeps contacts' unsubscribe status in sync.

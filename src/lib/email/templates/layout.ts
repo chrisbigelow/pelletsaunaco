@@ -42,25 +42,3 @@ export function emailLayout(params: { preheader: string; body: string; footer?: 
 </body>
 </html>`;
 }
-
-/** Small uppercase clay label above headings, as on the site. */
-export function eyebrow(text: string): string {
-  return `<p style="margin:0 0 6px;font-family:${SANS};font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;line-height:1.4;color:#c2734a;">${text}</p>`;
-}
-
-export function heading(text: string): string {
-  return `<h1 style="margin:0 0 20px;font-family:${SERIF};font-size:40px;font-weight:400;line-height:1.1;color:#2b2a22;">${text}</h1>`;
-}
-
-export function button(href: string, label: string): string {
-  return `<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin-top:8px;margin-bottom:8px;"><tr>
-  <td bgcolor="#c2734a" style="background-color:#c2734a;">
-    <a href="${href}" style="display:inline-block;padding-top:16px;padding-right:26px;padding-bottom:16px;padding-left:26px;font-family:${SANS};font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;line-height:1;color:#ffffff;text-decoration:none;">${label}</a>
-  </td></tr></table>`;
-}
-
-/** Square photo sized to the text column (520px), linked when href is given. */
-export function photo(src: string, alt: string, href?: string): string {
-  const img = `<img src="${src}" width="520" height="520" alt="${alt}" border="0" style="display:block;width:100%;max-width:520px;height:auto;border:0;" />`;
-  return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:8px;margin-bottom:28px;"><tr><td style="line-height:0;font-size:0;">${href ? `<a href="${href}">${img}</a>` : img}</td></tr></table>`;
-}
