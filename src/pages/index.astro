@@ -4,11 +4,13 @@ import Icon from '../components/Icon.astro';
 import SiteNav from '../components/SiteNav.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import CompareTable from '../components/CompareTable.astro';
+import RitualSection from '../components/RitualSection.astro';
+import InfoTip from '../components/InfoTip.astro';
 import { productPath } from '../lib/site';
 import '../styles/theme.css';
 
 const heroStats = [
-  { value: '40 min', label: 'Heatup time', footnote: true },
+  { value: '40 min', label: 'Heatup time', note: 'Measured from 17°C (63°F) in a 325 ft³ sauna.' },
   { value: 'up to 500 ft³', label: 'Hot room size' },
   { value: 'Remote Start', label: 'Built in' },
 ];
@@ -22,12 +24,6 @@ const pillars = [
   { icon: 'leaf', title: 'Eco-Friendly Fuel', body: 'Sustainable wood pellets burn cleaner and cheaper' },
   { icon: 'zap', title: 'Efficient Performance', body: 'Quick heat-up time, small footprint' },
 ] as const;
-
-const steps = [
-  'The P1 pellet sauna stove automatically feeds wood pellets from a built-in hopper into a combustion chamber.',
-  'An electronic control system manages the pellet feed rate to maintain your desired temperature, and the unit runs by plugging into a standard 110V outlet.',
-  'You can even start your pellet sauna stove remotely using our app, so your sauna is hot when you arrive.',
-];
 
 // Must stay in sync with the FAQPage schema in BaseLayout.astro.
 const faqs = [
@@ -45,11 +41,9 @@ const faqs = [
   ['Why does remote start matter for a sauna heater?', "Remote start lets you begin heating before you walk outside or arrive at the sauna. With the P1's approximately 40-minute heat-up time, that convenience can turn sauna use from a planned chore into a more spontaneous routine."],
 ];
 
-// TODO: hours are a placeholder from the mockup; confirm before launch.
 const contactDetails = [
   { icon: 'phone', label: 'Call us', value: '(720) 772-1574', href: 'tel:+17207721574' },
   { icon: 'mail', label: 'Email', value: 'jared@pelletsauna.com', href: 'mailto:jared@pelletsauna.com' },
-  { icon: 'clock', label: 'Hours', value: 'Mon–Fri, 8am–5pm CDT' },
 ] as const;
 ---
 
@@ -90,11 +84,10 @@ const contactDetails = [
           {heroStats.map((stat) => (
             <div class="hero-stat">
               <dt>{stat.label}</dt>
-              <dd>{stat.value}{stat.footnote && <sup aria-describedby="hero-heatup-note">*</sup>}</dd>
+              <dd>{stat.value}{'note' in stat && <InfoTip text={stat.note} label="About heat-up time" tone="light" />}</dd>
             </div>
           ))}
         </dl>
-        <p class="hero-stats-note" id="hero-heatup-note">* Heat-up time measured from 17°C (63°F) in a 325 ft³ sauna.</p>
       </div>
     </div>
   </section>
@@ -118,29 +111,11 @@ const contactDetails = [
 
   <CompareTable />
 
-  <!-- How it works -->
-  <section class="how" id="how-it-works">
-    <img
-      class="how-image"
-      src="/images/home/p1-app-start.jpg"
-      alt="Starting the P1 remotely from the phone app"
-      width="1920"
-      height="1080"
-      loading="lazy"
-      decoding="async"
-    />
-    <div class="how-steps">
-      <h2>How does the P1 pellet sauna stove work?</h2>
-      <ol>
-        {steps.map((step, i) => (
-          <li>
-            <span class="step-num">{String(i + 1).padStart(2, '0')}</span>
-            <p>{step}</p>
-          </li>
-        ))}
-      </ol>
-    </div>
-  </section>
+  <RitualSection
+    tone="linen"
+    photo={{ src: '/images/p1/ld-hopper-carry.jpg', alt: 'Carrying a bucket of pellets to the P1 hopper outside the sauna', width: 1800, height: 1200, position: '62% center' }}
+  />
+
 
   <!-- Story -->
   <section class="story" id="about">
@@ -160,10 +135,8 @@ const contactDetails = [
       <p class="eyebrow faq-eyebrow">FAQ</p>
       <h2 class="section-title">Frequently Asked<br />Questions</h2>
       <p>Everything you need to know about the P1 Pellet Sauna Stove</p>
-      <a href="#contact" class="btn btn-outline-dark">Get in Touch</a>
       <div class="faq-art" aria-hidden="true">
         <img src="/images/home/sauna-arch.jpg" alt="" width="900" height="856" loading="lazy" decoding="async" />
-        <span class="faq-badge"><Icon name="flame" size={30} /></span>
       </div>
     </div>
     <div class="faq-list">
@@ -187,13 +160,13 @@ const contactDetails = [
     <div class="contact-copy">
       <p class="eyebrow">Contact Us</p>
       <h2>Get in Touch</h2>
-      <p class="contact-sub">Preorders are opening soon.</p>
+      <p class="contact-sub">Preorders are opening soon. <em>We typically reply within 2 to 5 business days.</em></p>
       <p class="contact-sub">
         Reach out and join our growing email list to stay up to date as we bring the P1 Pellet Stove to production in mid-2027.
       </p>
     </div>
 
-    <form class="contact-form" id="contactForm" method="POST" action="https://api.web3forms.com/submit">
+    <form class="contact-form" id="contactForm" method="POST" action="https://api.web3forms.com/submit" novalidate>
       <input type="hidden" name="access_key" value="e9698685-9e32-4dde-bc07-3196c3185ea9" />
       <input type="hidden" name="subject" value="New Contact Form Submission from The Pellet Sauna Company" />
       <input type="hidden" name="from_name" value="The Pellet Sauna Company Website" />
@@ -206,11 +179,13 @@ const contactDetails = [
       <div class="form-row">
         <div class="form-group">
           <label for="name">Your name <span class="req" aria-hidden="true">*</span></label>
-          <input type="text" id="name" name="name" placeholder="Jordan Rivera" autocomplete="name" required />
+          <input type="text" id="name" name="name" autocomplete="name" required aria-describedby="name-error" />
+          <p class="field-error" id="name-error" aria-live="polite" hidden></p>
         </div>
         <div class="form-group">
           <label for="email">Your email <span class="req" aria-hidden="true">*</span></label>
-          <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email" required />
+          <input type="email" id="email" name="email" autocomplete="email" required aria-describedby="email-error" />
+          <p class="field-error" id="email-error" aria-live="polite" hidden></p>
         </div>
       </div>
       <div class="form-group">
@@ -219,7 +194,8 @@ const contactDetails = [
       </div>
       <div class="form-group">
         <label for="message">Message <span class="req" aria-hidden="true">*</span></label>
-        <textarea id="message" name="message" rows="5" placeholder="Tell us about your project or ask us a question…" required></textarea>
+        <textarea id="message" name="message" rows="5" placeholder="Tell us about your project or ask us a question…" required aria-describedby="message-error"></textarea>
+        <p class="field-error" id="message-error" aria-live="polite" hidden></p>
       </div>
       <button type="submit" class="btn btn-clay btn-submit" id="submitBtn">
         <span id="submitLabel">Send Message</span>
@@ -239,7 +215,6 @@ const contactDetails = [
           </li>
         ))}
       </ul>
-      <p class="contact-note"><span class="contact-dot" aria-hidden="true"></span>We typically reply within 2–5 business days</p>
     </div>
   </section>
 
@@ -259,13 +234,13 @@ const contactDetails = [
     padding: 0 40px 140px;
   }
 
-  /* The video and scrims start below the site-wide campaign bar so it never covers the stove. */
+  /* The video starts at the very top, behind the see-through nav, and the scrim fades it in. */
   .hero-video {
     position: absolute;
-    top: calc(80px + var(--campaign-bar-h, 0px));
+    top: 0;
     left: 70px;
     width: 100%;
-    height: calc(100% - 80px - var(--campaign-bar-h, 0px));
+    height: 100%;
     object-fit: cover;
     object-position: 0% center;
     /* Fades the video's left edge into the dark base. */
@@ -275,10 +250,10 @@ const contactDetails = [
 
   .hero-scrims {
     position: absolute;
-    inset: var(--campaign-bar-h, 0px) 0 0;
+    inset: 0;
     pointer-events: none;
     background:
-      linear-gradient(to bottom, #1e1c14 0%, #1e1c14 8.5%, rgba(30, 28, 20, 0.6) 16%, rgba(30, 28, 20, 0) 30%, rgba(30, 28, 20, 0) 62%, rgba(30, 28, 20, 0.8) 100%),
+      linear-gradient(to bottom, rgba(30, 28, 20, 0.85) 0%, rgba(30, 28, 20, 0.45) 8%, rgba(30, 28, 20, 0) 22%, rgba(30, 28, 20, 0) 62%, rgba(30, 28, 20, 0.8) 100%),
       linear-gradient(to right, rgba(30, 28, 20, 0.95) 0%, rgba(30, 28, 20, 0.82) 30%, rgba(30, 28, 20, 0) 46%),
       linear-gradient(to left, rgba(30, 28, 20, 0.9) 0%, rgba(30, 28, 20, 0.65) 18%, rgba(30, 28, 20, 0) 32%);
   }
@@ -351,20 +326,6 @@ const contactDetails = [
     font-family: var(--serif);
     font-size: 32px;
     color: var(--cream-bright);
-  }
-
-  .hero-stat sup {
-    font-size: 0.55em;
-    vertical-align: super;
-    line-height: 0;
-  }
-
-  .hero-stats-note {
-    margin-top: 12px;
-    font-size: 11px;
-    line-height: 1.5;
-    color: var(--sand-pale);
-    text-shadow: 0 1px 18px rgba(0, 0, 0, 0.35);
   }
 
   .hero-stat dt {
@@ -444,66 +405,6 @@ const contactDetails = [
     font-size: 15px;
     line-height: 1.6;
     color: var(--sand);
-  }
-
-  /* How it works */
-  .how {
-    background: var(--linen);
-    display: flex;
-    min-height: 680px;
-  }
-
-  .how-image {
-    flex: 0 0 auto;
-    width: min(640px, 45%);
-    height: auto;
-    object-fit: cover;
-    object-position: 39% center;
-  }
-
-  .how-steps {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 40px;
-    padding: var(--gutter);
-  }
-
-  .how-steps h2 {
-    font-family: var(--serif);
-    font-weight: 300;
-    font-size: clamp(2rem, 3.2vw, 2.625rem);
-    line-height: 1.1;
-    color: var(--ink);
-  }
-
-  .how-steps ol {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
-  }
-
-  .how-steps li {
-    display: flex;
-    gap: 28px;
-  }
-
-  .step-num {
-    font-family: var(--serif);
-    font-weight: 300;
-    font-size: 18px;
-    line-height: 1.6;
-    color: var(--clay);
-  }
-
-  .how-steps li p {
-    font-family: var(--serif);
-    font-weight: 300;
-    font-size: 20px;
-    line-height: 1.45;
-    color: var(--ink);
   }
 
   /* Story */
@@ -604,22 +505,6 @@ const contactDetails = [
     transform: rotate(-2deg);
     transform-origin: top left;
     box-shadow: 0 8px 24px rgba(43, 42, 34, 0.15);
-  }
-
-  .faq-badge {
-    position: absolute;
-    left: 292px;
-    top: 312px;
-    width: 72px;
-    height: 72px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    border: 4px solid var(--cream);
-    box-sizing: content-box;
-    background: var(--clay);
-    color: var(--cream-bright);
   }
 
   .faq-list {
@@ -774,22 +659,6 @@ const contactDetails = [
     color: var(--stone);
   }
 
-  .contact-note {
-    margin-top: 32px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    font-size: 14px;
-    color: var(--sand);
-  }
-
-  .contact-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: #9fc27a;
-  }
-
   .contact-info {
     grid-column: 1;
   }
@@ -861,6 +730,26 @@ const contactDetails = [
     box-shadow: 0 0 0 3px rgba(194, 115, 74, 0.18);
   }
 
+  .form-group input[aria-invalid='true'],
+  .form-group textarea[aria-invalid='true'] {
+    border-color: #b03a2e;
+  }
+
+  .form-group input[aria-invalid='true']:focus,
+  .form-group textarea[aria-invalid='true']:focus {
+    box-shadow: 0 0 0 3px rgba(176, 58, 46, 0.18);
+  }
+
+  .field-error {
+    font-size: 13px;
+    font-weight: 500;
+    color: #9b3328;
+  }
+
+  .field-error[hidden] {
+    display: none;
+  }
+
   .btn-submit {
     align-self: flex-start;
     border-radius: 2px;
@@ -895,7 +784,6 @@ const contactDetails = [
   @media (min-width: 1201px) {
     .hero,
     .pillars,
-    .how,
     .story,
     .faq,
     .contact {
@@ -904,10 +792,6 @@ const contactDetails = [
 
     .hero {
       padding: 0 calc(var(--gutter) - 16px) 140px;
-    }
-
-    .how-steps {
-      padding: 96px var(--gutter) 96px 96px;
     }
 
     .pillar {
@@ -949,6 +833,8 @@ const contactDetails = [
     }
 
     .hero-video {
+      top: 40px;
+      height: calc(100% - 40px);
       left: 0;
       -webkit-mask-image: none;
       mask-image: none;
@@ -957,7 +843,7 @@ const contactDetails = [
 
     .hero-scrims {
       background:
-        linear-gradient(to bottom, #1e1c14 0%, rgba(30, 28, 20, 0.5) 18%, rgba(30, 28, 20, 0.2) 40%, rgba(30, 28, 20, 0.92) 78%, #1e1c14 100%);
+        linear-gradient(to bottom, rgba(30, 28, 20, 0.85) 0%, rgba(30, 28, 20, 0.45) 12%, rgba(30, 28, 20, 0.2) 40%, rgba(30, 28, 20, 0.92) 78%, #1e1c14 100%);
     }
 
     .hero-content {
@@ -1000,20 +886,6 @@ const contactDetails = [
       align-items: stretch;
     }
 
-    .how {
-      flex-direction: column;
-      min-height: 0;
-    }
-
-    .how-image {
-      width: 100%;
-      height: 360px;
-    }
-
-    .how-steps {
-      padding: var(--section-y) var(--gutter);
-    }
-
     .faq-head {
       flex-basis: auto;
     }
@@ -1048,11 +920,11 @@ const contactDetails = [
     .hero {
       height: auto;
       min-height: 0;
-      padding: calc(430px + var(--campaign-bar-h, 0px)) 20px 40px;
+      padding: 430px 20px 40px;
     }
 
     .hero-video {
-      top: calc(50px + var(--campaign-bar-h, 0px));
+      top: 50px;
       left: calc(50% - 385px);
       width: 760px;
       height: 464px;
@@ -1062,7 +934,7 @@ const contactDetails = [
     }
 
     .hero-scrims {
-      background: linear-gradient(to bottom, #1e1c14 0, #1e1c14 55px, rgba(30, 28, 20, 0) 154px, rgba(30, 28, 20, 0) 330px, rgba(30, 28, 20, 0.85) 450px, #1e1c14 510px);
+      background: linear-gradient(to bottom, rgba(30, 28, 20, 0.85) 0, rgba(30, 28, 20, 0.45) 80px, rgba(30, 28, 20, 0) 150px, rgba(30, 28, 20, 0) 330px, rgba(30, 28, 20, 0.85) 450px, #1e1c14 510px);
     }
 
     .hero-content {
@@ -1145,33 +1017,6 @@ const contactDetails = [
       font-size: 22px;
     }
 
-    /* How it works */
-    .how-image {
-      height: 380px;
-      object-position: 37% center;
-    }
-
-    .how-steps {
-      gap: 28px;
-      padding: 56px 20px 72px;
-    }
-
-    .how-steps h2 {
-      font-size: 32px;
-    }
-
-    .how-steps ol {
-      gap: 28px;
-    }
-
-    .how-steps li {
-      gap: 16px;
-    }
-
-    .how-steps li p {
-      font-size: 17px;
-    }
-
     /* Story */
     .story {
       min-height: 0;
@@ -1214,7 +1059,6 @@ const contactDetails = [
       font-size: 15px;
     }
 
-    .faq-head .btn-outline-dark,
     .faq-art {
       display: none;
     }
@@ -1289,10 +1133,6 @@ const contactDetails = [
       font-size: 16px;
     }
 
-    .contact-note {
-      margin-top: 24px;
-    }
-
     .contact-form {
       gap: 20px;
       padding: 24px;
@@ -1324,6 +1164,16 @@ const contactDetails = [
     heroVideo.preload = 'none';
   }
 
+  // Half speed: real-time flames read as busy, slower ones as calm.
+  if (heroVideo) {
+    const slowDown = () => {
+      heroVideo.defaultPlaybackRate = 0.5;
+      heroVideo.playbackRate = 0.5;
+    };
+    slowDown();
+    heroVideo.addEventListener('loadedmetadata', slowDown);
+  }
+
   // Contact form submission
   const contactForm = document.getElementById('contactForm') as HTMLFormElement | null;
   const submitBtn = document.getElementById('submitBtn') as HTMLButtonElement | null;
@@ -1347,8 +1197,52 @@ const contactDetails = [
     if (submitLabel) submitLabel.textContent = submitting ? 'Sending...' : 'Send Message';
   };
 
+  // Inline validation: each error stays under its field until that field is fixed.
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  const fieldChecks: [string, (value: string) => string][] = [
+    ['name', (value) => (value ? '' : 'Please enter your name.')],
+    ['email', (value) => (!value ? 'Please enter your email.' : emailPattern.test(value) ? '' : 'Please enter a valid email address.')],
+    ['message', (value) => (value ? '' : 'Please enter a message.')],
+  ];
+  let attemptedSubmit = false;
+
+  const validateField = ([id, check]: (typeof fieldChecks)[number]) => {
+    const input = document.getElementById(id) as HTMLInputElement | HTMLTextAreaElement | null;
+    const error = document.getElementById(`${id}-error`);
+    if (!input || !error) return true;
+    const message = check(input.value.trim());
+    error.textContent = message;
+    error.hidden = !message;
+    input.setAttribute('aria-invalid', String(Boolean(message)));
+    return !message;
+  };
+
+  const clearErrors = () => {
+    attemptedSubmit = false;
+    fieldChecks.forEach(([id]) => {
+      document.getElementById(id)?.removeAttribute('aria-invalid');
+      const error = document.getElementById(`${id}-error`);
+      if (error) {
+        error.textContent = '';
+        error.hidden = true;
+      }
+    });
+  };
+
+  fieldChecks.forEach((field) =>
+    document.getElementById(field[0])?.addEventListener('input', () => {
+      if (attemptedSubmit) validateField(field);
+    })
+  );
+
   contactForm?.addEventListener('submit', async (e) => {
     e.preventDefault();
+    attemptedSubmit = true;
+    const invalid = fieldChecks.filter((field) => !validateField(field));
+    if (invalid.length) {
+      document.getElementById(invalid[0][0])?.focus();
+      return;
+    }
     setSubmitting(true);
     if (formMessage) formMessage.style.display = 'none';
 
@@ -1377,6 +1271,7 @@ const contactDetails = [
       if (data.success) {
         showMessage('Thank you! Your message has been sent successfully.', 'success');
         contactForm.reset();
+        clearErrors();
       } else {
         throw new Error(data.message || 'Something went wrong');
       }

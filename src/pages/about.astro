@@ -10,9 +10,8 @@ const team = [
     role: 'Cofounder, Head of Engineering',
     photo: { src: '/images/about/jared.jpg', alt: 'Jared and his family sitting in front of a P1 pellet sauna stove in a cedar sauna wall', width: 900, height: 1200 },
     bio: [
-      'Jared studied mechanical engineering at North Dakota State University with an emphasis on composite materials and lightweight design. During his education, he interned at TEAM and Polaris Inc., focusing on testing, validation, and design.',
-      'After graduating, Jared was accepted into the engineering development program at Polaris Inc., where he gained extensive experience as a project engineer, manufacturing engineer, systems engineer, and design engineer. Most recently, he served as a head vehicle architect for heavy land vehicles, bringing his expertise in mechanical engineering and systems design to complex vehicle development projects.',
-      'Somewhere between the test track and the drawing board, Jared fell hard for sauna — and for the stoves that make it. He’s happiest tinkering with fireboxes, airflow, and stone mass in search of perfect löyly, and the P1 is the stove he always wanted for his own backyard: real fire, steady heat, and none of the babysitting.',
+      'Jared studied mechanical engineering at North Dakota State University, focusing on composite materials and lightweight design. After internships at TEAM and Polaris Inc., he joined the Polaris engineering development program and worked as a project, manufacturing, systems, and design engineer, most recently as a head vehicle architect for heavy land vehicles.',
+      'Somewhere along the way he fell hard for sauna, and for the stoves that make it. The P1 is the stove he always wanted for his own backyard: real fire, steady heat, and none of the babysitting.',
     ],
   },
   {
@@ -49,6 +48,9 @@ const team = [
       <div class="team-head">
         <p class="eyebrow">The team</p>
         <h2 class="section-title">The people behind the P1</h2>
+        <p class="team-intro">
+          Jared and Chris grew up together in Minnesota, where sauna is a way of life. The P1 brings Jared’s mechanical engineering and Chris’s electronics and software together in one stove.
+        </p>
       </div>
       <div class="team-grid">
         {team.map((person) => (
@@ -70,7 +72,7 @@ const team = [
 
 <style>
   .about {
-    padding-top: calc(65px + var(--campaign-bar-h));
+    padding-top: 65px;
   }
 
   .about-hero {
@@ -135,6 +137,13 @@ const team = [
     display: flex;
     flex-direction: column;
     gap: 16px;
+  }
+
+  .team-intro {
+    max-width: 640px;
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--muted);
   }
 
   .team-grid {
@@ -204,7 +213,7 @@ const team = [
 
   @media (max-width: 640px) {
     .about {
-      padding-top: calc(60px + var(--campaign-bar-h));
+      padding-top: 60px;
     }
 
     .about-hero {
