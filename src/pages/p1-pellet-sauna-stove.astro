@@ -7,6 +7,7 @@ import CompareTable from '../components/CompareTable.astro';
 import RitualSection from '../components/RitualSection.astro';
 import InfoTip from '../components/InfoTip.astro';
 import BatchProgress from '../components/BatchProgress.astro';
+import PreorderModal from '../components/PreorderModal.astro';
 import { campaign, savings, balance, usd, reserveHref } from '../lib/campaign';
 import '../styles/theme.css';
 
@@ -156,7 +157,7 @@ const specs = [
           <BatchProgress size="compact" />
         </div>
         <div class="buy-actions">
-          <a href={reserveHref} class="btn btn-clay">Reserve for {usd(campaign.deposit)} <Icon name="arrow-right" size={14} /></a>
+          <a href={reserveHref} data-preorder class="btn btn-clay">Reserve for {usd(campaign.deposit)} <Icon name="arrow-right" size={14} /></a>
           <a href={questionHref} class="btn btn-outline-ink">Ask a question</a>
         </div>
         <ul class="assurances">
@@ -192,7 +193,7 @@ const specs = [
             <div><dt>Today</dt><dd>{usd(campaign.deposit)} down, fully refundable</dd></div>
             <div><dt>At production</dt><dd>{usd(balance)}</dd></div>
           </dl>
-          <a href={reserveHref} class="btn btn-clay founders-cta">Reserve for {usd(campaign.deposit)} <Icon name="arrow-right" size={14} /></a>
+          <a href={reserveHref} data-preorder class="btn btn-clay founders-cta">Reserve for {usd(campaign.deposit)} <Icon name="arrow-right" size={14} /></a>
         </div>
       </div>
 
@@ -309,13 +310,14 @@ const specs = [
         <h2>Reserve your P1.</h2>
         <p>Reserve with {usd(campaign.deposit)} down and lock in your founders’ price, numbered medallion, and community access. The balance is only charged when production begins. Currently available in the US and Canada only.</p>
         <div class="final-cta-actions">
-          <a href={reserveHref} class="btn btn-clay">Reserve for {usd(campaign.deposit)} <Icon name="arrow-right" size={14} /></a>
+          <a href={reserveHref} data-preorder class="btn btn-clay">Reserve for {usd(campaign.deposit)} <Icon name="arrow-right" size={14} /></a>
         </div>
       </div>
     </section>
   </main>
 
   <SiteFooter />
+  <PreorderModal />
 </BaseLayout>
 
 <style>

@@ -1,0 +1,361 @@
+---
+// Pre-order pop-up: takes the refundable deposit by card with Stripe's Payment Element.
+// Any link or button with [data-preorder] opens it; without JS those links fall back to the contact form.
+import { campaign, balance, usd } from '../lib/campaign';
+
+const publishableKey = import.meta.env.PUBLIC_STRIPE_PUBLISHABLE_KEY ?? '';
+---
+
+<dialog class="preorder" id="preorderDialog" aria-labelledby="preorderTitle" data-key={publishableKey} data-amount={campaign.deposit * 100}>
+  <div class="preorder-panel">
+    <button type="button" class="preorder-close" data-preorder-close aria-label="Close">&times;</button>
+
+    <div class="preorder-step" data-step="form">
+      <p class="preorder-eyebrow">Founders’ pre-order</p>
+      <h2 id="preorderTitle">Reserve your P1</h2>
+      <dl class="preorder-summary">
+        <div><dt>Due today</dt><dd>{usd(campaign.deposit)} <span>fully refundable</span></dd></div>
+        <div><dt>At production ({campaign.productionMonth})</dt><dd>{usd(balance)}</dd></div>
+      </dl>
+
+      <form id="preorderForm" novalidate>
+        <label class="preorder-label" for="preorderEmail">Email</label>
+        <input class="preorder-input" id="preorderEmail" type="email" name="email" autocomplete="email" required placeholder="you@example.com" />
+
+        <p class="preorder-label">Shipping address</p>
+        <div id="preorderAddress" class="preorder-element"></div>
+
+        <p class="preorder-label">Card</p>
+        <div id="preorderPayment" class="preorder-element"></div>
+
+        <p class="preorder-fine">
+          Your card is saved securely with Stripe so the {usd(balance)} balance can be charged when your stove goes into production. Change your mind any time for a full refund of your deposit.
+        </p>
+        <p class="preorder-error" id="preorderError" role="alert" hidden></p>
+        <button type="submit" class="btn btn-clay preorder-submit" id="preorderSubmit" disabled>
+          Pay {usd(campaign.deposit)} deposit
+        </button>
+      </form>
+    </div>
+
+    <div class="preorder-step" data-step="success" hidden>
+      <p class="preorder-eyebrow">You’re in</p>
+      <h2>Thank you — your P1 is reserved.</h2>
+      <p>We’ve received your {usd(campaign.deposit)} deposit and emailed your receipt. We’ll be in touch before production begins in {campaign.productionMonth}.</p>
+      <button type="button" class="btn btn-clay" data-preorder-close>Done</button>
+    </div>
+  </div>
+</dialog>
+
+<style>
+  .preorder {
+    margin: auto;
+    width: min(520px, calc(100vw - 32px));
+    max-height: calc(100dvh - 32px);
+    padding: 0;
+    border: 0;
+    border-radius: 6px;
+    background: var(--cream-bright);
+    color: var(--ink);
+    box-shadow: 0 24px 60px rgba(30, 28, 20, 0.3);
+  }
+
+  .preorder::backdrop {
+    background: rgba(30, 28, 20, 0.55);
+  }
+
+  .preorder-panel {
+    position: relative;
+    padding: 36px 32px 32px;
+  }
+
+  .preorder-close {
+    position: absolute;
+    top: 10px;
+    right: 14px;
+    border: 0;
+    background: none;
+    font-size: 28px;
+    line-height: 1;
+    color: var(--muted);
+    cursor: pointer;
+  }
+
+  .preorder-eyebrow {
+    margin: 0 0 6px;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--clay);
+  }
+
+  .preorder h2 {
+    margin: 0 0 18px;
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 34px;
+    line-height: 1.1;
+  }
+
+  .preorder-summary {
+    margin: 0 0 22px;
+    padding: 14px 16px;
+    border-radius: 4px;
+    background: var(--sand-pale);
+  }
+
+  .preorder-summary div {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 4px 0;
+  }
+
+  .preorder-summary dt {
+    color: var(--muted);
+  }
+
+  .preorder-summary dd {
+    margin: 0;
+    font-weight: 600;
+  }
+
+  .preorder-summary dd span {
+    font-weight: 400;
+    color: var(--muted);
+    font-size: 13px;
+  }
+
+  .preorder-label {
+    display: block;
+    margin: 16px 0 6px;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .preorder-input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 11px 12px;
+    border: 1px solid var(--sand);
+    border-radius: 4px;
+    background: #fff;
+    font: inherit;
+    font-size: 16px;
+    color: var(--ink);
+  }
+
+  .preorder-input:focus {
+    outline: 2px solid var(--clay);
+    outline-offset: 1px;
+  }
+
+  .preorder-element {
+    min-height: 44px;
+  }
+
+  .preorder-fine {
+    margin: 16px 0 0;
+    font-size: 12.5px;
+    line-height: 1.5;
+    color: var(--muted);
+  }
+
+  .preorder-error {
+    margin: 12px 0 0;
+    color: #a3341c;
+    font-size: 14px;
+  }
+
+  .preorder-submit {
+    width: 100%;
+    justify-content: center;
+    margin-top: 18px;
+  }
+
+  .preorder-submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  @media (max-width: 640px) {
+    .preorder-panel {
+      padding: 32px 18px 24px;
+    }
+
+    .preorder h2 {
+      font-size: 28px;
+    }
+  }
+</style>
+
+<script>
+  type StripeLike = any;
+
+  const dialog = document.getElementById('preorderDialog') as HTMLDialogElement | null;
+
+  if (dialog) {
+    const form = dialog.querySelector<HTMLFormElement>('#preorderForm')!;
+    const emailInput = dialog.querySelector<HTMLInputElement>('#preorderEmail')!;
+    const submit = dialog.querySelector<HTMLButtonElement>('#preorderSubmit')!;
+    const errorEl = dialog.querySelector<HTMLElement>('#preorderError')!;
+    const steps = dialog.querySelectorAll<HTMLElement>('.preorder-step');
+    const key = dialog.dataset.key ?? '';
+    const amount = Number(dialog.dataset.amount);
+    const submitLabel = submit.textContent;
+
+    let stripe: StripeLike;
+    let elements: StripeLike;
+    let addressElement: StripeLike;
+    let ready: Promise<void> | null = null;
+
+    const showError = (message = '') => {
+      errorEl.textContent = message;
+      errorEl.hidden = !message;
+    };
+
+    const showStep = (name: string) => steps.forEach((s) => (s.hidden = s.dataset.step !== name));
+
+    const loadStripeJs = () =>
+      new Promise<void>((resolve, reject) => {
+        if ((window as any).Stripe) return resolve();
+        const script = document.createElement('script');
+        script.src = 'https://js.stripe.com/v3/';
+        script.onload = () => resolve();
+        script.onerror = () => reject(new Error('Stripe failed to load'));
+        document.head.appendChild(script);
+      });
+
+    const setup = async () => {
+      if (!key) throw new Error('Online reservations aren’t open yet. Please use the contact form.');
+      await loadStripeJs();
+      stripe = (window as any).Stripe(key);
+      elements = stripe.elements({
+        mode: 'payment',
+        amount,
+        currency: 'usd',
+        setupFutureUsage: 'off_session',
+        paymentMethodTypes: ['card'],
+        fonts: [{ cssSrc: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap' }],
+        appearance: {
+          theme: 'stripe',
+          variables: {
+            colorPrimary: '#c2734a',
+            colorText: '#2b2a22',
+            colorBackground: '#ffffff',
+            colorDanger: '#a3341c',
+            fontFamily: 'Inter, system-ui, sans-serif',
+            borderRadius: '4px',
+          },
+          rules: { '.Input': { borderColor: '#d9cfb4', boxShadow: 'none' } },
+        },
+      });
+      addressElement = elements.create('address', {
+        mode: 'shipping',
+        allowedCountries: ['US', 'CA'],
+        fields: { phone: 'always' },
+        validation: { phone: { required: 'always' } },
+      });
+      addressElement.mount('#preorderAddress');
+      const payment = elements.create('payment', { layout: 'tabs', wallets: { applePay: 'never', googlePay: 'never' } });
+      payment.mount('#preorderPayment');
+      payment.on('ready', () => (submit.disabled = false));
+    };
+
+    const open = () => {
+      showStep('form');
+      showError();
+      if (!dialog.open) dialog.showModal();
+      ready ??= setup().catch((err) => {
+        ready = null;
+        showError(err.message);
+      });
+    };
+
+    const close = () => dialog.close();
+
+    document.addEventListener('click', (event) => {
+      const trigger = (event.target as Element).closest('[data-preorder]');
+      // Until a publishable key is configured, Reserve links keep going to the contact form.
+      if (!trigger || !key) return;
+      event.preventDefault();
+      const menuToggle = document.getElementById('menuToggle');
+      if (menuToggle?.classList.contains('active')) menuToggle.click();
+      open();
+    });
+
+    dialog.querySelectorAll('[data-preorder-close]').forEach((btn) => btn.addEventListener('click', close));
+    dialog.addEventListener('click', (event) => {
+      if (event.target === dialog) close();
+    });
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      showError();
+      if (!stripe || !elements) return;
+
+      const email = emailInput.value.trim();
+      if (!emailInput.checkValidity() || !email) {
+        showError('Please enter a valid email.');
+        emailInput.focus();
+        return;
+      }
+
+      submit.disabled = true;
+      submit.textContent = 'Processing…';
+
+      try {
+        const { error: submitError } = await elements.submit();
+        if (submitError) throw submitError;
+
+        const { complete, value } = await addressElement.getValue();
+        if (!complete) throw new Error('Please complete your shipping address.');
+
+        const res = await fetch('/api/preorder', {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ email, name: value.name, phone: value.phone, address: value.address }),
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || !data.clientSecret) throw new Error(data.error || 'We couldn’t start the payment. Please try again.');
+
+        const returnUrl = new URL(window.location.href);
+        returnUrl.hash = '';
+        returnUrl.searchParams.set('preorder', 'complete');
+
+        const { error, paymentIntent } = await stripe.confirmPayment({
+          elements,
+          clientSecret: data.clientSecret,
+          confirmParams: { return_url: returnUrl.toString(), receipt_email: email },
+          redirect: 'if_required',
+        });
+        if (error) throw error;
+        if (paymentIntent && paymentIntent.status !== 'succeeded' && paymentIntent.status !== 'processing') {
+          throw new Error('Your payment didn’t go through. Please try another card.');
+        }
+
+        (window as any).gtag?.('event', 'purchase', { value: amount / 100, currency: 'USD', items: [{ item_name: 'P1 deposit' }] });
+        showStep('success');
+      } catch (err: any) {
+        showError(err?.message || 'Something went wrong. Please try again.');
+      } finally {
+        submit.disabled = false;
+        submit.textContent = submitLabel;
+      }
+    });
+
+    // Returning from a bank redirect (rare with cards): show the outcome.
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('preorder') === 'complete' && params.get('redirect_status')) {
+      if (params.get('redirect_status') === 'succeeded') {
+        showStep('success');
+        dialog.showModal();
+      } else {
+        open();
+        showError('Your payment didn’t go through. Please try again.');
+      }
+      history.replaceState(null, '', window.location.pathname);
+    }
+  }
+</script>

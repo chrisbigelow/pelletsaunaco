@@ -18,5 +18,5 @@ export const savings = campaign.fullPrice - campaign.price;
 export const balance = campaign.price - campaign.deposit;
 
 export const usd = (n: number) => `$${n.toLocaleString('en-US')}`;
-// Swap for the Stripe Payment Link once deposits are taken online.
+// No-JS fallback for Reserve links; with JS, [data-preorder] links open the Stripe deposit pop-up (PreorderModal).
 export const reserveHref = `/?subject=${encodeURIComponent('P1 pre-order reservation')}#contact`;
