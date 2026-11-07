@@ -153,6 +153,11 @@ Shared code lives in `src/lib/email/` (`subscribers.ts`, `send.ts`, `templates/`
 3. Create an API key with full access (contacts + sending).
 4. Add the variables from `.env.example` to the Vercel project (Settings → Environment Variables), then redeploy.
 
+**Email templates (in Resend):**
+- **Campaigns:** Broadcasts → "★ TEMPLATE — Campaign (duplicate me)". Duplicate it for each campaign, edit the text in the visual editor, and send to the newsletter segment.
+- **Welcome email:** Templates → "Welcome — new email list signup" (alias `welcome-email`). `/api/subscribe` sends it with a `NAME` variable; edit the wording in Resend and re-publish. If the template is missing or unpublished, the built-in copy in `src/lib/email/templates/welcome.ts` is sent instead.
+- Brand images for emails live in `public/email/` (header lockup rendered from the site logo in Instrument Serif, and the footer landscape).
+
 Campaigns are sent from Resend → Broadcasts to the list segment; Resend adds the unsubscribe link and keeps contacts' unsubscribe status in sync.
 
 ### Local testing

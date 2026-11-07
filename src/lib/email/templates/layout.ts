@@ -1,34 +1,60 @@
 /**
- * Shared, email-client-safe wrapper (tables + inline styles) using the site palette.
+ * Shared, email-client-safe wrapper (tables + inline styles) matching the site:
+ * Instrument Serif headings, Inter body, cream canvas, pine header/footer.
+ * The header lockup is an image because most clients block SVG and web fonts.
  */
+const SITE = 'https://www.pelletsauna.com';
+export const SERIF = "'Instrument Serif', Georgia, 'Times New Roman', serif";
+export const SANS = "Inter, Arial, Helvetica, sans-serif";
+
 export function emailLayout(params: { preheader: string; body: string; footer?: string }): string {
-  return `<!doctype html>
+  return `<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="color-scheme" content="light only" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Instrument+Serif&display=swap" rel="stylesheet" />
 <title>The Pellet Sauna Company</title>
 </head>
-<body style="margin:0;padding:0;background:#f6f1e7;">
+<body style="margin:0;padding:0;background-color:#f6f1e7;">
 <div style="display:none;max-height:0;overflow:hidden;opacity:0;">${params.preheader}</div>
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f6f1e7;">
-  <tr><td align="center" style="padding:32px 16px;">
-    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#fffcf6;border:1px solid #ece4d4;">
-      <tr><td style="background:#384629;padding:24px 32px;">
-        <p style="margin:0;font-family:Georgia,serif;font-size:20px;color:#f6f1e7;">The Pellet Sauna Company</p>
-        <p style="margin:4px 0 0;font-family:Arial,Helvetica,sans-serif;font-size:12px;letter-spacing:1px;color:#d9cfb4;">Effortless Wood-Fired Saunas</p>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#f6f1e7" style="background-color:#f6f1e7;">
+  <tr><td align="center" style="padding-top:32px;padding-right:16px;padding-bottom:32px;padding-left:16px;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#fffcf6" style="max-width:600px;background-color:#fffcf6;border:1px solid #ece4d4;">
+      <tr><td bgcolor="#384629" style="background-color:#384629;">
+        <a href="${SITE}" style="display:block;"><img src="${SITE}/email/header.png" width="600" height="112" alt="The Pellet Sauna Company — Effortless Wood-Fired Saunas" border="0" style="display:block;width:100%;max-width:600px;height:auto;border:0;color:#f6f1e7;font-family:${SERIF};font-size:22px;" /></a>
       </td></tr>
-      <tr><td style="padding:32px;font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:1.6;color:#2b2a22;">
+      <tr><td style="padding-top:40px;padding-right:40px;padding-bottom:32px;padding-left:40px;font-family:${SANS};font-size:16px;line-height:1.65;color:#2b2a22;">
         ${params.body}
       </td></tr>
-      <tr><td style="padding:20px 32px;border-top:1px solid #ece4d4;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:1.5;color:#6b675a;">
+      <tr><td bgcolor="#384629" style="background-color:#384629;padding-top:28px;padding-right:40px;padding-bottom:0;padding-left:40px;font-family:${SANS};font-size:12px;line-height:1.6;color:#d9cfb4;text-align:center;">
         ${params.footer ?? ''}
-        <p style="margin:0;">The Pellet Sauna Company &middot; <a href="https://www.pelletsauna.com" style="color:#6b675a;">pelletsauna.com</a></p>
+        <p style="margin:0 0 24px;font-family:${SANS};font-size:12px;line-height:1.6;color:#d9cfb4;">The Pellet Sauna Company &middot; <a href="${SITE}" style="color:#f1eadc;">pelletsauna.com</a><br />&copy; 2026 The Pellet Sauna Company</p>
+      </td></tr>
+      <tr><td bgcolor="#384629" style="background-color:#384629;line-height:0;font-size:0;">
+        <img src="${SITE}/email/footer-landscape.jpg" width="600" height="203" alt="" border="0" style="display:block;width:100%;max-width:600px;height:auto;border:0;" />
       </td></tr>
     </table>
   </td></tr>
 </table>
 </body>
 </html>`;
+}
+
+/** Small uppercase clay label above headings, as on the site. */
+export function eyebrow(text: string): string {
+  return `<p style="margin:0 0 6px;font-family:${SANS};font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;line-height:1.4;color:#c2734a;">${text}</p>`;
+}
+
+export function heading(text: string): string {
+  return `<h1 style="margin:0 0 20px;font-family:${SERIF};font-size:40px;font-weight:400;line-height:1.1;color:#2b2a22;">${text}</h1>`;
+}
+
+export function button(href: string, label: string): string {
+  return `<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin-top:8px;margin-bottom:8px;"><tr>
+  <td bgcolor="#c2734a" style="background-color:#c2734a;">
+    <a href="${href}" style="display:inline-block;padding-top:16px;padding-right:26px;padding-bottom:16px;padding-left:26px;font-family:${SANS};font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;line-height:1;color:#ffffff;text-decoration:none;">${label}</a>
+  </td></tr></table>`;
 }
