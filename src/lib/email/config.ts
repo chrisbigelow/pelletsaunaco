@@ -1,0 +1,32 @@
+import { Resend } from 'resend';
+
+/**
+ * Server-only email configuration, used by the Vercel Functions in /api.
+ * Values come from the Vercel project's environment variables at runtime.
+ */
+function env(name: string): string | undefined {
+  return process.env[name] || undefined;
+}
+
+function required(name: string): string {
+  const value = env(name);
+  if (!value) throw new Error(`Missing required environment variable: ${name}`);
+  return value;
+}
+
+let client: Resend | null = null;
+
+export function getResend(): Resend {
+  client ??= new Resend(required('RESEND_API_KEY'));
+  return client;
+}
+
+export function emailConfig() {
+  return {
+    from: env('EMAIL_FROM') ?? 'The Pellet Sauna Co. <hello@pelletsauna.com>',
+    replyTo: env('EMAIL_REPLY_TO') ?? 'jared@pelletsauna.com',
+    contactInbox: env('CONTACT_INBOX') ?? 'jared@pelletsauna.com',
+    segmentId: env('RESEND_SEGMENT_ID'),
+    siteUrl: 'https://www.pelletsauna.com',
+  };
+}

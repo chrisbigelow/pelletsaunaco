@@ -135,6 +135,34 @@ The landing page includes:
 - ♿ Accessible markup
 - 🔍 SEO-friendly
 
+## Email (Resend)
+
+The email list, welcome email, and contact form run on [Resend](https://resend.com) through two Vercel Functions in `/api` (the Astro site itself stays fully static):
+
+| Endpoint | Used by | What it does |
+| --- | --- | --- |
+| `POST /api/subscribe` | Footer signup form | Adds the email to Resend Contacts + the list segment, sends the welcome email (first signup only) |
+| `POST /api/contact` | Contact form | Emails the message to `CONTACT_INBOX` (reply goes to the sender); if "Add me to the email list" is checked, also subscribes them |
+
+Shared code lives in `src/lib/email/` (`subscribers.ts`, `send.ts`, `templates/`).
+
+### Setup
+
+1. In Resend, verify the `pelletsauna.com` domain (Domains → add DNS records).
+2. Create a segment for the list (e.g. "Newsletter") and copy its ID.
+3. Create an API key with full access (contacts + sending).
+4. Add the variables from `.env.example` to the Vercel project (Settings → Environment Variables), then redeploy.
+
+Campaigns are sent from Resend → Broadcasts to the list segment; Resend adds the unsubscribe link and keeps contacts' unsubscribe status in sync.
+
+### Local testing
+
+`npm run dev` serves pages only. To exercise `/api/*` locally, use the Vercel CLI with a `.env.local` file:
+
+```bash
+npm i -g vercel && vercel link && vercel dev
+```
+
 ## Deployment
 
 This Astro site can be deployed to:
