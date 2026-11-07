@@ -1,4 +1,4 @@
-import { button, emailLayout, eyebrow, heading } from './layout.js';
+import { button, emailLayout, eyebrow, heading, photo } from './layout.js';
 import { escapeHtml } from '../validate.js';
 
 export function welcomeEmail(params: { firstName?: string; siteUrl: string }) {
@@ -13,6 +13,7 @@ export function welcomeEmail(params: { firstName?: string; siteUrl: string }) {
       <p style="margin:0 0 16px;">${greeting}</p>
       <p style="margin:0 0 16px;">Thanks for joining The Pellet Sauna Company email list. You'll be among the first to hear when <strong>P1 preorders open</strong>, plus build updates as we bring the stove to production in mid-2027.</p>
       <p style="margin:0 0 24px;">We'll only email when there's something worth sharing.</p>
+      ${photo(`${params.siteUrl}/email/p1-stove.jpg`, 'The P1 pellet sauna stove with its fire lit, in front of a cedar sauna wall', `${params.siteUrl}/p1-pellet-sauna-stove`)}
       ${button(`${params.siteUrl}/p1-pellet-sauna-stove`, 'Explore the P1')}
       <p style="margin:24px 0 0;">Questions? Just reply to this email — it comes straight to us.</p>
       <p style="margin:16px 0 0;">— Jared &amp; Chris<br /><span style="color:#6b675a;">The Pellet Sauna Company</span></p>`,
