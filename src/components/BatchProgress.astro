@@ -1,0 +1,77 @@
+---
+// How much of the first batch is reserved, from `campaign.reserved` and `campaign.batchSize`.
+import { campaign } from '../lib/campaign';
+
+interface Props {
+  /** 'compact' for the price box, 'full' for the founders' offer card. */
+  size?: 'compact' | 'full';
+}
+
+const { size = 'full' } = Astro.props;
+const reserved = Math.min(campaign.reserved, campaign.batchSize);
+const percent = (reserved / campaign.batchSize) * 100;
+---
+
+<div class:list={['batch-progress', `size-${size}`]}>
+  <div
+    class="batch-track"
+    role="progressbar"
+    aria-label="First batch reserved"
+    aria-valuemin="0"
+    aria-valuemax={campaign.batchSize}
+    aria-valuenow={reserved}
+  >
+    <span style={`width: ${percent}%`}></span>
+  </div>
+  <p class="batch-label"><strong>{reserved}</strong> of {campaign.batchSize} reserved in our first batch</p>
+</div>
+
+<style>
+  .batch-progress {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .batch-track {
+    height: 6px;
+    background: rgba(43, 42, 34, 0.1);
+  }
+
+  .batch-track span {
+    display: block;
+    height: 100%;
+    background: var(--clay);
+  }
+
+  .batch-label {
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  .batch-label strong {
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .size-compact {
+    padding-top: 6px;
+    gap: 8px;
+  }
+
+  .size-compact .batch-track {
+    height: 4px;
+  }
+
+  .size-compact .batch-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #8a8575;
+  }
+
+  .size-compact .batch-label strong {
+    color: var(--clay);
+  }
+</style>
