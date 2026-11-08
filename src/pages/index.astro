@@ -2287,6 +2287,8 @@ const logoPaths = [
       if (data.success) {
         showMessage('Thank you! Your message has been sent successfully.', 'success');
         contactForm.reset();
+        // gtag only exists once the visitor has accepted analytics on a production host.
+        (window as any).gtag?.('event', 'generate_lead', { form_id: 'contact' });
       } else {
         throw new Error(data.message || 'Something went wrong');
       }
