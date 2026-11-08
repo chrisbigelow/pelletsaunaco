@@ -408,18 +408,28 @@ const specs = [
   }
 
   .gallery {
+    --gallery-max-h: max(480px, calc(100vh - 210px));
     display: flex;
     gap: 16px;
     align-self: start;
   }
 
+  /* Never taller than the main photo: on short screens the strip scrolls. */
   .gallery-thumbs {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    max-height: var(--gallery-max-h);
+    overflow-y: auto;
+    scrollbar-width: none;
+  }
+
+  .gallery-thumbs::-webkit-scrollbar {
+    display: none;
   }
 
   .gallery-thumb {
+    flex-shrink: 0;
     width: 60px;
     aspect-ratio: 88 / 112;
     padding: 0;
@@ -446,17 +456,19 @@ const specs = [
     object-fit: cover;
   }
 
+  /* Hug the photo so the arrows and counter sit on it, not below it. */
   .gallery-main {
     position: relative;
     flex: 1;
     min-width: 0;
+    align-self: flex-start;
   }
 
   .gallery-image {
     display: block;
     width: 100%;
     height: auto;
-    max-height: max(480px, calc(100vh - 210px));
+    max-height: var(--gallery-max-h);
     aspect-ratio: 600 / 760;
     object-fit: cover;
     background: var(--linen);
@@ -1106,10 +1118,13 @@ const specs = [
     .gallery-thumbs {
       flex-direction: row;
       gap: 8px;
+      max-height: none;
+      overflow: visible;
     }
 
     .gallery-thumb {
-      flex: 1;
+      flex: 1 1 0;
+      min-width: 0;
       width: auto;
     }
 
