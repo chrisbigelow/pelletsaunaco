@@ -32,6 +32,7 @@ export async function POST(request) {
   const email = clean(body?.email, 254).toLowerCase();
   const name = clean(body?.name, 120);
   const phone = clean(body?.phone, 40);
+  const marketingOptIn = body?.marketingOptIn === true;
   const a = body?.address ?? {};
   const address = {
     line1: clean(a.line1),
@@ -52,10 +53,12 @@ export async function POST(request) {
 
   try {
     const shipping = { name, phone: phone || undefined, address };
+    // Record the email-list choice on the customer too, so it isn't lost if the list signup fails.
+    const metadata = { email_list_opt_in: marketingOptIn ? 'yes' : 'no' };
     const existing = await stripe.customers.list({ email, limit: 1 });
     const customer = existing.data[0]
-      ? await stripe.customers.update(existing.data[0].id, { name, phone: phone || undefined, address, shipping })
-      : await stripe.customers.create({ email, name, phone: phone || undefined, address, shipping });
+      ? await stripe.customers.update(existing.data[0].id, { name, phone: phone || undefined, address, shipping, metadata })
+      : await stripe.customers.create({ email, name, phone: phone || undefined, address, shipping, metadata });
 
     const intent = await stripe.paymentIntents.create({
       amount: DEPOSIT_CENTS,
@@ -67,7 +70,7 @@ export async function POST(request) {
       shipping,
       description: 'P1 Pellet Sauna Stove pre-order deposit (refundable)',
       statement_descriptor_suffix: 'P1 DEPOSIT',
-      metadata: { type: 'preorder_deposit', product: 'P1' },
+      metadata: { type: 'preorder_deposit', product: 'P1', ...metadata },
     });
 
     return json({ clientSecret: intent.client_secret });

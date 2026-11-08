@@ -60,6 +60,11 @@ const publishableKey = import.meta.env.PUBLIC_STRIPE_PUBLISHABLE_KEY ?? '';
           <input class="preorder-input" id="preorderPhone" name="phone" type="tel" autocomplete="shipping tel" required placeholder="For delivery scheduling" />
         </fieldset>
 
+        <label class="preorder-optin">
+          <input type="checkbox" id="preorderOptIn" name="marketing_opt_in" />
+          <span>Email me build updates, sauna tips, and news from The Pellet Sauna Co. Unsubscribe anytime.</span>
+        </label>
+
         <p class="preorder-label">Card</p>
         <div id="preorderPayment" class="preorder-element"></div>
 
@@ -229,6 +234,25 @@ const publishableKey = import.meta.env.PUBLIC_STRIPE_PUBLISHABLE_KEY ?? '';
     border-color: #a3341c;
   }
 
+  .preorder-optin {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin: 18px 0 2px;
+    font-size: 13.5px;
+    line-height: 1.45;
+    cursor: pointer;
+  }
+
+  .preorder-optin input {
+    flex: none;
+    width: 18px;
+    height: 18px;
+    margin: 1px 0 0;
+    accent-color: var(--clay);
+    cursor: pointer;
+  }
+
   .preorder-element {
     min-height: 44px;
   }
@@ -285,6 +309,7 @@ const publishableKey = import.meta.env.PUBLIC_STRIPE_PUBLISHABLE_KEY ?? '';
   if (dialog) {
     const form = dialog.querySelector<HTMLFormElement>('#preorderForm')!;
     const emailInput = dialog.querySelector<HTMLInputElement>('#preorderEmail')!;
+    const optIn = dialog.querySelector<HTMLInputElement>('#preorderOptIn')!;
     const submit = dialog.querySelector<HTMLButtonElement>('#preorderSubmit')!;
     const errorEl = dialog.querySelector<HTMLElement>('#preorderError')!;
     const steps = dialog.querySelectorAll<HTMLElement>('.preorder-step');
@@ -400,7 +425,7 @@ const publishableKey = import.meta.env.PUBLIC_STRIPE_PUBLISHABLE_KEY ?? '';
           rules: { '.Input': { borderColor: '#d9cfb4', boxShadow: 'none' } },
         },
       });
-      const payment = elements.create('payment', { layout: 'tabs', wallets: { applePay: 'never', googlePay: 'never' } });
+      const payment = elements.create('payment', { layout: 'tabs', wallets: { applePay: 'never', googlePay: 'never', link: 'never' } });
       payment.mount('#preorderPayment');
       payment.on('ready', () => (submit.disabled = false));
     };
@@ -456,7 +481,7 @@ const publishableKey = import.meta.env.PUBLIC_STRIPE_PUBLISHABLE_KEY ?? '';
         const res = await fetch('/api/preorder', {
           method: 'POST',
           headers: { 'content-type': 'application/json' },
-          body: JSON.stringify({ email, ...shipping }),
+          body: JSON.stringify({ email, ...shipping, marketingOptIn: optIn.checked }),
         });
         const data = await res.json().catch(() => ({}));
         if (!res.ok || !data.clientSecret) throw new Error(data.error || 'We couldn’t start the payment. Please try again.');
@@ -474,6 +499,16 @@ const publishableKey = import.meta.env.PUBLIC_STRIPE_PUBLISHABLE_KEY ?? '';
         if (error) throw error;
         if (paymentIntent && paymentIntent.status !== 'succeeded' && paymentIntent.status !== 'processing') {
           throw new Error('Your payment didn’t go through. Please try another card.');
+        }
+
+        if (optIn.checked) {
+          // Join the email list (Resend, via /api/subscribe). Never blocks the reservation.
+          fetch('/api/subscribe', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ email, name: shipping.name }),
+            keepalive: true,
+          }).catch(() => {});
         }
 
         (window as any).gtag?.('event', 'purchase', { value: amount / 100, currency: 'USD', items: [{ item_name: 'P1 deposit' }] });
