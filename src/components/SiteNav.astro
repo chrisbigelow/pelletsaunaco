@@ -5,8 +5,8 @@ import { reserveHref } from '../lib/campaign';
 interface Props {
   /** Keep the dark background from the top (pages without a dark hero behind the nav). */
   solid?: boolean;
-  /** The product page gets its own links and keeps the pre-order button. */
-  variant?: 'site' | 'product';
+  /** The product page gets its own links and keeps the pre-order button; About shows just the two page links. */
+  variant?: 'site' | 'product' | 'about';
 }
 
 const { solid = false, variant = 'site' } = Astro.props;
@@ -17,6 +17,11 @@ const navLinks =
     ? [
         { href: `${productPath}#features`, label: 'Features' },
         { href: `${productPath}#specifications`, label: 'Specs' },
+        { href: aboutPath, label: 'About Us' },
+      ]
+    : variant === 'about'
+    ? [
+        { href: productPath, label: 'P1 Stove' },
         { href: aboutPath, label: 'About Us' },
       ]
     : [
