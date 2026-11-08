@@ -33,6 +33,13 @@ const team = [
   <SiteNav solid variant="about" />
 
   <main class="about">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="/">Home</a></li>
+        <li aria-current="page">About Us</li>
+      </ol>
+    </nav>
+
     <!-- Hero -->
     <section class="about-hero">
       <img class="about-hero-bg" src="/images/home/pellet-pour.jpg" alt="" width="1920" height="1080" fetchpriority="high" decoding="async" />
@@ -73,6 +80,38 @@ const team = [
 <style>
   .about {
     padding-top: 65px;
+  }
+
+  /* Breadcrumb (matches the P1 product page) */
+  .breadcrumb {
+    padding: 28px var(--gutter);
+  }
+
+  .breadcrumb ol {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+
+  .breadcrumb li + li::before {
+    content: '/';
+    margin-right: 12px;
+    color: var(--stone);
+  }
+
+  .breadcrumb a {
+    color: #8a8575;
+    text-decoration: none;
+  }
+
+  .breadcrumb a:hover {
+    color: var(--ink);
   }
 
   .about-hero {
@@ -194,6 +233,7 @@ const team = [
   }
 
   @media (min-width: 1201px) {
+    .breadcrumb,
     .about-hero,
     .team {
       --gutter: max(96px, calc((100vw - 1088px) / 2));
@@ -214,6 +254,11 @@ const team = [
   @media (max-width: 640px) {
     .about {
       padding-top: 60px;
+    }
+
+    .breadcrumb {
+      padding-top: 20px;
+      padding-bottom: 20px;
     }
 
     .about-hero {
