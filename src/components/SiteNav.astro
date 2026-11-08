@@ -26,7 +26,7 @@ const navLinks =
         { href: aboutPath, label: 'About Us' },
       ];
 
-const cta = variant === 'product' ? { href: reserveHref, label: 'Reserve Now', preorder: true } : { href: productPath, label: 'Explore the P1', preorder: false };
+const cta = variant === 'product' ? { href: reserveHref, label: 'Reserve Now' } : { href: productPath, label: 'Explore the P1' };
 ---
 
 <nav class:list={['nav', { scrolled: solid }]} id="siteNav" data-solid={solid ? '' : undefined}>
@@ -45,13 +45,13 @@ const cta = variant === 'product' ? { href: reserveHref, label: 'Reserve Now', p
     <div class="nav-links" id="navLinks">
       {navLinks.map((link) => <a href={link.href} class="nav-link">{link.label}</a>)}
       <a href="/#contact" class="nav-link nav-link-mobile">Contact</a>
-      <a href={cta.href} data-preorder={cta.preorder ? '' : undefined} class="btn-preorder btn-preorder-mobile">{cta.label}</a>
+      <a href={cta.href} class="btn-preorder btn-preorder-mobile">{cta.label}</a>
     </div>
   </div>
   <div class="nav-right">
     <a href="/#contact" class="nav-link nav-link-desktop">Contact</a>
     <div class="nav-cta">
-      <a href={cta.href} data-preorder={cta.preorder ? '' : undefined} class="btn-preorder">{cta.label}</a>
+      <a href={cta.href} class="btn-preorder">{cta.label}</a>
     </div>
   </div>
 </nav>
