@@ -3,24 +3,16 @@
 // balance can be charged when production begins.
 //
 // Env: STRIPE_SECRET_KEY (server only). The browser uses PUBLIC_STRIPE_PUBLISHABLE_KEY.
-import Stripe from 'stripe';
+import { clean, getStripe, isEmail, json } from './_stripe.js';
 
 // Keep in sync with src/lib/campaign.ts (deposit is in dollars there).
 const DEPOSIT_CENTS = 100_00;
 const CURRENCY = 'usd';
 const ALLOWED_COUNTRIES = new Set(['US', 'CA']);
 
-const json = (body, status = 200) =>
-  new Response(JSON.stringify(body), {
-    status,
-    headers: { 'content-type': 'application/json', 'cache-control': 'no-store' },
-  });
-
-const clean = (value, max = 200) => (typeof value === 'string' ? value.trim().slice(0, max) : '');
-
 export async function POST(request) {
-  const secretKey = process.env.STRIPE_SECRET_KEY;
-  if (!secretKey) return json({ error: 'Payments are not configured yet.' }, 503);
+  const stripe = getStripe();
+  if (!stripe) return json({ error: 'Payments are not configured yet.' }, 503);
 
   let body;
   try {
@@ -43,13 +35,11 @@ export async function POST(request) {
     country: clean(a.country, 2).toUpperCase(),
   };
 
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return json({ error: 'Please enter a valid email.' }, 400);
+  if (!isEmail(email)) return json({ error: 'Please enter a valid email.' }, 400);
   if (!name) return json({ error: 'Please enter your name.' }, 400);
   if (!address.line1 || !address.city || !address.postal_code || !ALLOWED_COUNTRIES.has(address.country)) {
     return json({ error: 'We currently ship to the US and Canada only.' }, 400);
   }
-
-  const stripe = new Stripe(secretKey);
 
   try {
     const shipping = { name, phone: phone || undefined, address };

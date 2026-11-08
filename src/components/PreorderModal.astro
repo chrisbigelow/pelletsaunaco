@@ -69,7 +69,7 @@ const publishableKey = import.meta.env.PUBLIC_STRIPE_PUBLISHABLE_KEY ?? '';
         <div id="preorderPayment" class="preorder-element"></div>
 
         <p class="preorder-fine">
-          Your card is saved securely with Stripe so the {usd(balance)} balance can be charged when your stove goes into production. Change your mind any time for a full refund of your deposit.
+          Your card is saved securely with Stripe so the {usd(balance)} balance can be charged when your stove goes into production. Change your mind any time for a <a href="/refund">full refund</a> of your deposit.
         </p>
         <p class="preorder-error" id="preorderError" role="alert" hidden></p>
         <button type="submit" class="btn btn-clay preorder-submit" id="preorderSubmit" disabled>
@@ -82,6 +82,7 @@ const publishableKey = import.meta.env.PUBLIC_STRIPE_PUBLISHABLE_KEY ?? '';
       <p class="preorder-eyebrow">You’re in</p>
       <h2>Thank you — your P1 is reserved.</h2>
       <p>We’ve received your {usd(campaign.deposit)} deposit and emailed your receipt. We’ll be in touch before production begins in {campaign.productionMonth}.</p>
+      <p class="preorder-fine">Changed your mind? You can refund your deposit anytime at <a href="/refund">pelletsauna.com/refund</a>.</p>
       <button type="button" class="btn btn-clay" data-preorder-close>Done</button>
     </div>
   </div>
@@ -262,6 +263,10 @@ const publishableKey = import.meta.env.PUBLIC_STRIPE_PUBLISHABLE_KEY ?? '';
     font-size: 12.5px;
     line-height: 1.5;
     color: var(--muted);
+  }
+
+  .preorder-fine a {
+    color: var(--clay);
   }
 
   .preorder-error {
