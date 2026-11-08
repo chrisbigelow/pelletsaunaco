@@ -18,21 +18,21 @@ const socials = [
           </svg>
           <p class="footer-name">The Pellet Sauna Company</p>
         </div>
-        <form class="footer-signup" id="signupForm" method="POST" action="/api/subscribe" novalidate>
-          <label for="signupEmail" class="footer-signup-label">Get P1 preorder &amp; build updates</label>
-          <div class="footer-signup-row">
-            <input type="email" id="signupEmail" name="email" placeholder="you@example.com" autocomplete="email" required />
-            <button type="submit" class="btn btn-clay" id="signupBtn">Join</button>
-          </div>
-          <input type="text" name="company" style="display: none;" tabindex="-1" autocomplete="off" aria-hidden="true" />
-          <p class="footer-signup-message" id="signupMessage" role="status"></p>
-        </form>
         <ul class="footer-social">
           {socials.map((s) => (
             <li><a href={s.href} aria-label={s.label} target="_blank" rel="noopener noreferrer"><Icon name={s.icon} size={17} /></a></li>
           ))}
         </ul>
       </div>
+      <form class="footer-signup" id="signupForm" method="POST" action="/api/subscribe" novalidate>
+        <label for="signupEmail" class="footer-signup-label">Get P1 preorder &amp; build updates</label>
+        <div class="footer-signup-row">
+          <input type="email" id="signupEmail" name="email" placeholder="you@example.com" autocomplete="email" required />
+          <button type="submit" class="btn btn-clay" id="signupBtn">Join</button>
+        </div>
+        <input type="text" name="company" style="display: none;" tabindex="-1" autocomplete="off" aria-hidden="true" />
+        <p class="footer-signup-message" id="signupMessage" role="status"></p>
+      </form>
       <div class="footer-links">
         <div class="footer-column">
           <h4>Product</h4>
@@ -100,9 +100,11 @@ const socials = [
 
 <style>
   .footer-signup {
+    grid-area: signup;
     display: flex;
     flex-direction: column;
     gap: 10px;
+    width: 100%;
     max-width: 400px;
   }
 
@@ -172,7 +174,7 @@ const socials = [
     z-index: 1;
     display: flex;
     flex-direction: column;
-    gap: 64px;
+    gap: 48px;
     padding: 0 var(--gutter);
   }
 
@@ -184,16 +186,21 @@ const socials = [
     margin-top: -90px;
   }
 
+  /* Desktop: logo and socials | email signup | link columns, side by side. */
   .footer-top {
-    display: flex;
+    display: grid;
+    grid-template-columns: auto minmax(0, 400px) auto;
+    grid-template-areas: 'brand signup links';
     justify-content: space-between;
+    align-items: start;
     gap: 48px;
   }
 
   .footer-brand {
+    grid-area: brand;
     display: flex;
     flex-direction: column;
-    gap: 28px;
+    gap: 24px;
   }
 
   .footer-lockup {
@@ -239,8 +246,9 @@ const socials = [
   }
 
   .footer-links {
+    grid-area: links;
     display: flex;
-    gap: 120px;
+    gap: 96px;
   }
 
   .footer-column {
@@ -277,6 +285,21 @@ const socials = [
     color: var(--sand);
   }
 
+  /* Tablet: signup drops under the logo, links stay on the right. */
+  @media (max-width: 1100px) {
+    .footer-top {
+      grid-template-columns: minmax(0, 400px) auto;
+      grid-template-areas:
+        'brand links'
+        'signup links';
+      row-gap: 32px;
+    }
+
+    .footer-links {
+      gap: 64px;
+    }
+  }
+
   @media (max-width: 1024px) {
     .footer-art {
       margin-top: -40px;
@@ -294,8 +317,12 @@ const socials = [
     }
 
     .footer-top {
-      flex-direction: column;
-      gap: 40px;
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-areas:
+        'brand'
+        'signup'
+        'links';
+      gap: 36px;
     }
 
     .footer-links {
