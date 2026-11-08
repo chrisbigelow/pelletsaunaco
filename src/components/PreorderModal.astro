@@ -22,8 +22,43 @@ const publishableKey = import.meta.env.PUBLIC_STRIPE_PUBLISHABLE_KEY ?? '';
         <label class="preorder-label" for="preorderEmail">Email</label>
         <input class="preorder-input" id="preorderEmail" type="email" name="email" autocomplete="email" required placeholder="you@example.com" />
 
-        <p class="preorder-label">Shipping address</p>
-        <div id="preorderAddress" class="preorder-element"></div>
+        <fieldset class="preorder-address">
+          <legend class="preorder-label">Shipping address</legend>
+          <p class="preorder-hint">We currently ship to the US and Canada only.</p>
+
+          <label class="preorder-sublabel" for="preorderName">Full name</label>
+          <input class="preorder-input" id="preorderName" name="name" autocomplete="shipping name" required />
+
+          <label class="preorder-sublabel" for="preorderLine1">Street address</label>
+          <input class="preorder-input" id="preorderLine1" name="line1" autocomplete="shipping address-line1" required />
+
+          <label class="preorder-sublabel" for="preorderLine2">Apt, suite, etc. <span>(optional)</span></label>
+          <input class="preorder-input" id="preorderLine2" name="line2" autocomplete="shipping address-line2" />
+
+          <div class="preorder-row">
+            <div class="preorder-field preorder-field-city">
+              <label class="preorder-sublabel" for="preorderCity">City</label>
+              <input class="preorder-input" id="preorderCity" name="city" autocomplete="shipping address-level2" required />
+            </div>
+            <div class="preorder-field">
+              <label class="preorder-sublabel" for="preorderState" data-state-label>State</label>
+              <select class="preorder-input" id="preorderState" name="state" autocomplete="shipping address-level1" required></select>
+            </div>
+            <div class="preorder-field">
+              <label class="preorder-sublabel" for="preorderPostal" data-postal-label>ZIP code</label>
+              <input class="preorder-input" id="preorderPostal" name="postal_code" autocomplete="shipping postal-code" required />
+            </div>
+          </div>
+
+          <label class="preorder-sublabel" for="preorderCountry">Country</label>
+          <select class="preorder-input" id="preorderCountry" name="country" autocomplete="shipping country" required>
+            <option value="US">United States</option>
+            <option value="CA">Canada</option>
+          </select>
+
+          <label class="preorder-sublabel" for="preorderPhone">Phone</label>
+          <input class="preorder-input" id="preorderPhone" name="phone" type="tel" autocomplete="shipping tel" required placeholder="For delivery scheduling" />
+        </fieldset>
 
         <p class="preorder-label">Card</p>
         <div id="preorderPayment" class="preorder-element"></div>
@@ -150,6 +185,50 @@ const publishableKey = import.meta.env.PUBLIC_STRIPE_PUBLISHABLE_KEY ?? '';
     outline-offset: 1px;
   }
 
+  .preorder-address {
+    margin: 18px 0 0;
+    padding: 0;
+    border: 0;
+    min-width: 0;
+  }
+
+  .preorder-hint {
+    margin: -2px 0 4px;
+    font-size: 12.5px;
+    color: var(--muted);
+  }
+
+  .preorder-sublabel {
+    display: block;
+    margin: 12px 0 5px;
+    font-size: 13px;
+    color: var(--ink);
+  }
+
+  .preorder-sublabel span {
+    color: var(--muted);
+  }
+
+  .preorder-row {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+    gap: 10px;
+  }
+
+  .preorder-field {
+    min-width: 0;
+  }
+
+  select.preorder-input {
+    appearance: none;
+    padding-right: 32px;
+    background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%236b675a' stroke-width='1.5'/%3E%3C/svg%3E") no-repeat right 12px center;
+  }
+
+  .preorder-input[aria-invalid='true'] {
+    border-color: #a3341c;
+  }
+
   .preorder-element {
     min-height: 44px;
   }
@@ -180,6 +259,14 @@ const publishableKey = import.meta.env.PUBLIC_STRIPE_PUBLISHABLE_KEY ?? '';
   }
 
   @media (max-width: 640px) {
+    .preorder-row {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .preorder-field-city {
+      grid-column: 1 / -1;
+    }
+
     .preorder-panel {
       padding: 32px 18px 24px;
     }
@@ -207,8 +294,70 @@ const publishableKey = import.meta.env.PUBLIC_STRIPE_PUBLISHABLE_KEY ?? '';
 
     let stripe: StripeLike;
     let elements: StripeLike;
-    let addressElement: StripeLike;
     let ready: Promise<void> | null = null;
+
+    // Shipping address: US and Canada only, with region and postal code rules per country.
+    const regions: Record<string, [string, string][]> = {
+      US: Object.entries({ AL: 'Alabama', AK: 'Alaska', AZ: 'Arizona', AR: 'Arkansas', CA: 'California', CO: 'Colorado', CT: 'Connecticut', DE: 'Delaware', DC: 'District of Columbia', FL: 'Florida', GA: 'Georgia', HI: 'Hawaii', ID: 'Idaho', IL: 'Illinois', IN: 'Indiana', IA: 'Iowa', KS: 'Kansas', KY: 'Kentucky', LA: 'Louisiana', ME: 'Maine', MD: 'Maryland', MA: 'Massachusetts', MI: 'Michigan', MN: 'Minnesota', MS: 'Mississippi', MO: 'Missouri', MT: 'Montana', NE: 'Nebraska', NV: 'Nevada', NH: 'New Hampshire', NJ: 'New Jersey', NM: 'New Mexico', NY: 'New York', NC: 'North Carolina', ND: 'North Dakota', OH: 'Ohio', OK: 'Oklahoma', OR: 'Oregon', PA: 'Pennsylvania', RI: 'Rhode Island', SC: 'South Carolina', SD: 'South Dakota', TN: 'Tennessee', TX: 'Texas', UT: 'Utah', VT: 'Vermont', VA: 'Virginia', WA: 'Washington', WV: 'West Virginia', WI: 'Wisconsin', WY: 'Wyoming' }),
+      CA: Object.entries({ AB: 'Alberta', BC: 'British Columbia', MB: 'Manitoba', NB: 'New Brunswick', NL: 'Newfoundland and Labrador', NS: 'Nova Scotia', NT: 'Northwest Territories', NU: 'Nunavut', ON: 'Ontario', PE: 'Prince Edward Island', QC: 'Quebec', SK: 'Saskatchewan', YT: 'Yukon' }),
+    };
+    const postalPattern: Record<string, RegExp> = {
+      US: /^\d{5}(-\d{4})?$/,
+      CA: /^[A-Za-z]\d[A-Za-z] ?\d[A-Za-z]\d$/,
+    };
+    const field = (id: string) => dialog.querySelector<HTMLInputElement | HTMLSelectElement>(`#${id}`)!;
+    const countrySelect = field('preorderCountry') as HTMLSelectElement;
+    const stateSelect = field('preorderState') as HTMLSelectElement;
+    const stateLabel = dialog.querySelector<HTMLElement>('[data-state-label]')!;
+    const postalLabel = dialog.querySelector<HTMLElement>('[data-postal-label]')!;
+
+    const fillRegions = () => {
+      const country = countrySelect.value;
+      const placeholder = country === 'CA' ? 'Province' : 'State';
+      stateLabel.textContent = placeholder;
+      postalLabel.textContent = country === 'CA' ? 'Postal code' : 'ZIP code';
+      stateSelect.replaceChildren(
+        new Option('Select', ''),
+        ...regions[country].map(([code, name]) => new Option(name, code))
+      );
+    };
+    fillRegions();
+    countrySelect.addEventListener('change', fillRegions);
+    dialog.querySelectorAll('.preorder-input').forEach((el) =>
+      el.addEventListener('input', () => el.removeAttribute('aria-invalid'))
+    );
+
+    const readAddress = () => {
+      const value = (id: string) => field(id).value.trim();
+      const country = countrySelect.value;
+      const checks: [string, boolean, string][] = [
+        ['preorderName', !!value('preorderName'), 'Please enter your full name.'],
+        ['preorderLine1', !!value('preorderLine1'), 'Please enter your street address.'],
+        ['preorderCity', !!value('preorderCity'), 'Please enter your city.'],
+        ['preorderState', !!value('preorderState'), `Please choose your ${country === 'CA' ? 'province' : 'state'}.`],
+        ['preorderPostal', postalPattern[country].test(value('preorderPostal')), `Please enter a valid ${country === 'CA' ? 'postal code' : 'ZIP code'}.`],
+        ['preorderPhone', value('preorderPhone').replace(/\D/g, '').length >= 10, 'Please enter a phone number for delivery.'],
+      ];
+      const failed = checks.find(([, ok]) => !ok);
+      if (failed) {
+        const el = field(failed[0]);
+        el.setAttribute('aria-invalid', 'true');
+        el.focus();
+        throw new Error(failed[2]);
+      }
+      return {
+        name: value('preorderName'),
+        phone: value('preorderPhone'),
+        address: {
+          line1: value('preorderLine1'),
+          line2: value('preorderLine2'),
+          city: value('preorderCity'),
+          state: value('preorderState'),
+          postal_code: value('preorderPostal').toUpperCase(),
+          country,
+        },
+      };
+    };
 
     const showError = (message = '') => {
       errorEl.textContent = message;
@@ -251,13 +400,6 @@ const publishableKey = import.meta.env.PUBLIC_STRIPE_PUBLISHABLE_KEY ?? '';
           rules: { '.Input': { borderColor: '#d9cfb4', boxShadow: 'none' } },
         },
       });
-      addressElement = elements.create('address', {
-        mode: 'shipping',
-        allowedCountries: ['US', 'CA'],
-        fields: { phone: 'always' },
-        validation: { phone: { required: 'always' } },
-      });
-      addressElement.mount('#preorderAddress');
       const payment = elements.create('payment', { layout: 'tabs', wallets: { applePay: 'never', googlePay: 'never' } });
       payment.mount('#preorderPayment');
       payment.on('ready', () => (submit.disabled = false));
@@ -306,16 +448,15 @@ const publishableKey = import.meta.env.PUBLIC_STRIPE_PUBLISHABLE_KEY ?? '';
       submit.textContent = 'Processing…';
 
       try {
+        const shipping = readAddress();
+
         const { error: submitError } = await elements.submit();
         if (submitError) throw submitError;
-
-        const { complete, value } = await addressElement.getValue();
-        if (!complete) throw new Error('Please complete your shipping address.');
 
         const res = await fetch('/api/preorder', {
           method: 'POST',
           headers: { 'content-type': 'application/json' },
-          body: JSON.stringify({ email, name: value.name, phone: value.phone, address: value.address }),
+          body: JSON.stringify({ email, ...shipping }),
         });
         const data = await res.json().catch(() => ({}));
         if (!res.ok || !data.clientSecret) throw new Error(data.error || 'We couldn’t start the payment. Please try again.');
