@@ -18,6 +18,15 @@ const socials = [
           </svg>
           <p class="footer-name">The Pellet Sauna Company</p>
         </div>
+        <form class="footer-signup" id="signupForm" method="POST" action="/api/subscribe" novalidate>
+          <label for="signupEmail" class="footer-signup-label">Get P1 preorder &amp; build updates</label>
+          <div class="footer-signup-row">
+            <input type="email" id="signupEmail" name="email" placeholder="you@example.com" autocomplete="email" required />
+            <button type="submit" class="btn btn-clay" id="signupBtn">Join</button>
+          </div>
+          <input type="text" name="company" style="display: none;" tabindex="-1" autocomplete="off" aria-hidden="true" />
+          <p class="footer-signup-message" id="signupMessage" role="status"></p>
+        </form>
         <ul class="footer-social">
           {socials.map((s) => (
             <li><a href={s.href} aria-label={s.label} target="_blank" rel="noopener noreferrer"><Icon name={s.icon} size={17} /></a></li>
@@ -54,7 +63,102 @@ const socials = [
   />
 </footer>
 
+<script>
+  const signupForm = document.getElementById('signupForm') as HTMLFormElement | null;
+  const signupBtn = document.getElementById('signupBtn') as HTMLButtonElement | null;
+  const signupMessage = document.getElementById('signupMessage');
+
+  signupForm?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!signupMessage) return;
+    const emailInput = signupForm.elements.namedItem('email') as HTMLInputElement;
+    if (!emailInput.checkValidity()) {
+      signupMessage.textContent = 'Please enter a valid email address.';
+      signupMessage.dataset.state = 'error';
+      return;
+    }
+    if (signupBtn) signupBtn.disabled = true;
+    signupMessage.textContent = '';
+
+    try {
+      const response = await fetch('/api/subscribe', { method: 'POST', body: new FormData(signupForm) });
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok || !data.ok) throw new Error(data.error);
+      signupMessage.textContent =
+        data.status === 'already_subscribed' ? "You're already on the list — thanks!" : "You're on the list. Check your inbox!";
+      signupMessage.dataset.state = 'success';
+      signupForm.reset();
+    } catch (error) {
+      signupMessage.textContent =
+        error instanceof Error && error.message ? error.message : 'Something went wrong. Please try again.';
+      signupMessage.dataset.state = 'error';
+    } finally {
+      if (signupBtn) signupBtn.disabled = false;
+    }
+  });
+</script>
+
 <style>
+  .footer-signup {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 400px;
+  }
+
+  .footer-signup-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--sand-light);
+  }
+
+  .footer-signup-row {
+    display: flex;
+  }
+
+  .footer-signup-row input {
+    flex: 1;
+    min-width: 0;
+    padding: 14px 16px;
+    font: inherit;
+    font-size: 15px;
+    color: var(--cream);
+    background: rgba(246, 241, 231, 0.08);
+    border: 1px solid rgba(246, 241, 231, 0.3);
+    border-right: none;
+    border-radius: 0;
+  }
+
+  .footer-signup-row input::placeholder {
+    color: rgba(246, 241, 231, 0.55);
+  }
+
+  .footer-signup-row input:focus {
+    outline: 2px solid var(--clay);
+    outline-offset: -2px;
+  }
+
+  .footer-signup-row .btn {
+    padding: 14px 22px;
+  }
+
+  .footer-signup-row .btn:disabled {
+    opacity: 0.6;
+    cursor: default;
+  }
+
+  .footer-signup-message {
+    min-height: 1.4em;
+    font-size: 13px;
+    color: var(--sand);
+  }
+
+  .footer-signup-message[data-state='error'] {
+    color: #f0b49a;
+  }
+
   .footer {
     position: relative;
     background: var(--pine);
