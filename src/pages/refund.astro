@@ -1,0 +1,508 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteNav from '../components/SiteNav.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import { campaign, usd } from '../lib/campaign';
+import '../styles/theme.css';
+
+const contactHref = `/?subject=${encodeURIComponent('Pre-order refund')}#contact`;
+---
+
+<BaseLayout
+  title="Refund Your Reservation | The Pellet Sauna Company"
+  description={`Look up your P1 pre-order and get your ${usd(campaign.deposit)} deposit back anytime, right on this page.`}
+>
+  <SiteNav solid />
+
+  <main class="refund">
+    <p class="eyebrow">Pre-order refunds</p>
+    <h1>Changed your mind?</h1>
+    <p class="lede">
+      Your {usd(campaign.deposit)} deposit is fully refundable. Look up your reservation with the email and ZIP or postal code you used at checkout, and you can refund it right here.
+    </p>
+
+    <!-- Step 1: look up -->
+    <form class="refund-card" id="lookupForm" novalidate>
+      <div class="field">
+        <label for="lookupEmail">Email</label>
+        <input id="lookupEmail" name="email" type="email" autocomplete="email" required placeholder="you@example.com" />
+      </div>
+      <div class="field">
+        <label for="lookupPostal">ZIP or postal code</label>
+        <input id="lookupPostal" name="postalCode" autocomplete="postal-code" required placeholder="e.g. 55401 or M5V 2T6" />
+      </div>
+      <p class="form-error" id="lookupError" role="alert" hidden></p>
+      <button type="submit" class="btn btn-clay" id="lookupSubmit">Find my reservation</button>
+    </form>
+
+    <!-- Step 2: results -->
+    <section class="results" id="results" hidden aria-live="polite">
+      <h2>Your reservations</h2>
+      <ul class="orders" id="orders"></ul>
+      <button type="button" class="link-button" id="lookupAgain">Look up a different reservation</button>
+    </section>
+
+    <p class="help">
+      Trouble finding your reservation? <a href={contactHref}>Contact us</a> and we’ll sort it out.
+    </p>
+  </main>
+
+  <template id="orderTemplate">
+    <li class="order">
+      <div class="order-head">
+        <p class="order-title">P1 founders’ reservation</p>
+        <span class="order-status" data-status></span>
+      </div>
+      <p class="order-meta" data-meta></p>
+
+      <form class="refund-form" data-refund-form hidden>
+        <label data-reason-label>Why are you cancelling? <span>(optional)</span></label>
+        <div class="reasons" data-reasons></div>
+        <textarea name="details" rows="3" maxlength="400" placeholder="Anything else you’d like to share? (optional)"></textarea>
+        <p class="form-error" role="alert" hidden data-error></p>
+        <div class="refund-actions">
+          <button type="submit" class="btn btn-clay" data-confirm></button>
+          <button type="button" class="link-button" data-cancel>Keep my reservation</button>
+        </div>
+      </form>
+
+      <button type="button" class="btn btn-outline" data-start hidden>Refund this deposit</button>
+      <p class="order-note" data-note hidden></p>
+    </li>
+  </template>
+
+  <SiteFooter />
+</BaseLayout>
+
+<style>
+  .refund {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 140px 20px 96px;
+  }
+
+  .eyebrow {
+    margin: 0 0 10px;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--clay);
+  }
+
+  h1 {
+    margin: 0 0 14px;
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(40px, 7vw, 56px);
+    line-height: 1.05;
+    color: var(--ink);
+  }
+
+  .lede {
+    margin: 0 0 32px;
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--muted);
+  }
+
+  .refund-card,
+  .order {
+    padding: 24px;
+    border: 1px solid var(--sand);
+    border-radius: 6px;
+    background: var(--cream-bright);
+  }
+
+  .field + .field {
+    margin-top: 16px;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  label span {
+    font-weight: 400;
+    color: var(--muted);
+  }
+
+  input,
+  textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 11px 12px;
+    border: 1px solid var(--sand);
+    border-radius: 4px;
+    background: #fff;
+    font: inherit;
+    font-size: 16px;
+    color: var(--ink);
+  }
+
+  textarea {
+    resize: vertical;
+    margin-top: 12px;
+  }
+
+  input:focus,
+  textarea:focus {
+    outline: 2px solid var(--clay);
+    outline-offset: 1px;
+  }
+
+  .refund-card .btn {
+    margin-top: 20px;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .form-error {
+    margin: 14px 0 0;
+    color: #a3341c;
+    font-size: 14px;
+  }
+
+  .results h2 {
+    margin: 0 0 16px;
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 30px;
+    color: var(--ink);
+  }
+
+  .orders {
+    display: grid;
+    gap: 14px;
+    margin: 0 0 20px;
+    padding: 0;
+    list-style: none;
+  }
+
+  .order-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .order-title {
+    margin: 0 0 4px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .order-meta {
+    margin: 6px 0 0;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--muted);
+  }
+
+  .order-status {
+    flex: none;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    background: #e3ead8;
+    color: var(--pine);
+  }
+
+  .order-status.is-refunded {
+    background: var(--sand-pale);
+    color: var(--muted);
+  }
+
+  [hidden] {
+    display: none !important;
+  }
+
+  .btn-outline {
+    border-color: var(--ink);
+    color: var(--ink);
+    background: transparent;
+  }
+
+  .btn-outline:hover {
+    background: var(--ink);
+    color: var(--cream-bright);
+  }
+
+  .order [data-start] {
+    margin-top: 18px;
+  }
+
+  .refund-form {
+    margin-top: 20px;
+    padding-top: 18px;
+    border-top: 1px solid var(--sand);
+  }
+
+  .reasons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .reasons :global(.reason) {
+    position: relative;
+  }
+
+  .reasons :global(.reason input) {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .reasons :global(.reason span) {
+    display: inline-block;
+    margin: 0;
+    padding: 8px 12px;
+    border: 1px solid var(--sand);
+    border-radius: 999px;
+    background: #fff;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--ink);
+    cursor: pointer;
+  }
+
+  .reasons :global(.reason input:checked + span) {
+    border-color: var(--clay);
+    background: #f7e9e0;
+  }
+
+  .reasons :global(.reason input:focus-visible + span) {
+    outline: 2px solid var(--clay);
+    outline-offset: 2px;
+  }
+
+  .refund-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
+    margin-top: 16px;
+  }
+
+  .link-button {
+    padding: 0;
+    border: 0;
+    background: none;
+    font: inherit;
+    font-size: 14px;
+    color: var(--muted);
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  .order-note {
+    margin: 16px 0 0;
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--muted);
+  }
+
+  .help {
+    margin: 28px 0 0;
+    font-size: 14px;
+    color: var(--muted);
+  }
+
+  .help a {
+    color: var(--clay);
+  }
+
+  @media (max-width: 640px) {
+    .refund {
+      padding: 110px 16px 72px;
+    }
+
+    .refund-card,
+    .order {
+      padding: 18px;
+    }
+  }
+</style>
+
+<script>
+  type Order = {
+    id: string;
+    reference: string;
+    created: number;
+    amount: number;
+    currency: string;
+    refunded: boolean;
+    refundPending: boolean;
+    card: { brand: string; last4: string } | null;
+    shipTo: string;
+  };
+
+  const REASONS = ['Changed my mind', 'Found another option', 'Timing doesn’t work', 'Price', 'Other'];
+
+  const lookupForm = document.getElementById('lookupForm') as HTMLFormElement;
+  const lookupSubmit = document.getElementById('lookupSubmit') as HTMLButtonElement;
+  const lookupError = document.getElementById('lookupError') as HTMLElement;
+  const results = document.getElementById('results') as HTMLElement;
+  const ordersList = document.getElementById('orders') as HTMLUListElement;
+  const template = document.getElementById('orderTemplate') as HTMLTemplateElement;
+
+  let credentials = { email: '', postalCode: '' };
+
+  const money = (cents: number, currency: string) =>
+    new Intl.NumberFormat('en-US', { style: 'currency', currency: currency.toUpperCase(), minimumFractionDigits: 0 }).format(cents / 100);
+  const date = (seconds: number) =>
+    new Date(seconds * 1000).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+  const brand = (b: string) => (b === 'amex' ? 'Amex' : b.charAt(0).toUpperCase() + b.slice(1));
+
+  const setError = (el: HTMLElement, message = '') => {
+    el.textContent = message;
+    el.hidden = !message;
+  };
+
+  async function call(body: Record<string, unknown>) {
+    const res = await fetch('/api/refund', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ ...credentials, ...body }),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(data.error || 'Something went wrong. Please try again.');
+    return data;
+  }
+
+  function renderOrder(order: Order, li?: HTMLLIElement) {
+    const node = li ?? (template.content.firstElementChild!.cloneNode(true) as HTMLLIElement);
+    const status = node.querySelector<HTMLElement>('[data-status]')!;
+    const start = node.querySelector<HTMLButtonElement>('[data-start]')!;
+    const form = node.querySelector<HTMLFormElement>('[data-refund-form]')!;
+    const note = node.querySelector<HTMLElement>('[data-note]')!;
+
+    const parts = [
+      `${money(order.amount, order.currency)} deposit · ${date(order.created)}`,
+      order.card ? `${brand(order.card.brand)} ending ${order.card.last4}` : '',
+      order.shipTo ? `Ships to ${order.shipTo}` : '',
+      `Ref. ${order.reference}`,
+    ].filter(Boolean);
+    node.querySelector('[data-meta]')!.textContent = parts.join(' · ');
+
+    const done = order.refunded || order.refundPending;
+    status.textContent = done ? 'Refunded' : 'Reserved';
+    status.classList.toggle('is-refunded', done);
+    start.hidden = done;
+    form.hidden = true;
+    note.hidden = !done;
+    if (done) {
+      note.textContent = `Your ${money(order.amount, order.currency)} refund has been issued${order.card ? ` to your ${brand(order.card.brand)} ending ${order.card.last4}` : ''}. It usually appears in 5–10 business days. Stripe will email you a receipt.`;
+    }
+    return node;
+  }
+
+  function wireOrder(order: Order, li: HTMLLIElement) {
+    const start = li.querySelector<HTMLButtonElement>('[data-start]')!;
+    const form = li.querySelector<HTMLFormElement>('[data-refund-form]')!;
+    const reasons = li.querySelector<HTMLElement>('[data-reasons]')!;
+    const confirm = li.querySelector<HTMLButtonElement>('[data-confirm]')!;
+    const cancel = li.querySelector<HTMLButtonElement>('[data-cancel]')!;
+    const error = li.querySelector<HTMLElement>('[data-error]')!;
+    const groupName = `reason-${order.id}`;
+
+    li.querySelector('[data-reason-label]')!.id = `${groupName}-label`;
+    reasons.setAttribute('role', 'radiogroup');
+    reasons.setAttribute('aria-labelledby', `${groupName}-label`);
+    reasons.replaceChildren(
+      ...REASONS.map((text) => {
+        const label = document.createElement('label');
+        label.className = 'reason';
+        label.innerHTML = `<input type="radio" name="${groupName}" /><span></span>`;
+        label.querySelector('input')!.value = text;
+        label.querySelector('span')!.textContent = text;
+        return label;
+      })
+    );
+    const confirmLabel = `Refund ${money(order.amount, order.currency)}`;
+    confirm.textContent = confirmLabel;
+
+    start.addEventListener('click', () => {
+      start.hidden = true;
+      form.hidden = false;
+      form.querySelector<HTMLInputElement>('input')?.focus();
+    });
+    cancel.addEventListener('click', () => {
+      form.hidden = true;
+      start.hidden = false;
+      setError(error);
+    });
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      setError(error);
+      const picked = form.querySelector<HTMLInputElement>(`input[name="${groupName}"]:checked`)?.value ?? '';
+      const details = (form.elements.namedItem('details') as HTMLTextAreaElement).value.trim();
+      const reason = [picked, details].filter(Boolean).join(' — ');
+
+      confirm.disabled = true;
+      confirm.textContent = 'Refunding…';
+      try {
+        const data = await call({ action: 'refund', orderId: order.id, reason });
+        renderOrder(data.order, li);
+        (window as any).gtag?.('event', 'refund', { value: order.amount / 100, currency: 'USD' });
+      } catch (err: any) {
+        setError(error, err.message);
+      } finally {
+        confirm.disabled = false;
+        confirm.textContent = confirmLabel;
+      }
+    });
+  }
+
+  lookupForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    setError(lookupError);
+    const email = (document.getElementById('lookupEmail') as HTMLInputElement).value.trim();
+    const postalCode = (document.getElementById('lookupPostal') as HTMLInputElement).value.trim();
+    if (!email || !postalCode) {
+      setError(lookupError, 'Please enter the email and ZIP/postal code you used at checkout.');
+      return;
+    }
+
+    credentials = { email, postalCode };
+    lookupSubmit.disabled = true;
+    lookupSubmit.textContent = 'Looking up…';
+    try {
+      const { orders } = (await call({ action: 'lookup' })) as { orders: Order[] };
+      ordersList.replaceChildren(
+        ...orders.map((order) => {
+          const li = renderOrder(order);
+          wireOrder(order, li);
+          return li;
+        })
+      );
+      lookupForm.hidden = true;
+      results.hidden = false;
+      results.querySelector('h2')!.textContent = orders.length === 1 ? 'Your reservation' : 'Your reservations';
+    } catch (err: any) {
+      setError(lookupError, err.message);
+    } finally {
+      lookupSubmit.disabled = false;
+      lookupSubmit.textContent = 'Find my reservation';
+    }
+  });
+
+  document.getElementById('lookupAgain')!.addEventListener('click', () => {
+    results.hidden = true;
+    lookupForm.hidden = false;
+    ordersList.replaceChildren();
+    credentials = { email: '', postalCode: '' };
+  });
+</script>

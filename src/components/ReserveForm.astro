@@ -1,0 +1,521 @@
+---
+// Order form for the /reserve page: takes the refundable deposit by card with Stripe's Payment Element.
+// The card is saved so the balance can be charged when production begins (see api/preorder.js).
+import { campaign, balance, usd } from '../lib/campaign';
+
+const publishableKey = import.meta.env.PUBLIC_STRIPE_PUBLISHABLE_KEY ?? '';
+const contactHref = `/?subject=${encodeURIComponent('P1 pre-order reservation')}#contact`;
+---
+
+<div class="reserve-form" id="reserveForm" data-key={publishableKey} data-amount={campaign.deposit * 100}>
+  <div class="step" data-step="form">
+    <h1>Reserve your P1</h1>
+    <p class="intro">{usd(campaign.deposit)} today, fully refundable. The {usd(balance)} balance is charged when production begins in {campaign.productionMonth}.</p>
+
+    {publishableKey ? (
+      <form id="preorderForm" novalidate>
+        <fieldset class="group">
+          <legend>Contact</legend>
+          <label class="sublabel" for="preorderEmail">Email</label>
+          <input class="input" id="preorderEmail" type="email" name="email" autocomplete="email" required placeholder="you@example.com" />
+
+          <label class="optin">
+            <input type="checkbox" id="preorderOptIn" name="marketing_opt_in" />
+            <span>Email me build updates, sauna tips, and news from The Pellet Sauna Co. Unsubscribe anytime.</span>
+          </label>
+        </fieldset>
+
+        <fieldset class="group">
+          <legend>Shipping address</legend>
+          <p class="hint">We currently ship to the US and Canada only.</p>
+
+          <label class="sublabel" for="preorderName">Full name</label>
+          <input class="input" id="preorderName" name="name" autocomplete="shipping name" required />
+
+          <label class="sublabel" for="preorderLine1">Street address</label>
+          <input class="input" id="preorderLine1" name="line1" autocomplete="shipping address-line1" required />
+
+          <label class="sublabel" for="preorderLine2">Apt, suite, etc. <span>(optional)</span></label>
+          <input class="input" id="preorderLine2" name="line2" autocomplete="shipping address-line2" />
+
+          <div class="row">
+            <div class="field field-city">
+              <label class="sublabel" for="preorderCity">City</label>
+              <input class="input" id="preorderCity" name="city" autocomplete="shipping address-level2" required />
+            </div>
+            <div class="field">
+              <label class="sublabel" for="preorderState" data-state-label>State</label>
+              <select class="input" id="preorderState" name="state" autocomplete="shipping address-level1" required></select>
+            </div>
+            <div class="field">
+              <label class="sublabel" for="preorderPostal" data-postal-label>ZIP code</label>
+              <input class="input" id="preorderPostal" name="postal_code" autocomplete="shipping postal-code" required />
+            </div>
+          </div>
+
+          <label class="sublabel" for="preorderCountry">Country</label>
+          <select class="input" id="preorderCountry" name="country" autocomplete="shipping country" required>
+            <option value="US">United States</option>
+            <option value="CA">Canada</option>
+          </select>
+
+          <label class="sublabel" for="preorderPhone">Phone</label>
+          <input class="input" id="preorderPhone" name="phone" type="tel" autocomplete="shipping tel" required placeholder="For delivery scheduling" />
+        </fieldset>
+
+        <fieldset class="group">
+          <legend>Payment</legend>
+          <div id="preorderPayment" class="payment-element"></div>
+          <p class="fine">
+            Your card is saved securely with Stripe so the {usd(balance)} balance can be charged when your stove goes into production. Change your mind anytime for a <a href="/refund">full refund</a> of your deposit.
+          </p>
+        </fieldset>
+
+        <p class="form-error" id="preorderError" role="alert" hidden></p>
+        <button type="submit" class="btn btn-clay submit" id="preorderSubmit" disabled>
+          Pay {usd(campaign.deposit)} deposit
+        </button>
+        <p class="secure">Payments are processed securely by Stripe.</p>
+      </form>
+    ) : (
+      <p class="notice">
+        Online reservations open soon. In the meantime, <a href={contactHref}>contact us</a> and we’ll reserve your P1 by hand.
+      </p>
+    )}
+  </div>
+
+  <div class="step success" data-step="success" hidden>
+    <p class="eyebrow">You’re in</p>
+    <h1>Thank you — your P1 is reserved.</h1>
+    <p>We’ve received your {usd(campaign.deposit)} deposit. We’ll be in touch before production begins in {campaign.productionMonth}.</p>
+    <p class="fine">Changed your mind? You can refund your deposit anytime at <a href="/refund">pelletsauna.com/refund</a>.</p>
+    <a class="btn btn-clay" href="/p1-pellet-sauna-stove">Back to the P1</a>
+  </div>
+</div>
+
+<style>
+  h1 {
+    margin: 0 0 10px;
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(36px, 5vw, 48px);
+    line-height: 1.05;
+    color: var(--ink);
+  }
+
+  .intro {
+    margin: 0 0 8px;
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--muted);
+  }
+
+  .eyebrow {
+    margin: 0 0 8px;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--clay);
+  }
+
+  .group {
+    margin: 28px 0 0;
+    padding: 0;
+    border: 0;
+    min-width: 0;
+  }
+
+  legend {
+    margin-bottom: 4px;
+    padding: 0;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .hint {
+    margin: 0 0 2px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  .sublabel {
+    display: block;
+    margin: 12px 0 5px;
+    font-size: 13px;
+    color: var(--ink);
+  }
+
+  .sublabel span {
+    color: var(--muted);
+  }
+
+  .input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 11px 12px;
+    border: 1px solid var(--sand);
+    border-radius: 4px;
+    background: #fff;
+    font: inherit;
+    font-size: 16px;
+    color: var(--ink);
+  }
+
+  .input:focus {
+    outline: 2px solid var(--clay);
+    outline-offset: 1px;
+  }
+
+  .input[aria-invalid='true'] {
+    border-color: #a3341c;
+  }
+
+  select.input {
+    appearance: none;
+    padding-right: 32px;
+    background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%236b675a' stroke-width='1.5'/%3E%3C/svg%3E") no-repeat right 12px center;
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+    gap: 10px;
+  }
+
+  .field {
+    min-width: 0;
+  }
+
+  .optin {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin: 14px 0 0;
+    font-size: 13.5px;
+    line-height: 1.45;
+    color: var(--ink);
+    cursor: pointer;
+  }
+
+  .optin input {
+    flex: none;
+    width: 18px;
+    height: 18px;
+    margin: 1px 0 0;
+    accent-color: var(--clay);
+    cursor: pointer;
+  }
+
+  .payment-element {
+    min-height: 120px;
+    margin-top: 10px;
+  }
+
+  .fine {
+    margin: 14px 0 0;
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--muted);
+  }
+
+  .fine a,
+  .notice a {
+    color: var(--clay);
+  }
+
+  .form-error {
+    margin: 18px 0 0;
+    color: #a3341c;
+    font-size: 14px;
+  }
+
+  .submit {
+    width: 100%;
+    justify-content: center;
+    margin-top: 24px;
+    padding-top: 18px;
+    padding-bottom: 18px;
+  }
+
+  .submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .secure {
+    margin: 12px 0 0;
+    text-align: center;
+    font-size: 12.5px;
+    color: var(--muted);
+  }
+
+  .notice {
+    margin: 24px 0 0;
+    padding: 18px 20px;
+    border-radius: 4px;
+    background: var(--sand-pale);
+    line-height: 1.55;
+    color: var(--ink);
+  }
+
+  .success p {
+    margin: 0 0 12px;
+    line-height: 1.6;
+    color: var(--muted);
+  }
+
+  .success .btn {
+    margin-top: 12px;
+  }
+
+  [hidden] {
+    display: none !important;
+  }
+
+  /* The order summary above the form already says this on smaller screens. */
+  @media (max-width: 900px) {
+    .intro {
+      display: none;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .row {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .field-city {
+      grid-column: 1 / -1;
+    }
+  }
+</style>
+
+<script>
+  type StripeLike = any;
+
+  const root = document.getElementById('reserveForm');
+  const form = root?.querySelector<HTMLFormElement>('#preorderForm');
+
+  if (root && form) {
+    const emailInput = root.querySelector<HTMLInputElement>('#preorderEmail')!;
+    const optIn = root.querySelector<HTMLInputElement>('#preorderOptIn')!;
+    const submit = root.querySelector<HTMLButtonElement>('#preorderSubmit')!;
+    const errorEl = root.querySelector<HTMLElement>('#preorderError')!;
+    const steps = root.querySelectorAll<HTMLElement>('.step');
+    const key = root.dataset.key ?? '';
+    const amount = Number(root.dataset.amount);
+    const submitLabel = submit.textContent;
+
+    let stripe: StripeLike;
+    let elements: StripeLike;
+
+    // Shipping address: US and Canada only, with region and postal code rules per country.
+    const regions: Record<string, [string, string][]> = {
+      US: Object.entries({ AL: 'Alabama', AK: 'Alaska', AZ: 'Arizona', AR: 'Arkansas', CA: 'California', CO: 'Colorado', CT: 'Connecticut', DE: 'Delaware', DC: 'District of Columbia', FL: 'Florida', GA: 'Georgia', HI: 'Hawaii', ID: 'Idaho', IL: 'Illinois', IN: 'Indiana', IA: 'Iowa', KS: 'Kansas', KY: 'Kentucky', LA: 'Louisiana', ME: 'Maine', MD: 'Maryland', MA: 'Massachusetts', MI: 'Michigan', MN: 'Minnesota', MS: 'Mississippi', MO: 'Missouri', MT: 'Montana', NE: 'Nebraska', NV: 'Nevada', NH: 'New Hampshire', NJ: 'New Jersey', NM: 'New Mexico', NY: 'New York', NC: 'North Carolina', ND: 'North Dakota', OH: 'Ohio', OK: 'Oklahoma', OR: 'Oregon', PA: 'Pennsylvania', RI: 'Rhode Island', SC: 'South Carolina', SD: 'South Dakota', TN: 'Tennessee', TX: 'Texas', UT: 'Utah', VT: 'Vermont', VA: 'Virginia', WA: 'Washington', WV: 'West Virginia', WI: 'Wisconsin', WY: 'Wyoming' }),
+      CA: Object.entries({ AB: 'Alberta', BC: 'British Columbia', MB: 'Manitoba', NB: 'New Brunswick', NL: 'Newfoundland and Labrador', NS: 'Nova Scotia', NT: 'Northwest Territories', NU: 'Nunavut', ON: 'Ontario', PE: 'Prince Edward Island', QC: 'Quebec', SK: 'Saskatchewan', YT: 'Yukon' }),
+    };
+    const postalPattern: Record<string, RegExp> = {
+      US: /^\d{5}(-\d{4})?$/,
+      CA: /^[A-Za-z]\d[A-Za-z] ?\d[A-Za-z]\d$/,
+    };
+    const field = (id: string) => root.querySelector<HTMLInputElement | HTMLSelectElement>(`#${id}`)!;
+    const countrySelect = field('preorderCountry') as HTMLSelectElement;
+    const stateSelect = field('preorderState') as HTMLSelectElement;
+    const stateLabel = root.querySelector<HTMLElement>('[data-state-label]')!;
+    const postalLabel = root.querySelector<HTMLElement>('[data-postal-label]')!;
+
+    const fillRegions = () => {
+      const country = countrySelect.value;
+      stateLabel.textContent = country === 'CA' ? 'Province' : 'State';
+      postalLabel.textContent = country === 'CA' ? 'Postal code' : 'ZIP code';
+      stateSelect.replaceChildren(new Option('Select', ''), ...regions[country].map(([code, name]) => new Option(name, code)));
+    };
+
+    // Email list: pre-checked for the US; Canada (CASL) needs an unticked box the buyer opts into.
+    // Once the buyer touches the box, a country change no longer overrides their choice.
+    let optInTouched = false;
+    optIn.addEventListener('change', () => (optInTouched = true));
+    const syncOptIn = () => {
+      if (!optInTouched) optIn.checked = countrySelect.value === 'US';
+    };
+
+    fillRegions();
+    syncOptIn();
+    countrySelect.addEventListener('change', () => {
+      fillRegions();
+      syncOptIn();
+    });
+    root.querySelectorAll('.input').forEach((el) => el.addEventListener('input', () => el.removeAttribute('aria-invalid')));
+
+    const readAddress = () => {
+      const value = (id: string) => field(id).value.trim();
+      const country = countrySelect.value;
+      const checks: [string, boolean, string][] = [
+        ['preorderName', !!value('preorderName'), 'Please enter your full name.'],
+        ['preorderLine1', !!value('preorderLine1'), 'Please enter your street address.'],
+        ['preorderCity', !!value('preorderCity'), 'Please enter your city.'],
+        ['preorderState', !!value('preorderState'), `Please choose your ${country === 'CA' ? 'province' : 'state'}.`],
+        ['preorderPostal', postalPattern[country].test(value('preorderPostal')), `Please enter a valid ${country === 'CA' ? 'postal code' : 'ZIP code'}.`],
+        ['preorderPhone', value('preorderPhone').replace(/\D/g, '').length >= 10, 'Please enter a phone number for delivery.'],
+      ];
+      const failed = checks.find(([, ok]) => !ok);
+      if (failed) {
+        const el = field(failed[0]);
+        el.setAttribute('aria-invalid', 'true');
+        el.focus();
+        throw new Error(failed[2]);
+      }
+      return {
+        name: value('preorderName'),
+        phone: value('preorderPhone'),
+        address: {
+          line1: value('preorderLine1'),
+          line2: value('preorderLine2'),
+          city: value('preorderCity'),
+          state: value('preorderState'),
+          postal_code: value('preorderPostal').toUpperCase(),
+          country,
+        },
+      };
+    };
+
+    const showError = (message = '') => {
+      errorEl.textContent = message;
+      errorEl.hidden = !message;
+    };
+
+    const showSuccess = () => {
+      steps.forEach((s) => (s.hidden = s.dataset.step !== 'success'));
+      document.body.classList.add('reserve-complete');
+      window.scrollTo({ top: 0 });
+    };
+
+    const PENDING_SIGNUP_KEY = 'preorderEmailSignup';
+
+    // Join the email list (Resend, via /api/subscribe). Never blocks the reservation.
+    const joinEmailList = (person: { email: string; name?: string }) => {
+      try { sessionStorage.removeItem(PENDING_SIGNUP_KEY); } catch {}
+      fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify(person),
+        keepalive: true,
+      }).catch(() => {});
+    };
+
+    const loadStripeJs = () =>
+      new Promise<void>((resolve, reject) => {
+        if ((window as any).Stripe) return resolve();
+        const script = document.createElement('script');
+        script.src = 'https://js.stripe.com/v3/';
+        script.onload = () => resolve();
+        script.onerror = () => reject(new Error('Our payment form didn’t load. Please refresh the page and try again.'));
+        document.head.appendChild(script);
+      });
+
+    const setup = async () => {
+      await loadStripeJs();
+      stripe = (window as any).Stripe(key);
+      elements = stripe.elements({
+        mode: 'payment',
+        amount,
+        currency: 'usd',
+        setupFutureUsage: 'off_session',
+        paymentMethodTypes: ['card'],
+        fonts: [{ cssSrc: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap' }],
+        appearance: {
+          theme: 'stripe',
+          variables: {
+            colorPrimary: '#c2734a',
+            colorText: '#2b2a22',
+            colorBackground: '#ffffff',
+            colorDanger: '#a3341c',
+            fontFamily: 'Inter, system-ui, sans-serif',
+            borderRadius: '4px',
+          },
+          rules: { '.Input': { borderColor: '#d9cfb4', boxShadow: 'none' } },
+        },
+      });
+      const payment = elements.create('payment', { layout: 'tabs', wallets: { applePay: 'never', googlePay: 'never', link: 'never' } });
+      payment.mount('#preorderPayment');
+      payment.on('ready', () => (submit.disabled = false));
+    };
+
+    // Returning from a bank redirect (rare with cards): show the outcome instead of a fresh form.
+    const params = new URLSearchParams(window.location.search);
+    const redirectStatus = params.get('redirect_status');
+    if (redirectStatus) history.replaceState(null, '', window.location.pathname);
+
+    if (redirectStatus === 'succeeded') {
+      try {
+        const pending = JSON.parse(sessionStorage.getItem(PENDING_SIGNUP_KEY) || 'null');
+        if (pending?.email) joinEmailList(pending);
+      } catch {}
+      showSuccess();
+    } else {
+      setup().catch((err) => showError(err.message));
+      if (redirectStatus) showError('Your payment didn’t go through. Please try again.');
+    }
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      showError();
+      if (!stripe || !elements) return;
+
+      const email = emailInput.value.trim();
+      if (!emailInput.checkValidity() || !email) {
+        emailInput.setAttribute('aria-invalid', 'true');
+        emailInput.focus();
+        showError('Please enter a valid email.');
+        return;
+      }
+
+      submit.disabled = true;
+      submit.textContent = 'Processing…';
+
+      try {
+        const shipping = readAddress();
+
+        const { error: submitError } = await elements.submit();
+        if (submitError) throw submitError;
+
+        const res = await fetch('/api/preorder', {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ email, ...shipping, marketingOptIn: optIn.checked }),
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || !data.clientSecret) throw new Error(data.error || 'We couldn’t start the payment. Please try again.');
+
+        // If the bank sends the buyer away to verify the card, finish the list signup when they return.
+        try {
+          if (optIn.checked) sessionStorage.setItem(PENDING_SIGNUP_KEY, JSON.stringify({ email, name: shipping.name }));
+          else sessionStorage.removeItem(PENDING_SIGNUP_KEY);
+        } catch {}
+
+        const { error, paymentIntent } = await stripe.confirmPayment({
+          elements,
+          clientSecret: data.clientSecret,
+          confirmParams: { return_url: `${window.location.origin}${window.location.pathname}`, receipt_email: email },
+          redirect: 'if_required',
+        });
+        if (error) throw error;
+        if (paymentIntent && paymentIntent.status !== 'succeeded' && paymentIntent.status !== 'processing') {
+          throw new Error('Your payment didn’t go through. Please try another card.');
+        }
+
+        if (optIn.checked) joinEmailList({ email, name: shipping.name });
+
+        (window as any).gtag?.('event', 'purchase', { value: amount / 100, currency: 'USD', items: [{ item_name: 'P1 deposit' }] });
+        showSuccess();
+      } catch (err: any) {
+        showError(err?.message || 'Something went wrong. Please try again.');
+      } finally {
+        submit.disabled = false;
+        submit.textContent = submitLabel;
+      }
+    });
+  }
+</script>

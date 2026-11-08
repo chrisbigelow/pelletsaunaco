@@ -18,5 +18,12 @@ export const savings = campaign.fullPrice - campaign.price;
 export const balance = campaign.price - campaign.deposit;
 
 export const usd = (n: number) => `$${n.toLocaleString('en-US')}`;
-// Swap for the Stripe Payment Link once deposits are taken online.
-export const reserveHref = `/?subject=${encodeURIComponent('P1 pre-order reservation')}#contact`;
+// Every Reserve button goes to the order page.
+export const reserveHref = '/reserve';
+
+/** What founders get with their reservation; shown on the product and order pages. */
+export const founderPerks = [
+  { icon: 'medal', title: 'Numbered founders’ medallion', body: 'A medallion stamped with your stove’s build number, mounted on the body of your stove.' },
+  { icon: 'gift', title: 'Founders’ sauna hat', body: 'A wool sauna hat to keep your head cool on the top bench.' },
+  { icon: 'users', title: 'Founders’ community', body: 'A private email list plus forum and chat with our team and fellow first-run owners.' },
+] as const;

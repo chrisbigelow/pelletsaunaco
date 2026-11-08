@@ -1,0 +1,283 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteNav from '../components/SiteNav.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import Icon from '../components/Icon.astro';
+import BatchProgress from '../components/BatchProgress.astro';
+import ReserveForm from '../components/ReserveForm.astro';
+import { campaign, balance, savings, usd, founderPerks } from '../lib/campaign';
+import { productPath } from '../lib/site';
+import '../styles/theme.css';
+---
+
+<BaseLayout
+  title="Reserve Your P1 | The Pellet Sauna Company"
+  description={`Reserve a P1 pellet sauna stove at the founders’ price with a fully refundable ${usd(campaign.deposit)} deposit.`}
+  lcpImage="/images/p1/ld-angle-sunset.jpg"
+>
+  <SiteNav solid />
+
+  <main class="reserve">
+    <a class="back-link" href={productPath}><Icon name="arrow-left" size={14} /> Back to the P1</a>
+
+    <div class="reserve-grid">
+      <aside class="summary" aria-label="Order summary">
+        <img
+          class="summary-photo"
+          src="/images/p1/ld-angle-sunset.jpg"
+          alt="The P1 pellet sauna stove on a cedar deck at sunset"
+          width="1800"
+          height="1200"
+          decoding="async"
+        />
+        <div class="summary-body">
+          <p class="summary-eyebrow">Founders’ pre-order</p>
+          <h2 class="summary-title">P1 Pellet Sauna Stove</h2>
+
+          <dl class="summary-lines">
+            <div>
+              <dt>Founders’ price</dt>
+              <dd>
+                {usd(campaign.price)}
+                <s><span class="visually-hidden">Regular price </span>{usd(campaign.fullPrice)}</s>
+              </dd>
+            </div>
+            <div class="summary-today">
+              <dt>Due today <span>Fully refundable</span></dt>
+              <dd>{usd(campaign.deposit)}</dd>
+            </div>
+            <div>
+              <dt>At production ({campaign.productionMonth})</dt>
+              <dd>{usd(balance)}</dd>
+            </div>
+          </dl>
+          <p class="summary-save">You save {usd(savings)} as a founder.</p>
+
+          <ul class="summary-perks">
+            {founderPerks.map((perk) => (
+              <li>
+                <Icon name={perk.icon} size={18} />
+                <span>{perk.title}</span>
+              </li>
+            ))}
+          </ul>
+
+          <BatchProgress size="compact" />
+        </div>
+      </aside>
+
+      <section class="checkout">
+        <ReserveForm />
+      </section>
+    </div>
+  </main>
+
+  <SiteFooter />
+</BaseLayout>
+
+<style>
+  .reserve {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 112px 24px 96px;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 24px;
+    font-size: 14px;
+    color: var(--muted);
+    text-decoration: none;
+  }
+
+  .back-link:hover {
+    color: var(--ink);
+  }
+
+  .reserve-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+    gap: 56px;
+    align-items: start;
+  }
+
+  .summary {
+    position: sticky;
+    top: 96px;
+    overflow: hidden;
+    border: 1px solid var(--sand);
+    border-radius: 6px;
+    background: var(--cream-bright);
+  }
+
+  .summary-photo {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+  }
+
+  .summary-body {
+    padding: 24px 26px 26px;
+  }
+
+  .summary-eyebrow {
+    margin: 0 0 6px;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--clay);
+  }
+
+  .summary-title {
+    margin: 0 0 18px;
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 1.1;
+    color: var(--ink);
+  }
+
+  .summary-lines {
+    margin: 0;
+  }
+
+  .summary-lines div {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    padding: 10px 0;
+    border-top: 1px solid var(--sand);
+  }
+
+  .summary-lines dt {
+    color: var(--muted);
+    font-size: 15px;
+  }
+
+  .summary-lines dt span {
+    display: block;
+    font-size: 12.5px;
+  }
+
+  .summary-lines dd {
+    margin: 0;
+    font-weight: 600;
+    color: var(--ink);
+    white-space: nowrap;
+  }
+
+  .summary-lines s {
+    margin-left: 6px;
+    font-weight: 400;
+    color: var(--stone);
+  }
+
+  .summary-today dt,
+  .summary-today dd {
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  .summary-today dd {
+    font-size: 20px;
+  }
+
+  .summary-save {
+    margin: 4px 0 0;
+    font-size: 13px;
+    color: var(--pine);
+  }
+
+  .summary-perks {
+    display: grid;
+    gap: 10px;
+    margin: 20px 0;
+    padding: 18px 0 0;
+    border-top: 1px solid var(--sand);
+    list-style: none;
+  }
+
+  .summary-perks li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: var(--ink);
+  }
+
+  .summary-perks :global(svg) {
+    flex: none;
+    color: var(--clay);
+  }
+
+  .checkout {
+    min-width: 0;
+  }
+
+  @media (max-width: 900px) {
+    .reserve {
+      padding: 92px 16px 64px;
+    }
+
+    .back-link {
+      margin-bottom: 16px;
+    }
+
+    .reserve-grid {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 28px;
+    }
+
+    /* Compact summary above the form: thumbnail beside the title, no perks. */
+    .summary {
+      position: static;
+      display: grid;
+      grid-template-columns: 96px minmax(0, 1fr);
+    }
+
+    .summary-photo {
+      height: 100%;
+      aspect-ratio: auto;
+    }
+
+    .summary-body {
+      padding: 14px 16px;
+    }
+
+    .summary-eyebrow {
+      margin-bottom: 2px;
+    }
+
+    .summary-title {
+      margin-bottom: 8px;
+      font-size: 22px;
+    }
+
+    .summary-lines div {
+      padding: 6px 0;
+    }
+
+    .summary-lines dt {
+      font-size: 13.5px;
+    }
+
+    .summary-today dd {
+      font-size: 17px;
+    }
+
+    .summary-save,
+    .summary-perks,
+    .summary :global(.batch-progress) {
+      display: none;
+    }
+  }
+
+  :global(body.reserve-complete) .summary-perks {
+    display: none;
+  }
+</style>
