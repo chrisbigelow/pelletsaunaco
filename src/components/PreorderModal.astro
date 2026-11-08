@@ -351,8 +351,20 @@ const publishableKey = import.meta.env.PUBLIC_STRIPE_PUBLISHABLE_KEY ?? '';
         ...regions[country].map(([code, name]) => new Option(name, code))
       );
     };
+    // Email list: pre-checked for the US; Canada (CASL) needs an unticked box the buyer opts into.
+    // Once the buyer touches the box, a country change no longer overrides their choice.
+    let optInTouched = false;
+    optIn.addEventListener('change', () => (optInTouched = true));
+    const syncOptIn = () => {
+      if (!optInTouched) optIn.checked = countrySelect.value === 'US';
+    };
+
     fillRegions();
-    countrySelect.addEventListener('change', fillRegions);
+    syncOptIn();
+    countrySelect.addEventListener('change', () => {
+      fillRegions();
+      syncOptIn();
+    });
     dialog.querySelectorAll('.preorder-input').forEach((el) =>
       el.addEventListener('input', () => el.removeAttribute('aria-invalid'))
     );
