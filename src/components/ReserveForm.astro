@@ -392,6 +392,19 @@ const contactHref = `/?subject=${encodeURIComponent('P1 pre-order reservation')}
       window.scrollTo({ top: 0 });
     };
 
+    const PENDING_SIGNUP_KEY = 'preorderEmailSignup';
+
+    // Join the email list (Resend, via /api/subscribe). Never blocks the reservation.
+    const joinEmailList = (person: { email: string; name?: string }) => {
+      try { sessionStorage.removeItem(PENDING_SIGNUP_KEY); } catch {}
+      fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify(person),
+        keepalive: true,
+      }).catch(() => {});
+    };
+
     const loadStripeJs = () =>
       new Promise<void>((resolve, reject) => {
         if ((window as any).Stripe) return resolve();
@@ -436,6 +449,10 @@ const contactHref = `/?subject=${encodeURIComponent('P1 pre-order reservation')}
     if (redirectStatus) history.replaceState(null, '', window.location.pathname);
 
     if (redirectStatus === 'succeeded') {
+      try {
+        const pending = JSON.parse(sessionStorage.getItem(PENDING_SIGNUP_KEY) || 'null');
+        if (pending?.email) joinEmailList(pending);
+      } catch {}
       showSuccess();
     } else {
       setup().catch((err) => showError(err.message));
@@ -472,6 +489,12 @@ const contactHref = `/?subject=${encodeURIComponent('P1 pre-order reservation')}
         const data = await res.json().catch(() => ({}));
         if (!res.ok || !data.clientSecret) throw new Error(data.error || 'We couldn’t start the payment. Please try again.');
 
+        // If the bank sends the buyer away to verify the card, finish the list signup when they return.
+        try {
+          if (optIn.checked) sessionStorage.setItem(PENDING_SIGNUP_KEY, JSON.stringify({ email, name: shipping.name }));
+          else sessionStorage.removeItem(PENDING_SIGNUP_KEY);
+        } catch {}
+
         const { error, paymentIntent } = await stripe.confirmPayment({
           elements,
           clientSecret: data.clientSecret,
@@ -483,15 +506,7 @@ const contactHref = `/?subject=${encodeURIComponent('P1 pre-order reservation')}
           throw new Error('Your payment didn’t go through. Please try another card.');
         }
 
-        if (optIn.checked) {
-          // Join the email list (Resend, via /api/subscribe). Never blocks the reservation.
-          fetch('/api/subscribe', {
-            method: 'POST',
-            headers: { 'content-type': 'application/json' },
-            body: JSON.stringify({ email, name: shipping.name }),
-            keepalive: true,
-          }).catch(() => {});
-        }
+        if (optIn.checked) joinEmailList({ email, name: shipping.name });
 
         (window as any).gtag?.('event', 'purchase', { value: amount / 100, currency: 'USD', items: [{ item_name: 'P1 deposit' }] });
         showSuccess();
