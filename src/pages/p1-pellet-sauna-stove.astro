@@ -128,10 +128,7 @@ const specs = [
 
       <div class="buy-box">
         <div class="buy-head">
-          <div>
-            <h1>P1 Pellet<br />Sauna Stove</h1>
-            <p class="eyebrow buy-origin">Made in Fergus Falls, MN</p>
-          </div>
+          <h1>P1 Pellet<br />Sauna Stove</h1>
         </div>
         <p class="buy-description">
           The P1 automatically feeds clean-burning wood pellets from an outside hopper into a steel firebox inside your sauna. Real fire, real stones, real löyly — at the press of a button.
@@ -160,12 +157,13 @@ const specs = [
           <a href={reserveHref} class="btn btn-clay">Reserve for {usd(campaign.deposit)} <Icon name="arrow-right" size={14} /></a>
           <a href={questionHref} class="btn btn-outline-ink">Ask a question</a>
         </div>
-        <ul class="assurances">
-          {assurances.map((item) => (
-            <li><Icon name={item.icon} size={18} class="assurance-icon" />{item.text}</li>
-          ))}
-        </ul>
       </div>
+
+      <ul class="assurances">
+        {assurances.map((item) => (
+          <li><Icon name={item.icon} size={18} class="assurance-icon" />{item.text}</li>
+        ))}
+      </ul>
     </section>
 
     <!-- Pre-order campaign -->
@@ -527,13 +525,8 @@ const specs = [
 
   .buy-head {
     display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
+    flex-direction: column;
     gap: 16px;
-  }
-
-  .buy-origin {
-    margin-top: 10px;
   }
 
   .buy-head h1 {
@@ -636,11 +629,12 @@ const specs = [
   }
 
   .assurances {
+    grid-column: 1 / -1;
     list-style: none;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 16px 24px;
-    padding-top: 4px;
+    margin-top: -24px;
     font-size: 14px;
     line-height: 1.4;
     color: var(--ink);
