@@ -7,7 +7,7 @@ import CompareTable from '../components/CompareTable.astro';
 import RitualSection from '../components/RitualSection.astro';
 import InfoTip from '../components/InfoTip.astro';
 import BatchProgress from '../components/BatchProgress.astro';
-import { campaign, savings, balance, usd, reserveHref, founderPerks, shippingTerms } from '../lib/campaign';
+import { campaign, savings, balance, usd, reserveHref, founderPerks } from '../lib/campaign';
 import '../styles/theme.css';
 
 const questionHref = `/?subject=${encodeURIComponent('Question about the P1')}#contact`;
@@ -30,6 +30,7 @@ const quickStats = [
 ];
 
 const assurances = [
+  { icon: 'truck', text: `${usd(campaign.contiguousShipping)} shipping to the contiguous US or Free Pickup` },
   { icon: 'shield-check', text: '20-year warranty on the steel body' },
   { icon: 'plug', text: 'Plugs into a standard 110V outlet — no electrician' },
   { icon: 'sun', text: 'Solar compatible with an off-the-shelf battery, inverter and solar panel' },
@@ -74,14 +75,14 @@ const sides = [
 
 
 const specs = [
-  ['Heating Capacity', '210–500 ft³ sauna'],
-  ['Wall Thickness', 'Fits 1.5–6.5 in sauna walls'],
+  ['Heating Capacity', '210–500 ft³ (5.9–14.2 m³) sauna'],
+  ['Wall Thickness', 'Fits 1.5–6.5 in (38–165 mm) sauna walls'],
   ['Fuel Type', 'Wood Pellets'],
-  ['Hopper Capacity', '60 lbs of wood pellets'],
+  ['Hopper Capacity', '60 lbs (27 kg) of wood pellets'],
   ['Power Requirement', 'Standard 110V Outlet'],
   ['Material', 'Steel'],
-  ['Dimensions (L×W×H)', '422 × 360 × 680 mm'],
-  ['Stone Weight', '110 lbs'],
+  ['Dimensions (L×W×H)', '16.6 × 14.2 × 26.8 in<br/>422 × 360 × 680 mm'],
+  ['Stone Weight', '110 lbs (50 kg)'],
   ['Warranty', '1 Year (electrical components)<br/>20 Years (steel body)'],
   ['Certification', 'Certification Pending'],
 ];
@@ -147,8 +148,7 @@ const specs = [
           <p class="buy-price-save">Founders’ price for our first batch · Save {usd(savings)}</p>
           <p class="buy-price-note">
             Reserve with only <strong>{usd(campaign.deposit)} down today</strong>. Fully refundable.<br />
-            The remaining balance is charged when production begins in {campaign.productionMonth}.<br />
-            {shippingTerms}
+            The remaining balance is charged when production begins in {campaign.productionMonth}.
           </p>
           <BatchProgress size="compact" />
         </div>
