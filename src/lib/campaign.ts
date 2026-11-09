@@ -3,7 +3,7 @@ export const campaign = {
   /** Regular price after the founders' batch, shown struck through next to the founders' price. */
   fullPrice: 3995,
   /** Founders' price for early reservations. */
-  price: 3250,
+  price: 3495,
   /** Refundable amount charged today. */
   deposit: 100,
   /** Stoves in the first batch at the founders' price. */
