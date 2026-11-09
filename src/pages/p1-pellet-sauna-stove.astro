@@ -7,7 +7,6 @@ import CompareTable from '../components/CompareTable.astro';
 import RitualSection from '../components/RitualSection.astro';
 import InfoTip from '../components/InfoTip.astro';
 import BatchProgress from '../components/BatchProgress.astro';
-import MadeInUsaBadge from '../components/MadeInUsaBadge.astro';
 import { campaign, savings, balance, usd, reserveHref, founderPerks } from '../lib/campaign';
 import '../styles/theme.css';
 
@@ -38,6 +37,7 @@ const assurances = [
   { icon: 'smartphone', text: 'Remote start and temperature control from your phone' },
   { icon: 'leaf', text: 'Burns clean, low-cost wood pellets' },
   { icon: 'map-pin', text: 'Currently sold and shipped to the US and Canada only' },
+  { icon: 'flag-us', text: 'Made in Fergus Falls, Minnesota' },
 ] as const;
 
 const perks = founderPerks;
@@ -132,7 +132,6 @@ const specs = [
             <h1>P1 Pellet<br />Sauna Stove</h1>
             <p class="eyebrow buy-origin">Made in Fergus Falls, MN</p>
           </div>
-          <MadeInUsaBadge size={88} />
         </div>
         <p class="buy-description">
           The P1 automatically feeds clean-burning wood pellets from an outside hopper into a steel firebox inside your sauna. Real fire, real stones, real löyly — at the press of a button.
@@ -638,18 +637,19 @@ const specs = [
 
   .assurances {
     list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px 24px;
     padding-top: 4px;
     font-size: 14px;
+    line-height: 1.4;
     color: var(--ink);
   }
 
   .assurances li {
     display: flex;
-    align-items: center;
-    gap: 14px;
+    align-items: flex-start;
+    gap: 10px;
   }
 
   .assurances :global(.assurance-icon) {
