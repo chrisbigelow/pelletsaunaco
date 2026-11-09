@@ -10,6 +10,8 @@ export const campaign = {
   batchSize: 100,
   /** Deposits received so far. Update as reservations come in; it drives the progress bars. */
   reserved: 0,
+  /** Shows the "X of 100 reserved" progress bars across the site. Turn on once there are around 20 orders. */
+  showProgress: false,
   /** When the remaining balance is charged. */
   productionMonth: 'June 2027',
   /** Flat shipping to the contiguous US, charged with the balance. */
