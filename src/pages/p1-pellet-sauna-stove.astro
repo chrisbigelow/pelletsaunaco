@@ -157,13 +157,12 @@ const specs = [
           <a href={reserveHref} class="btn btn-clay">Reserve for {usd(campaign.deposit)} <Icon name="arrow-right" size={14} /></a>
           <a href={questionHref} class="btn btn-outline-ink">Ask a question</a>
         </div>
+        <ul class="assurances">
+          {assurances.map((item) => (
+            <li><Icon name={item.icon} size={18} class="assurance-icon" />{item.text}</li>
+          ))}
+        </ul>
       </div>
-
-      <ul class="assurances">
-        {assurances.map((item) => (
-          <li><Icon name={item.icon} size={18} class="assurance-icon" />{item.text}</li>
-        ))}
-      </ul>
     </section>
 
     <!-- Pre-order campaign -->
@@ -629,12 +628,11 @@ const specs = [
   }
 
   .assurances {
-    grid-column: 1 / -1;
     list-style: none;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 16px 24px;
-    margin-top: -24px;
+    padding-top: 4px;
     font-size: 14px;
     line-height: 1.4;
     color: var(--ink);
