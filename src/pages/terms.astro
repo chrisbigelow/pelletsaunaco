@@ -1,0 +1,157 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { campaign, balance, usd, shippingTerms } from '../lib/campaign';
+---
+
+<BaseLayout
+  title="Terms of Sale | The Pellet Sauna Company"
+  description="The terms that apply when you reserve a P1 Pellet Sauna Stove, including deposits, refunds, the balance payment, shipping, and delays."
+>
+  <main class="terms-page">
+    <a class="back-link" href="/">← Back to P1</a>
+    <h1>Terms of Sale</h1>
+    <p class="updated">Last updated: November 9, 2026</p>
+
+    <section>
+      <p>
+        These terms apply when you reserve a P1 Pellet Sauna Stove from The Pellet Sauna Company at pelletsauna.com. All prices are in US dollars.
+      </p>
+    </section>
+
+    <section>
+      <h2>Your reservation</h2>
+      <p>
+        A {usd(campaign.deposit)} deposit reserves one P1 in our first production batch at the pre-order price of {usd(campaign.price)}. Your deposit counts toward that price, leaving a balance of {usd(balance)}, plus shipping and any sales tax required by law.
+      </p>
+    </section>
+
+    <section>
+      <h2>Refunding your deposit</h2>
+      <p>
+        Your deposit is fully refundable at any time before your balance is charged. You can refund it yourself on our <a href="/refund">refund page</a>, with no fee and no need to call. Refunds usually reach your card within 5 to 10 business days, depending on your bank.
+      </p>
+    </section>
+
+    <section>
+      <h2>Your balance and saved card</h2>
+      <p>
+        When you reserve, your card is saved securely with Stripe. By paying your deposit, you authorize us to charge that card for your balance, plus shipping and any sales tax required by law, when your stove goes into production, currently expected in {campaign.productionMonth}.
+      </p>
+      <p>
+        We will email you at least 14 days before charging your balance, with the exact amount. You can cancel before that charge for a full refund of your deposit. If the charge fails, we will contact you to arrange payment. If we cannot collect the balance, we may cancel your reservation and refund your deposit.
+      </p>
+    </section>
+
+    <section>
+      <h2>Shipping</h2>
+      <p>{shippingTerms}</p>
+      <p>
+        If your shipping is calculated at production time, we will tell you the amount before charging your balance, and you can cancel for a full refund of your deposit if you do not want to proceed. Customers in Canada are responsible for any duties and import taxes.
+      </p>
+    </section>
+
+    <section>
+      <h2>Delays and cancellations</h2>
+      <p>
+        {campaign.productionMonth} is our current estimate, not a guarantee. If the date changes, we will email you with a revised estimate, and you can cancel for a full refund of everything you have paid so long as your stove has not shipped.
+      </p>
+      <p>
+        If you want to cancel after your balance has been charged and before your stove ships, <a href="/#contact">contact us</a> and we will refund everything you have paid. If we are ever unable to build or deliver your stove, we will refund everything you have paid.
+      </p>
+    </section>
+
+    <section>
+      <h2>Product changes</h2>
+      <p>
+        The P1 may be refined before production. If a change materially affects what you reserved, we will tell you before charging your balance, and you can cancel for a full refund of your deposit.
+      </p>
+    </section>
+
+    <section>
+      <h2>Warranty</h2>
+      <p>
+        The P1 is covered for 1 year on electrical components and 20 years on the steel body. We will provide the full written warranty before your balance is charged.
+      </p>
+    </section>
+
+    <section>
+      <h2>Installation</h2>
+      <p>
+        You are responsible for installing the P1 according to its installation manual, and for any permits or inspections required where you live.
+      </p>
+    </section>
+
+    <section>
+      <h2>Governing law</h2>
+      <p>
+        These terms are governed by the laws of the State of Minnesota. Nothing in them limits any rights you have under the consumer protection laws where you live.
+      </p>
+    </section>
+
+    <section>
+      <h2>Changes to these terms</h2>
+      <p>
+        We may update these terms. The version in effect when you paid your deposit applies to your reservation unless you agree to a newer version.
+      </p>
+    </section>
+
+    <section>
+      <h2>Contact</h2>
+      <p>
+        Questions about your reservation: use the <a href="/#contact">contact form</a> on our homepage or call <a href="tel:+17207721574">(720) 772-1574</a>.
+      </p>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .terms-page {
+    max-width: 40rem;
+    margin: 0 auto;
+    padding: 2.5rem 1.25rem 4rem;
+  }
+
+  .back-link {
+    display: inline-block;
+    margin-bottom: 1.5rem;
+    color: var(--text-medium);
+    text-decoration: none;
+    font-size: 0.9375rem;
+  }
+
+  .back-link:hover {
+    color: var(--text-dark);
+  }
+
+  h1 {
+    font-size: clamp(1.75rem, 4vw, 2.25rem);
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+  }
+
+  .updated {
+    color: var(--text-medium);
+    font-size: 0.875rem;
+    margin-bottom: 2rem;
+  }
+
+  section {
+    margin-bottom: 1.75rem;
+  }
+
+  h2 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    color: var(--text-medium);
+    line-height: 1.6;
+    margin-bottom: 0.75rem;
+  }
+
+  a {
+    color: var(--sky-blue);
+  }
+</style>

@@ -6,7 +6,6 @@ import SiteFooter from '../components/SiteFooter.astro';
 import CompareTable from '../components/CompareTable.astro';
 import RitualSection from '../components/RitualSection.astro';
 import InfoTip from '../components/InfoTip.astro';
-import MadeInUsaBadge from '../components/MadeInUsaBadge.astro';
 import { productPath } from '../lib/site';
 import '../styles/theme.css';
 
@@ -89,7 +88,6 @@ const contactDetails = [
             </div>
           ))}
         </dl>
-        <div class="hero-badge"><MadeInUsaBadge size={84} tone="light" /></div>
       </div>
     </div>
   </section>
@@ -306,10 +304,6 @@ const contactDetails = [
 
   .hero-stats-wrap {
     width: 240px;
-  }
-
-  .hero-badge {
-    margin-top: 16px;
   }
 
   .hero-stats {
