@@ -243,8 +243,11 @@ const schemas = [organizationSchema, webPageSchema, ...(isHome ? [faqSchema] : [
       (function () {
         var GA_ID = 'G-XHQWDSNJWF';
         var KEY = 'analytics-consent';
+        // Keep Vercel previews and local development out of the GA property.
+        var PRODUCTION_HOSTS = ['www.pelletsauna.com', 'pelletsauna.com'];
 
         function loadAnalytics() {
+          if (PRODUCTION_HOSTS.indexOf(window.location.hostname) === -1) return;
           if (window.__gaLoaded) return;
           window.__gaLoaded = true;
           window.dataLayer = window.dataLayer || [];

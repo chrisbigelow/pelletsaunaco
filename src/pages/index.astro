@@ -164,7 +164,7 @@ const contactDetails = [
       <h2>Get in Touch</h2>
       <p class="contact-sub">Preorders are opening soon. <em>We typically reply within 2 to 5 business days.</em></p>
       <p class="contact-sub">
-        Reach out and join our growing email list to stay up to date as we bring the P1 Pellet Stove to production in mid-2027.
+        Reach out and join our growing email list to stay up to date as we bring the P1 Pellet Stove to production in June 2027.
       </p>
     </div>
 
@@ -1290,6 +1290,8 @@ const contactDetails = [
         showMessage('Thank you! Your message has been sent successfully.', 'success');
         contactForm.reset();
         clearErrors();
+        // gtag only exists once the visitor has accepted analytics on a production host.
+        (window as any).gtag?.('event', 'generate_lead', { form_id: 'contact' });
       } else {
         throw new Error(data.error || 'Something went wrong');
       }
