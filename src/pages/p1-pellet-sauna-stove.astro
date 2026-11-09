@@ -7,7 +7,7 @@ import CompareTable from '../components/CompareTable.astro';
 import RitualSection from '../components/RitualSection.astro';
 import InfoTip from '../components/InfoTip.astro';
 import BatchProgress from '../components/BatchProgress.astro';
-import { campaign, savings, balance, usd, reserveHref, founderPerks } from '../lib/campaign';
+import { campaign, savings, balance, usd, reserveHref, founderPerks, shippingTerms } from '../lib/campaign';
 import '../styles/theme.css';
 
 const questionHref = `/?subject=${encodeURIComponent('Question about the P1')}#contact`;
@@ -51,7 +51,7 @@ const paymentSteps = [
   },
   {
     title: 'Balance at production',
-    body: `Your remaining ${usd(balance)} isn’t charged until your stove goes into production in ${campaign.productionMonth}.`,
+    body: `Your remaining ${usd(balance)}, plus any shipping, isn’t charged until your stove goes into production in ${campaign.productionMonth}.`,
   },
 ];
 
@@ -147,7 +147,8 @@ const specs = [
           <p class="buy-price-save">Founders’ price for our first batch · Save {usd(savings)}</p>
           <p class="buy-price-note">
             Reserve with only <strong>{usd(campaign.deposit)} down today</strong>. Fully refundable.<br />
-            The remaining balance is charged when production begins in {campaign.productionMonth}.
+            The remaining balance is charged when production begins in {campaign.productionMonth}.<br />
+            {shippingTerms}
           </p>
           <BatchProgress size="compact" />
         </div>
@@ -186,7 +187,7 @@ const specs = [
         <div class="founders-pay">
           <dl class="founders-payment">
             <div><dt>Today</dt><dd>{usd(campaign.deposit)} down, fully refundable</dd></div>
-            <div><dt>At production</dt><dd>{usd(balance)}</dd></div>
+            <div><dt>At production</dt><dd>{usd(balance)} + shipping</dd></div>
           </dl>
           <a href={reserveHref} class="btn btn-clay founders-cta">Reserve for {usd(campaign.deposit)} <Icon name="arrow-right" size={14} /></a>
         </div>

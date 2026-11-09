@@ -1,7 +1,7 @@
 ---
 // Order form for the /reserve page: takes the refundable deposit by card with Stripe's Payment Element.
 // The card is saved so the balance can be charged when production begins (see api/preorder.js).
-import { campaign, balance, usd } from '../lib/campaign';
+import { campaign, balance, usd, shippingTerms } from '../lib/campaign';
 
 const publishableKey = import.meta.env.PUBLIC_STRIPE_PUBLISHABLE_KEY ?? '';
 const contactHref = `/?subject=${encodeURIComponent('P1 pre-order reservation')}#contact`;
@@ -10,7 +10,7 @@ const contactHref = `/?subject=${encodeURIComponent('P1 pre-order reservation')}
 <div class="reserve-form" id="reserveForm" data-key={publishableKey} data-amount={campaign.deposit * 100}>
   <div class="step" data-step="form">
     <h1>Reserve your P1</h1>
-    <p class="intro">{usd(campaign.deposit)} today, fully refundable. The {usd(balance)} balance is charged when production begins in {campaign.productionMonth}.</p>
+    <p class="intro">{usd(campaign.deposit)} today, fully refundable. The {usd(balance)} balance, plus any shipping, is charged when production begins in {campaign.productionMonth}.</p>
 
     {publishableKey ? (
       <form id="preorderForm" novalidate>
@@ -27,7 +27,7 @@ const contactHref = `/?subject=${encodeURIComponent('P1 pre-order reservation')}
 
         <fieldset class="group">
           <legend>Shipping address</legend>
-          <p class="hint">We currently ship to the US and Canada only.</p>
+          <p class="hint">We currently ship to the US and Canada only. {shippingTerms}</p>
 
           <label class="sublabel" for="preorderName">Full name</label>
           <input class="input" id="preorderName" name="name" autocomplete="shipping name" required />
@@ -67,7 +67,7 @@ const contactHref = `/?subject=${encodeURIComponent('P1 pre-order reservation')}
           <legend>Payment</legend>
           <div id="preorderPayment" class="payment-element"></div>
           <p class="fine">
-            Your card is saved securely with Stripe so the {usd(balance)} balance can be charged when your stove goes into production. Change your mind anytime for a <a href="/refund">full refund</a> of your deposit.
+            Your card is saved securely with Stripe so the {usd(balance)} balance, plus any shipping, can be charged when your stove goes into production. Change your mind anytime for a <a href="/refund">full refund</a> of your deposit.
           </p>
         </fieldset>
 

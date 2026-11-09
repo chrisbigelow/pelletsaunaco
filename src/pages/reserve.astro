@@ -5,7 +5,7 @@ import SiteFooter from '../components/SiteFooter.astro';
 import Icon from '../components/Icon.astro';
 import BatchProgress from '../components/BatchProgress.astro';
 import ReserveForm from '../components/ReserveForm.astro';
-import { campaign, balance, savings, usd, founderPerks } from '../lib/campaign';
+import { campaign, balance, savings, usd, founderPerks, shippingTerms } from '../lib/campaign';
 import { productPath } from '../lib/site';
 import '../styles/theme.css';
 ---
@@ -48,10 +48,11 @@ import '../styles/theme.css';
             </div>
             <div>
               <dt>At production ({campaign.productionMonth})</dt>
-              <dd>{usd(balance)}</dd>
+              <dd>{usd(balance)} + shipping</dd>
             </div>
           </dl>
           <p class="summary-save">You save {usd(savings)} as a founder.</p>
+          <p class="summary-shipping">{shippingTerms}</p>
 
           <ul class="summary-perks">
             {founderPerks.map((perk) => (
@@ -191,6 +192,13 @@ import '../styles/theme.css';
     margin: 4px 0 0;
     font-size: 13px;
     color: var(--pine);
+  }
+
+  .summary-shipping {
+    margin: 8px 0 0;
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--muted);
   }
 
   .summary-perks {

@@ -12,12 +12,18 @@ export const campaign = {
   reserved: 0,
   /** When the remaining balance is charged. */
   productionMonth: 'June',
+  /** Flat shipping to the contiguous US, charged with the balance. */
+  contiguousShipping: 99,
 };
 
 export const savings = campaign.fullPrice - campaign.price;
 export const balance = campaign.price - campaign.deposit;
 
 export const usd = (n: number) => `$${n.toLocaleString('en-US')}`;
+
+/** Shipping terms, shown wherever the buyer sees the price or enters an address. */
+export const shippingTerms = `${usd(campaign.contiguousShipping)} shipping to the contiguous US, or free pickup from Fergus Falls, MN. Shipping outside the contiguous US, including to Canada, is calculated transparently at production time based on your location.`;
+
 // Every Reserve button goes to the order page.
 export const reserveHref = '/reserve';
 
