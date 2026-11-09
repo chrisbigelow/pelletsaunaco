@@ -10,7 +10,7 @@ const contactHref = `/?subject=${encodeURIComponent('P1 pre-order reservation')}
 <div class="reserve-form" id="reserveForm" data-key={publishableKey} data-amount={campaign.deposit * 100}>
   <div class="step" data-step="form">
     <h1>Reserve your P1</h1>
-    <p class="intro">{usd(campaign.deposit)} today, fully refundable. The {usd(balance)} balance, plus any shipping, is charged when production begins in {campaign.productionMonth}.</p>
+    <p class="intro">{usd(campaign.deposit)} today, fully refundable. The {usd(balance)} balance, plus any shipping and sales tax, is charged when production begins in {campaign.productionMonth}.</p>
 
     {publishableKey ? (
       <form id="preorderForm" novalidate>
@@ -67,7 +67,7 @@ const contactHref = `/?subject=${encodeURIComponent('P1 pre-order reservation')}
           <legend>Payment</legend>
           <div id="preorderPayment" class="payment-element"></div>
           <p class="fine">
-            Your card is saved securely with Stripe so the {usd(balance)} balance, plus any shipping, can be charged when your stove goes into production. Change your mind anytime for a <a href="/refund">full refund</a> of your deposit. By paying, you agree to our <a href="/terms" target="_blank" rel="noopener">Terms of Sale</a>.
+            Your card is saved securely with Stripe so the {usd(balance)} balance, plus any shipping and sales tax, can be charged when your stove goes into production. Change your mind anytime for a <a href="/refund">full refund</a> of your deposit. By paying, you agree to our <a href="/terms" target="_blank" rel="noopener">Terms of Sale</a>.
           </p>
         </fieldset>
 

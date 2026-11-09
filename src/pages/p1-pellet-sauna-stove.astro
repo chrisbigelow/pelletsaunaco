@@ -52,7 +52,7 @@ const paymentSteps = [
   },
   {
     title: 'Balance at production',
-    body: `Your remaining ${usd(balance)}, plus any shipping, isn’t charged until your stove goes into production in ${campaign.productionMonth}.`,
+    body: `Your remaining ${usd(balance)}, plus any shipping and sales tax, isn’t charged until your stove goes into production in ${campaign.productionMonth}.`,
   },
 ];
 
@@ -187,7 +187,7 @@ const specs = [
         <div class="founders-pay">
           <dl class="founders-payment">
             <div><dt>Today</dt><dd>{usd(campaign.deposit)} down, fully refundable</dd></div>
-            <div><dt>At production</dt><dd>{usd(balance)} + shipping</dd></div>
+            <div><dt>At production</dt><dd>{usd(balance)} + shipping and tax</dd></div>
           </dl>
           <a href={reserveHref} class="btn btn-clay founders-cta">Reserve for {usd(campaign.deposit)} <Icon name="arrow-right" size={14} /></a>
         </div>
