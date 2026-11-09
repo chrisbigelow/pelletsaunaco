@@ -1,13 +1,18 @@
 ---
 // "From cold sauna to first löyly": the P1 user journey, shared by the home and product pages.
+type Photo = { src: string; alt: string; width: number; height: number; position?: string };
+
 interface Props {
-  photo: { src: string; alt: string; width: number; height: number; position?: string };
+  /** One photo beside the steps. */
+  photo?: Photo;
+  /** One photo above each step, in step order. Replaces `photo` when set. */
+  stepPhotos?: Photo[];
   caption?: { label: string; text: string };
   /** Background tone, so the section can alternate with its neighbours. */
   tone?: 'cream' | 'linen';
 }
 
-const { photo, caption, tone = 'cream' } = Astro.props;
+const { photo, stepPhotos, caption, tone = 'cream' } = Astro.props;
 
 const ritualSteps = [
   { title: 'Fill the hopper', body: 'Top up with standard wood pellets, sold at most hardware and farm stores.' },
@@ -16,39 +21,69 @@ const ritualSteps = [
 ];
 ---
 
-<section class:list={['ritual', `tone-${tone}`]}>
-  <div class="ritual-copy">
+{stepPhotos ? (
+  <section class:list={['ritual', 'ritual-triple', `tone-${tone}`]}>
     <h2 class="section-title">From cold sauna to first löyly in about forty minutes.</h2>
-    <ol class="ritual-steps">
+    <ol class="ritual-photo-steps">
       {ritualSteps.map((step, i) => (
         <li>
-          <span class="step-num">{String(i + 1).padStart(2, '0')}</span>
-          <div>
-            <h3>{step.title}</h3>
-            <p>{step.body}</p>
+          <img
+            src={stepPhotos[i].src}
+            alt={stepPhotos[i].alt}
+            width={stepPhotos[i].width}
+            height={stepPhotos[i].height}
+            style={stepPhotos[i].position ? `object-position: ${stepPhotos[i].position}` : undefined}
+            loading="lazy"
+            decoding="async"
+          />
+          <div class="ritual-photo-text">
+            <span class="step-num">{String(i + 1).padStart(2, '0')}</span>
+            <div>
+              <h3>{step.title}</h3>
+              <p>{step.body}</p>
+            </div>
           </div>
         </li>
       ))}
     </ol>
-  </div>
-  <figure class="ritual-image">
-    <img
-      src={photo.src}
-      alt={photo.alt}
-      width={photo.width}
-      height={photo.height}
-      style={photo.position ? `object-position: ${photo.position}` : undefined}
-      loading="lazy"
-      decoding="async"
-    />
-    {caption && (
-      <figcaption>
-        <span>{caption.label}</span>
-        {caption.text}
-      </figcaption>
+  </section>
+) : (
+  <section class:list={['ritual', `tone-${tone}`]}>
+    <div class="ritual-copy">
+      <h2 class="section-title">From cold sauna to first löyly in about forty minutes.</h2>
+      <ol class="ritual-steps">
+        {ritualSteps.map((step, i) => (
+          <li>
+            <span class="step-num">{String(i + 1).padStart(2, '0')}</span>
+            <div>
+              <h3>{step.title}</h3>
+              <p>{step.body}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+    {photo && (
+      <figure class="ritual-image">
+        <img
+          src={photo.src}
+          alt={photo.alt}
+          width={photo.width}
+          height={photo.height}
+          style={photo.position ? `object-position: ${photo.position}` : undefined}
+          loading="lazy"
+          decoding="async"
+        />
+        {caption && (
+          <figcaption>
+            <span>{caption.label}</span>
+            {caption.text}
+          </figcaption>
+        )}
+      </figure>
     )}
-  </figure>
-</section>
+  </section>
+)}
 
 <style>
   .ritual {
@@ -95,14 +130,16 @@ const ritualSteps = [
     color: var(--clay);
   }
 
-  .ritual-steps h3 {
+  .ritual-steps h3,
+  .ritual-photo-text h3 {
     font-family: var(--serif);
     font-size: 19px;
     font-weight: 400;
     color: var(--ink);
   }
 
-  .ritual-steps p {
+  .ritual-steps p,
+  .ritual-photo-text p {
     margin-top: 4px;
     font-size: 14px;
     line-height: 1.5;
@@ -145,6 +182,40 @@ const ritualSteps = [
     color: #8a8575;
   }
 
+  /* Three photos, one above each step */
+  .ritual.ritual-triple {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 48px;
+  }
+
+  .ritual-triple .section-title {
+    font-size: clamp(2.25rem, 3.2vw, 2.5rem);
+    line-height: 1.1;
+  }
+
+  .ritual-photo-steps {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 32px;
+  }
+
+  .ritual-photo-steps img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+  }
+
+  .ritual-photo-text {
+    display: flex;
+    gap: 16px;
+    margin-top: 20px;
+  }
+
   /* Wide desktop: cap content at 1088px with wider side margins */
   @media (min-width: 1201px) {
     .ritual {
@@ -179,6 +250,23 @@ const ritualSteps = [
 
     .ritual-steps li {
       gap: 16px;
+    }
+
+    .ritual.ritual-triple {
+      gap: 32px;
+    }
+
+    .ritual-triple .section-title {
+      font-size: 32px;
+    }
+
+    .ritual-photo-steps {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 40px;
+    }
+
+    .ritual-photo-steps img {
+      aspect-ratio: 4 / 3;
     }
   }
 </style>
