@@ -257,8 +257,11 @@ const specs = [
 
 
     <RitualSection
-      photo={{ src: '/images/p1/ld-through-wall.jpg', alt: 'Side view of the P1 installed through a cedar sauna wall, hopper outside and stove inside', width: 1066, height: 1600 }}
-      caption={{ label: 'As shown', text: 'P1 installed through a cedar sauna wall' }}
+      stepPhotos={[
+        { src: '/images/p1/ld-hopper-carry.jpg', alt: 'Carrying a bucket of pellets to the P1 hopper outside the sauna', width: 1800, height: 1200, position: '62% center' },
+        { src: '/images/home/p1-app-start.jpg', alt: 'Starting the P1 remotely from the phone app', width: 1920, height: 1080, position: '45% center' },
+        { src: '/images/p1/ld-front-fire.jpg', alt: 'Front view of the P1 with a bright fire in the window', width: 1200, height: 1800, position: 'center 60%' },
+      ]}
     />
 
     <CompareTable />
