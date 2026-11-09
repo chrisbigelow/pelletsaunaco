@@ -22,7 +22,7 @@ export const balance = campaign.price - campaign.deposit;
 export const usd = (n: number) => `$${n.toLocaleString('en-US')}`;
 
 /** Shipping terms, shown wherever the buyer sees the price or enters an address. */
-export const shippingTerms = `${usd(campaign.contiguousShipping)} shipping to the contiguous US, or free pickup from Fergus Falls, MN. Shipping outside the contiguous US, including to Canada, is calculated transparently at production time based on your location.`;
+export const shippingTerms = `We currently sell only to the US and Canada. ${usd(campaign.contiguousShipping)} shipping to the contiguous US, or free pickup from Fergus Falls, MN. Shipping to Alaska, Hawaii, or Canada is calculated transparently at production time based on your location.`;
 
 // Every Reserve button goes to the order page.
 export const reserveHref = '/reserve';
