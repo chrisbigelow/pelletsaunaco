@@ -11,7 +11,7 @@ export const campaign = {
   /** Deposits received so far. Update as reservations come in; it drives the progress bars. */
   reserved: 0,
   /** When the remaining balance is charged. */
-  productionMonth: 'June',
+  productionMonth: 'June 2027',
   /** Flat shipping to the contiguous US, charged with the balance. */
   contiguousShipping: 99,
 };
