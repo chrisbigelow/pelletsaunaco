@@ -10,9 +10,14 @@ interface Props {
 const { size = 'full' } = Astro.props;
 const reserved = Math.min(campaign.reserved, campaign.batchSize);
 const percent = (reserved / campaign.batchSize) * 100;
+
+// Shown on Vercel previews and in local dev, hidden in production unless SHOW_BATCH_PROGRESS=true.
+// Read at build time, so changing the variable needs a redeploy.
+const override = process.env.SHOW_BATCH_PROGRESS;
+const showProgress = override ? override === 'true' : import.meta.env.DEV || process.env.VERCEL_ENV === 'preview';
 ---
 
-{campaign.showProgress && (
+{showProgress && (
   <div class:list={['batch-progress', `size-${size}`]}>
     <div
       class="batch-track"
