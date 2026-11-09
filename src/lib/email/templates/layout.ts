@@ -24,7 +24,7 @@ export function emailLayout(params: { preheader: string; body: string; footer?: 
   <tr><td align="center" style="padding-top:32px;padding-right:16px;padding-bottom:32px;padding-left:16px;">
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#fffcf6" style="max-width:600px;background-color:#fffcf6;border:1px solid #ece4d4;">
       <tr><td bgcolor="#384629" style="background-color:#384629;">
-        <a href="${SITE}" style="display:block;"><img src="${SITE}/email/header.png" width="600" height="112" alt="The Pellet Sauna Company — Effortless Wood-Fired Saunas" border="0" style="display:block;width:100%;max-width:600px;height:auto;border:0;color:#f6f1e7;font-family:${SERIF};font-size:22px;" /></a>
+        <a href="${SITE}" style="display:block;"><img src="${SITE}/email/header.png" width="600" height="112" alt="The Pellet Sauna Company: Effortless Wood-Fired Saunas" border="0" style="display:block;width:100%;max-width:600px;height:auto;border:0;color:#f6f1e7;font-family:${SERIF};font-size:22px;" /></a>
       </td></tr>
       <tr><td style="padding-top:40px;padding-right:40px;padding-bottom:32px;padding-left:40px;font-family:${SANS};font-size:16px;line-height:1.65;color:#2b2a22;">
         ${params.body}
