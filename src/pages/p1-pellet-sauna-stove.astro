@@ -7,6 +7,7 @@ import CompareTable from '../components/CompareTable.astro';
 import RitualSection from '../components/RitualSection.astro';
 import InfoTip from '../components/InfoTip.astro';
 import BatchProgress from '../components/BatchProgress.astro';
+import MadeInUsaBadge from '../components/MadeInUsaBadge.astro';
 import { campaign, savings, balance, usd, reserveHref, founderPerks } from '../lib/campaign';
 import '../styles/theme.css';
 
@@ -127,7 +128,11 @@ const specs = [
 
       <div class="buy-box">
         <div class="buy-head">
-          <h1>P1 Pellet<br />Sauna Stove</h1>
+          <div>
+            <h1>P1 Pellet<br />Sauna Stove</h1>
+            <p class="eyebrow buy-origin">Made in Fergus Falls, MN</p>
+          </div>
+          <MadeInUsaBadge size={88} />
         </div>
         <p class="buy-description">
           The P1 automatically feeds clean-burning wood pellets from an outside hopper into a steel firebox inside your sauna. Real fire, real stones, real löyly — at the press of a button.
@@ -523,8 +528,13 @@ const specs = [
 
   .buy-head {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
     gap: 16px;
+  }
+
+  .buy-origin {
+    margin-top: 10px;
   }
 
   .buy-head h1 {
