@@ -21,7 +21,7 @@ import { campaign, balance, usd, shippingTerms } from '../lib/campaign';
     <section>
       <h2>Your reservation</h2>
       <p>
-        A {usd(campaign.deposit)} deposit reserves one P1 in our first production batch at the pre-order price of {usd(campaign.price)}. Your deposit counts toward that price, leaving a balance of {usd(balance)}, plus shipping and any sales tax required by law.
+        A {usd(campaign.deposit)} deposit reserves one of our first {campaign.batchSize} P1 stoves at the pre-order price of {usd(campaign.price)}. Your deposit counts toward that price, leaving a balance of {usd(balance)}, plus shipping and any sales tax required by law.
       </p>
     </section>
 

@@ -22,14 +22,14 @@ const showProgress = override ? override === 'true' : import.meta.env.DEV || pro
     <div
       class="batch-track"
       role="progressbar"
-      aria-label="First batch reserved"
+      aria-label={`First ${campaign.batchSize} stoves reserved`}
       aria-valuemin="0"
       aria-valuemax={campaign.batchSize}
       aria-valuenow={reserved}
     >
       <span style={`width: ${percent}%`}></span>
     </div>
-    <p class="batch-label"><strong>{reserved}</strong> of {campaign.batchSize} reserved in our first batch</p>
+    <p class="batch-label"><strong>{reserved}</strong> of {campaign.batchSize} reserved</p>
   </div>
 )}
 
