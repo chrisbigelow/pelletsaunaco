@@ -22,27 +22,32 @@ const related = guides.filter((guide) => guide.href !== current);
 
 <style>
   .related-guides {
-    margin-top: 3.5rem;
-    padding-top: 2rem;
-    border-top: 1px solid rgba(45, 50, 53, 0.15);
+    max-width: 720px;
+    margin-top: 64px;
+    padding-top: 32px;
+    border-top: 1px solid rgba(43, 42, 34, 0.15);
   }
 
   h2 {
-    font-size: 1.25rem;
-    margin-bottom: 0.75rem;
+    margin-bottom: 14px;
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 26px;
+    line-height: 1.15;
+    color: var(--ink);
   }
 
   ul {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
-    padding: 0;
+    gap: 8px;
     list-style: none;
   }
 
   a {
-    color: var(--text-medium);
-    font-size: 1.05rem;
+    color: var(--ink);
+    font-size: 17px;
     line-height: 1.5;
+    text-underline-offset: 3px;
   }
 </style>
