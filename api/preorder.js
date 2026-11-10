@@ -58,7 +58,9 @@ export async function POST(request) {
       setup_future_usage: 'off_session',
       receipt_email: email,
       shipping,
-      description: 'P1 Pellet Sauna Stove pre-order deposit (refundable)',
+      // Shown as the line item on Stripe's emailed receipt, which is the only receipt text we
+      // control from code. A full URL so mail clients turn it into a link.
+      description: 'P1 Pellet Sauna Stove pre-order deposit. Fully refundable anytime at https://www.pelletsauna.com/refund',
       statement_descriptor_suffix: 'P1 DEPOSIT',
       metadata: { type: 'preorder_deposit', product: 'P1', ...metadata },
     });
