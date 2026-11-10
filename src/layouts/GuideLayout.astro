@@ -1,0 +1,318 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import SiteNav from '../components/SiteNav.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import RelatedGuides from '../components/RelatedGuides.astro';
+import Icon from '../components/Icon.astro';
+import { campaign, usd, reserveHref } from '../lib/campaign';
+import { productPath } from '../lib/site';
+import '../styles/theme.css';
+
+interface Props {
+  title: string;
+  description: string;
+  /** Path of this guide, left out of its related links. */
+  path: string;
+  eyebrow: string;
+  heading: string;
+  lede: string;
+  /** Short page name shown in the breadcrumb. */
+  crumb: string;
+  image: { src: string; alt: string; width: number; height: number };
+}
+
+const { title, description, path, eyebrow, heading, lede, crumb, image } = Astro.props;
+---
+
+<BaseLayout title={title} description={description} lcpImage={image.src}>
+  <SiteNav solid variant="home" />
+
+  <main class="guide">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="/">Home</a></li>
+        <li aria-current="page">{crumb}</li>
+      </ol>
+    </nav>
+
+    <header class="guide-hero">
+      <div class="guide-hero-copy">
+        <p class="eyebrow">{eyebrow}</p>
+        <h1 class="section-title">{heading}</h1>
+        <p class="guide-lede">{lede}</p>
+      </div>
+      <img src={image.src} alt={image.alt} width={image.width} height={image.height} fetchpriority="high" />
+    </header>
+
+    <article class="guide-article">
+      <div class="guide-body">
+        <slot />
+      </div>
+      <RelatedGuides current={path} />
+    </article>
+
+    <section class="guide-cta">
+      <img class="guide-cta-bg" src="/images/p1/ld-sunset-wide.jpg" alt="" width="2000" height="1333" loading="lazy" decoding="async" />
+      <div class="guide-cta-copy">
+        <p class="eyebrow">Now taking pre-orders</p>
+        <h2>Reserve your P1.</h2>
+        <p>Reserve with {usd(campaign.deposit)} down and lock in your founders’ price, numbered medallion, and community access. The balance is only charged when production begins.</p>
+        <div class="guide-cta-actions">
+          <a href={reserveHref} class="btn btn-clay">Reserve for {usd(campaign.deposit)} <Icon name="arrow-right" size={14} /></a>
+          <a href={productPath} class="btn btn-outline-light">Explore the P1</a>
+        </div>
+        <p class="guide-cta-question">Have a question first? <a href="/#contact">Get in touch</a></p>
+      </div>
+    </section>
+  </main>
+
+  <SiteFooter />
+</BaseLayout>
+
+<style>
+  .guide {
+    padding-top: 65px;
+  }
+
+  /* Breadcrumb (matches the About and P1 pages) */
+  .breadcrumb {
+    padding: 28px var(--gutter);
+  }
+
+  .breadcrumb ol {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+
+  .breadcrumb li + li::before {
+    content: '/';
+    margin-right: 12px;
+    color: var(--stone);
+  }
+
+  .breadcrumb a {
+    color: #8a8575;
+    text-decoration: none;
+  }
+
+  .breadcrumb a:hover {
+    color: var(--ink);
+  }
+
+  .guide-hero {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 64px;
+    align-items: center;
+    padding: 80px var(--gutter);
+    background: var(--linen);
+  }
+
+  .guide-hero-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .guide-lede {
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--muted);
+  }
+
+  .guide-hero img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+  }
+
+  .guide-article {
+    padding: var(--section-y) var(--gutter);
+  }
+
+  .guide-body {
+    max-width: 720px;
+  }
+
+  /* The guide's own markup comes through the slot, so it needs :global selectors. */
+  .guide-body :global(section + section) {
+    margin-top: 56px;
+  }
+
+  .guide-body :global(h2) {
+    margin-bottom: 16px;
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(1.75rem, 3vw, 2.25rem);
+    line-height: 1.15;
+    color: var(--ink);
+  }
+
+  .guide-body :global(p),
+  .guide-body :global(li) {
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--muted);
+  }
+
+  .guide-body :global(p + p),
+  .guide-body :global(table + p) {
+    margin-top: 14px;
+  }
+
+  .guide-body :global(ul) {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-left: 20px;
+  }
+
+  .guide-body :global(table) {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--muted);
+  }
+
+  .guide-body :global(th),
+  .guide-body :global(td) {
+    padding: 14px 16px 14px 0;
+    border-bottom: 1px solid rgba(43, 42, 34, 0.15);
+    text-align: left;
+    vertical-align: top;
+  }
+
+  .guide-body :global(thead th) {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+
+  .guide-body :global(tbody th) {
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .guide-cta {
+    position: relative;
+    min-height: 480px;
+    display: flex;
+    align-items: center;
+    padding: 96px var(--gutter);
+    overflow: hidden;
+    background: var(--char);
+  }
+
+  .guide-cta-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .guide-cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(to right, rgba(30, 28, 20, 0.95) 0%, rgba(30, 28, 20, 0.7) 55%, rgba(30, 28, 20, 0.25) 100%);
+  }
+
+  .guide-cta-copy {
+    position: relative;
+    z-index: 2;
+    max-width: 560px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .guide-cta .eyebrow {
+    color: var(--sand-light);
+  }
+
+  .guide-cta h2 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    line-height: 1.05;
+    color: var(--cream);
+  }
+
+  .guide-cta-copy > p:not(.eyebrow) {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--sand);
+  }
+
+  .guide-cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .guide-cta-question a {
+    color: var(--cream);
+  }
+
+  @media (min-width: 1201px) {
+    .breadcrumb,
+    .guide-hero,
+    .guide-article,
+    .guide-cta {
+      --gutter: max(96px, calc((100vw - 1088px) / 2));
+    }
+  }
+
+  @media (max-width: 900px) {
+    .guide-hero {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 40px;
+      padding-top: 56px;
+      padding-bottom: 56px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .breadcrumb {
+      padding-top: 20px;
+      padding-bottom: 20px;
+    }
+
+    .guide-body :global(table) {
+      font-size: 14px;
+    }
+
+    .guide-body :global(th),
+    .guide-body :global(td) {
+      padding-right: 10px;
+    }
+
+    .guide-cta {
+      min-height: 0;
+      padding-top: 72px;
+      padding-bottom: 72px;
+    }
+
+    .guide-cta::before {
+      background: rgba(30, 28, 20, 0.8);
+    }
+
+    .guide-cta-actions .btn {
+      flex: 1 1 100%;
+      justify-content: center;
+    }
+  }
+</style>
