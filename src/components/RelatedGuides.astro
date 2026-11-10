@@ -1,0 +1,48 @@
+---
+import { guides, productPath } from '../lib/site';
+
+interface Props {
+  /** Path of the guide being viewed, left out of the list. */
+  current: string;
+}
+
+const { current } = Astro.props;
+const related = guides.filter((guide) => guide.href !== current);
+---
+
+<nav class="related-guides" aria-labelledby="related-guides-title">
+  <h2 id="related-guides-title">Keep reading</h2>
+  <ul>
+    {related.map((guide) => (
+      <li><a href={guide.href}>{guide.title}</a></li>
+    ))}
+    <li><a href={productPath}>P1 pellet sauna stove specs and pricing</a></li>
+  </ul>
+</nav>
+
+<style>
+  .related-guides {
+    margin-top: 3.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(45, 50, 53, 0.15);
+  }
+
+  h2 {
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+  }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0;
+    list-style: none;
+  }
+
+  a {
+    color: var(--text-medium);
+    font-size: 1.05rem;
+    line-height: 1.5;
+  }
+</style>

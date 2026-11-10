@@ -1,6 +1,6 @@
 ---
 import Icon from './Icon.astro';
-import { aboutPath, logoPaths, productPath, socialLinks } from '../lib/site';
+import { aboutPath, guides, logoPaths, productPath, socialLinks } from '../lib/site';
 
 const socials = [
   { icon: 'instagram', label: 'Instagram', href: socialLinks.instagram },
@@ -39,6 +39,10 @@ const socials = [
           <a href={productPath}>P1 Stove</a>
           <a href="/#product">Features</a>
           <a href={`${productPath}#specifications`}>Specs</a>
+        </div>
+        <div class="footer-column">
+          <h4>Guides</h4>
+          {guides.map((guide) => <a href={guide.href}>{guide.footerLabel}</a>)}
         </div>
         <div class="footer-column">
           <h4>Company</h4>
@@ -250,7 +254,7 @@ const socials = [
   .footer-links {
     grid-area: links;
     display: flex;
-    gap: 96px;
+    gap: 64px;
   }
 
   .footer-column {
@@ -298,7 +302,7 @@ const socials = [
     }
 
     .footer-links {
-      gap: 64px;
+      gap: 32px;
     }
   }
 
@@ -328,7 +332,8 @@ const socials = [
     }
 
     .footer-links {
-      gap: 80px;
+      flex-wrap: wrap;
+      gap: 32px 56px;
     }
 
     .footer-bottom p {
