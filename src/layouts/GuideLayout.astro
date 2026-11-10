@@ -163,7 +163,8 @@ const { title, description, path, eyebrow, heading, lede, crumb, image } = Astro
     color: var(--muted);
   }
 
-  .guide-body :global(p + p) {
+  .guide-body :global(p + p),
+  .guide-body :global(table + p) {
     margin-top: 14px;
   }
 

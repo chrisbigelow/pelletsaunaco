@@ -5,7 +5,7 @@ export const aboutPath = '/about';
 export const guides = [
   { href: '/how-pellet-sauna-stoves-work', title: 'How pellet sauna stoves work', footerLabel: 'How Pellet Stoves Work' },
   { href: '/pellet-sauna-stove-vs-electric', title: 'Pellet sauna stove vs electric heater', footerLabel: 'Pellet vs Electric' },
-  { href: '/no-electrician-sauna-heater', title: 'Sauna heater with no electrician required', footerLabel: 'No Electrician Needed' },
+  { href: '/no-electrician-sauna-heater', title: 'P1 installation and electrical requirements', footerLabel: 'Installation & Electrical' },
 ] as const;
 
 export const logoPaths = [
