@@ -8,6 +8,8 @@ interface Props {
   isHome?: boolean;
   /** Above-the-fold image to preload for LCP. */
   lcpImage?: string;
+  /** Additional JSON-LD objects for this page, such as Product markup. */
+  extraSchemas?: Record<string, unknown>[];
 }
 
 const {
@@ -15,14 +17,17 @@ const {
   description = 'The P1 pellet sauna stove heats in about 40 minutes. No electrician needed. Wood-fired warmth with modern convenience. The world\'s first pellet sauna stove.',
   siteUrl = Astro.site?.href || 'https://www.pelletsauna.com',
   isHome = false,
-  lcpImage = '/p1-stove3.webp'
+  lcpImage = '/p1-stove3.webp',
+  extraSchemas = []
 } = Astro.props;
 
 // 1200x630 social share card used for every page.
 const ogImage = new URL('/images/og/home.jpg', siteUrl).href;
 const ogImageAlt = "The P1 Pellet Sauna Stove - The World's First Wood Pellet Sauna Stove";
 const site = Astro.site ?? new URL('https://www.pelletsauna.com');
-const canonicalURL = new URL(Astro.url.pathname, site).href;
+// Match the sitemap and internal links, which never use a trailing slash.
+const canonicalPath = Astro.url.pathname === '/' ? '/' : Astro.url.pathname.replace(/\/+$/, '');
+const canonicalURL = new URL(canonicalPath, site).href;
 const logoImage = new URL('/logo.png', siteUrl).href;
 const productImage = new URL('/p1-stove3.png', siteUrl).href;
 
@@ -163,9 +168,8 @@ const faqSchema = {
 };
 
 // FAQPage markup must match content visible on the page, so it is emitted only
-// on the home page. Product/Offer schema is omitted until a public price exists;
-// incomplete Offer markup causes Merchant listing and Product snippet errors.
-const schemas = [organizationSchema, webPageSchema, ...(isHome ? [faqSchema] : [])];
+// on the home page. Product/Offer markup is passed in by the product page.
+const schemas = [organizationSchema, webPageSchema, ...(isHome ? [faqSchema] : []), ...extraSchemas];
 ---
 
 <!DOCTYPE html>

@@ -8,6 +8,7 @@ import RitualSection from '../components/RitualSection.astro';
 import InfoTip from '../components/InfoTip.astro';
 import BatchProgress from '../components/BatchProgress.astro';
 import { campaign, savings, balance, usd, reserveHref, founderPerks } from '../lib/campaign';
+import { productPath } from '../lib/site';
 import '../styles/theme.css';
 
 const questionHref = `/?subject=${encodeURIComponent('Question about the P1')}#contact`;
@@ -86,12 +87,33 @@ const specs = [
   ['Warranty', '1 Year (electrical components)<br/>20 Years (steel body)'],
   ['Certification', 'Certification Pending'],
 ];
+
+const pageUrl = new URL(productPath, Astro.site).href;
+const productSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: 'P1 Pellet Sauna Stove',
+  description: 'Wood pellet sauna stove for 210–500 ft³ saunas. Plugs into a standard 110V outlet, with remote start and 12–15 hours of runtime on a single hopper load.',
+  url: pageUrl,
+  image: photos.slice(0, 4).map((photo) => new URL(photo.src, Astro.site).href),
+  brand: { '@type': 'Brand', name: 'The Pellet Sauna Company' },
+  offers: {
+    '@type': 'Offer',
+    url: pageUrl,
+    price: campaign.price,
+    priceCurrency: 'USD',
+    availability: 'https://schema.org/PreOrder',
+    itemCondition: 'https://schema.org/NewCondition',
+    seller: { '@type': 'Organization', name: 'The Pellet Sauna Company' },
+  },
+};
 ---
 
 <BaseLayout
   title="P1 Pellet Sauna Stove Pre-Order | The Pellet Sauna Company"
   description="Reserve the P1 pellet sauna stove with $100 down. Founders' price $3,495 (save $500), plus a numbered build medallion and founders' community access."
   lcpImage={photos[0].src}
+  extraSchemas={[productSchema]}
 >
   <SiteNav solid variant="product" />
 

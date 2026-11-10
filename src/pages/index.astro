@@ -6,7 +6,7 @@ import SiteFooter from '../components/SiteFooter.astro';
 import CompareTable from '../components/CompareTable.astro';
 import RitualSection from '../components/RitualSection.astro';
 import InfoTip from '../components/InfoTip.astro';
-import { productPath } from '../lib/site';
+import { guides, productPath } from '../lib/site';
 import '../styles/theme.css';
 
 const heroStats = [
@@ -152,6 +152,14 @@ const contactDetails = [
           <p>{answer}</p>
         </details>
       ))}
+      <nav class="faq-guides" aria-label="Pellet sauna guides">
+        <p>Want more detail? Read our guides:</p>
+        <ul>
+          {guides.map((guide) => (
+            <li><a href={guide.href}>{guide.title}</a></li>
+          ))}
+        </ul>
+      </nav>
     </div>
   </section>
 
@@ -562,6 +570,28 @@ const contactDetails = [
     font-size: 16px;
     line-height: 1.6;
     color: var(--muted);
+  }
+
+  .faq-guides {
+    margin-top: 28px;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--muted);
+  }
+
+  .faq-guides ul {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 8px;
+    padding: 0;
+    list-style: none;
+  }
+
+  .faq-guides a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
 
   /* Mobile-only FAQ extras (shown in the 640px breakpoint). */
