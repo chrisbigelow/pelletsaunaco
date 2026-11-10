@@ -8,6 +8,8 @@ import ReserveForm from '../components/ReserveForm.astro';
 import { campaign, balance, savings, usd, founderPerks, shippingTerms } from '../lib/campaign';
 import { productPath } from '../lib/site';
 import '../styles/theme.css';
+
+const multipleReservationHref = `/?subject=${encodeURIComponent('Reserving more than one P1')}#contact`;
 ---
 
 <BaseLayout
@@ -69,6 +71,9 @@ import '../styles/theme.css';
 
       <section class="checkout">
         <ReserveForm />
+        <p class="multiple-reservations">
+          Interested in reserving more than one? <a href={multipleReservationHref}>Contact us</a>.
+        </p>
       </section>
     </div>
   </main>
@@ -77,6 +82,23 @@ import '../styles/theme.css';
 </BaseLayout>
 
 <style>
+  .multiple-reservations {
+    margin-top: 24px;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--muted);
+  }
+
+  .multiple-reservations a {
+    color: var(--ink);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .multiple-reservations a:hover {
+    color: var(--clay);
+  }
+
   .reserve {
     max-width: 1120px;
     margin: 0 auto;
