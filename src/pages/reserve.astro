@@ -48,7 +48,7 @@ import '../styles/theme.css';
             </div>
             <div>
               <dt>At production ({campaign.productionMonth})</dt>
-              <dd>{usd(balance)} + shipping and tax</dd>
+              <dd>{usd(balance)} <span class="summary-plus">+ shipping and tax</span></dd>
             </div>
           </dl>
           <p class="summary-save">You save {usd(savings)} as a founder.</p>
@@ -178,6 +178,12 @@ import '../styles/theme.css';
     color: var(--stone);
   }
 
+  .summary-plus {
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--muted);
+  }
+
   .summary-today dt,
   .summary-today dd {
     color: var(--ink);
@@ -241,44 +247,77 @@ import '../styles/theme.css';
       gap: 28px;
     }
 
-    /* Compact summary above the form: thumbnail beside the title, no perks. */
+    /* Compact summary above the form: a thumbnail beside the title, then the price lines at full
+       width. The body's children are laid out directly on the card's grid. */
     .summary {
       position: static;
       display: grid;
-      grid-template-columns: 96px minmax(0, 1fr);
-    }
-
-    .summary-photo {
-      height: 100%;
-      aspect-ratio: auto;
+      grid-template-columns: 72px minmax(0, 1fr);
+      column-gap: 14px;
+      padding: 16px;
     }
 
     .summary-body {
-      padding: 14px 16px;
+      display: contents;
+    }
+
+    .summary-photo {
+      grid-column: 1;
+      grid-row: 1 / span 2;
+      align-self: center;
+      width: 72px;
+      height: 72px;
+      aspect-ratio: auto;
+      border-radius: 4px;
     }
 
     .summary-eyebrow {
-      margin-bottom: 2px;
+      grid-column: 2;
+      align-self: end;
+      margin-bottom: 4px;
     }
 
     .summary-title {
-      margin-bottom: 8px;
-      font-size: 22px;
+      grid-column: 2;
+      align-self: start;
+      margin-bottom: 0;
+      font-size: 24px;
     }
 
-    .summary-lines div {
-      padding: 6px 0;
+    .summary-lines,
+    .summary-save {
+      grid-column: 1 / -1;
+    }
+
+    .summary-lines {
+      margin-top: 16px;
+    }
+
+    .summary-lines dd {
+      text-align: right;
     }
 
     .summary-lines dt {
-      font-size: 13.5px;
+      font-size: 14.5px;
     }
 
     .summary-today dd {
-      font-size: 17px;
+      font-size: 19px;
     }
 
-    .summary-save,
+    .summary-plus {
+      display: block;
+      font-size: 12.5px;
+    }
+
+    .summary-save {
+      margin-top: 0;
+      padding-top: 12px;
+      border-top: 1px solid var(--sand);
+    }
+
+    /* The form's shipping section repeats these terms right where the address is entered. */
+    .summary-shipping,
     .summary-perks,
     .summary :global(.batch-progress) {
       display: none;
