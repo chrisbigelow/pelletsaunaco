@@ -27,7 +27,7 @@ const socials = [
       <form class="footer-signup" id="signupForm" method="POST" action="/api/subscribe" novalidate>
         <label for="signupEmail" class="footer-signup-label">Get P1 preorder &amp; build updates</label>
         <div class="footer-signup-row">
-          <input type="email" id="signupEmail" name="email" placeholder="you@example.com" autocomplete="email" required />
+          <input type="email" id="signupEmail" name="email" autocomplete="email" required />
           <button type="submit" class="btn btn-clay" id="signupBtn">Join</button>
         </div>
         <input type="text" name="company" style="display: none;" tabindex="-1" autocomplete="off" aria-hidden="true" />
@@ -137,10 +137,6 @@ const socials = [
     border: 1px solid rgba(246, 241, 231, 0.3);
     border-right: none;
     border-radius: 0;
-  }
-
-  .footer-signup-row input::placeholder {
-    color: rgba(246, 241, 231, 0.55);
   }
 
   .footer-signup-row input:focus {
