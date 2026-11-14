@@ -89,6 +89,8 @@ const specs = [
 ];
 
 const pageUrl = new URL(productPath, Astro.site).href;
+// The lower 48 states plus DC, where the flat shipping rate applies.
+const contiguousStates = 'AL AZ AR CA CO CT DE DC FL GA ID IL IN IA KS KY LA ME MD MA MI MN MS MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV WI WY'.split(' ');
 const productSchema = {
   '@context': 'https://schema.org',
   '@type': 'Product',
@@ -105,6 +107,21 @@ const productSchema = {
     availability: 'https://schema.org/PreOrder',
     itemCondition: 'https://schema.org/NewCondition',
     seller: { '@type': 'Organization', name: 'The Pellet Sauna Company' },
+    // Only the flat contiguous-US rate is published; Alaska, Hawaii, and Canada are quoted at production time.
+    shippingDetails: {
+      '@type': 'OfferShippingDetails',
+      shippingRate: { '@type': 'MonetaryAmount', value: campaign.contiguousShipping, currency: 'USD' },
+      shippingDestination: { '@type': 'DefinedRegion', addressCountry: 'US', addressRegion: contiguousStates },
+    },
+    // Mirrors the Returns section of the terms page; keep the two in sync.
+    hasMerchantReturnPolicy: {
+      '@type': 'MerchantReturnPolicy',
+      applicableCountry: ['US', 'CA'],
+      returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow',
+      merchantReturnDays: campaign.returnDays,
+      returnMethod: 'https://schema.org/ReturnByMail',
+      returnFees: 'https://schema.org/ReturnFeesCustomerResponsibility',
+    },
   },
 };
 ---
