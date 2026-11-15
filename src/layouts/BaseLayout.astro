@@ -290,6 +290,18 @@ const schemas = [organizationSchema, webPageSchema, ...(isHome ? [faqSchema] : [
         });
       })();
     </script>
+    <script>
+      // Vercel BotID: attaches a browser-verification signal to these form posts.
+      // Keep in sync with the endpoints that call isBot() (src/lib/email/bot.ts).
+      import { initBotId } from 'botid/client/core';
+
+      initBotId({
+        protect: [
+          { path: '/api/subscribe', method: 'POST' },
+          { path: '/api/contact', method: 'POST' },
+        ],
+      });
+    </script>
   </body>
 </html>
 
