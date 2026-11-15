@@ -144,6 +144,8 @@ The email list, welcome email, and contact form run on [Resend](https://resend.c
 | `POST /api/subscribe` | Footer signup form | Adds the email to Resend Contacts + the list segment, sends the welcome email (first signup only) and emails a "new signup" notice to every address in `CONTACT_INBOX` |
 | `POST /api/contact` | Contact form | Emails the message to every address in `CONTACT_INBOX` (comma-separated) (reply goes to the sender); if "Add me to the email list" is checked, also subscribes them |
 
+Each contact also gets two custom properties, visible in Resend → Audience: `source` (`signup_form` or `contact_form`, whichever form they first joined through) and `contact_form_message` (their latest contact-form message, first 1,000 characters, only when they opted in). Both properties must exist in Resend → Audience → Properties as type `string`; if they don't, the signup still goes through without them.
+
 Shared code lives in `src/lib/email/` (`subscribers.ts`, `send.ts`). The only emails built in code are the internal notifications: contact form (`templates/contact-notification.ts`) and new list signup (`templates/subscriber-notification.ts`).
 
 ### Setup

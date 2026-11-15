@@ -16,7 +16,7 @@ export async function POST(request: Request): Promise<Response> {
 
   try {
     const name = cleanText(body.name, 100) || undefined;
-    const result = await subscribe({ email, name });
+    const result = await subscribe({ email, name, source: 'signup_form' });
 
     // Heads-up to the team for new and returning subscribers, not repeat submissions.
     // (Contact-form signups are already covered by the contact notification.)

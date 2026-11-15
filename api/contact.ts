@@ -29,7 +29,7 @@ export async function POST(request: Request): Promise<Response> {
 
   if (joinList) {
     try {
-      await subscribe({ email, name });
+      await subscribe({ email, name, source: 'contact_form', lastMessage: message });
     } catch (err) {
       // The message was delivered; list signup failing shouldn't surface as an error.
       console.error('[api/contact] list signup failed', err);
