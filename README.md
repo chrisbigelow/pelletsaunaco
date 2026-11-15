@@ -141,10 +141,10 @@ The email list, welcome email, and contact form run on [Resend](https://resend.c
 
 | Endpoint | Used by | What it does |
 | --- | --- | --- |
-| `POST /api/subscribe` | Footer signup form | Adds the email to Resend Contacts + the list segment, sends the welcome email (first signup only) |
+| `POST /api/subscribe` | Footer signup form | Adds the email to Resend Contacts + the list segment, sends the welcome email (first signup only) and emails a "new signup" notice to every address in `CONTACT_INBOX` |
 | `POST /api/contact` | Contact form | Emails the message to every address in `CONTACT_INBOX` (comma-separated) (reply goes to the sender); if "Add me to the email list" is checked, also subscribes them |
 
-Shared code lives in `src/lib/email/` (`subscribers.ts`, `send.ts`). The only email built in code is the internal contact-form notification (`templates/contact-notification.ts`).
+Shared code lives in `src/lib/email/` (`subscribers.ts`, `send.ts`). The only emails built in code are the internal notifications: contact form (`templates/contact-notification.ts`) and new list signup (`templates/subscriber-notification.ts`).
 
 ### Setup
 
