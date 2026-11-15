@@ -11,7 +11,11 @@ export async function POST(request: Request): Promise<Response> {
   if (!email) return json({ ok: false, error: 'Please enter a valid email address.' }, 400);
 
   try {
-    const result = await subscribe({ email, name: cleanText(body.name, 100) || undefined });
+    const result = await subscribe({
+      email,
+      name: cleanText(body.name, 100) || undefined,
+      source: 'signup_form',
+    });
     return json({ ok: true, status: result.status });
   } catch (err) {
     console.error('[api/subscribe]', err);
