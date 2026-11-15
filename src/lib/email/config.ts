@@ -25,7 +25,7 @@ export function emailConfig() {
   return {
     from: env('EMAIL_FROM') ?? 'The Pellet Sauna Co. <hello@pelletsauna.com>',
     replyTo: env('EMAIL_REPLY_TO') ?? 'jared@pelletsauna.com',
-    // Comma-separated list; every address receives each contact-form message.
+    // Comma-separated list; every address receives each contact-form message and new-signup notice.
     contactInbox: (env('CONTACT_INBOX') ?? 'jared@pelletsauna.com')
       .split(',')
       .map((address) => address.trim())

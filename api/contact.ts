@@ -1,3 +1,4 @@
+import { BOT_BLOCKED_MESSAGE, isBot } from '../src/lib/email/bot.js';
 import { subscribe } from '../src/lib/email/subscribers.js';
 import { sendContactNotification } from '../src/lib/email/send.js';
 import { cleanText, json, normalizeEmail, readBody } from '../src/lib/email/validate.js';
@@ -6,6 +7,8 @@ export async function POST(request: Request): Promise<Response> {
   const body = await readBody(request);
 
   if (body.botcheck) return json({ ok: true });
+
+  if (await isBot()) return json({ ok: false, error: BOT_BLOCKED_MESSAGE }, 403);
 
   const email = normalizeEmail(body.email);
   const name = cleanText(body.name, 100);
