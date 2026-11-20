@@ -99,6 +99,9 @@ const productSchema = {
   url: pageUrl,
   image: photos.slice(0, 4).map((photo) => new URL(photo.src, Astro.site).href),
   brand: { '@type': 'Brand', name: 'The Pellet Sauna Company' },
+  // Same identifier as g:id and g:mpn in google-merchant-feed.xml.ts, so Google matches the page to the feed item.
+  sku: 'P1',
+  mpn: 'P1',
   offers: {
     '@type': 'Offer',
     url: pageUrl,
