@@ -12,6 +12,10 @@ export const campaign = {
   reserved: 0,
   /** When the remaining balance is charged. */
   productionMonth: 'June 2027',
+  /** Estimated month the first batch ships, shown wherever the buyer sees the price. Google requires it on pre-order pages. */
+  shipMonth: 'June 2027',
+  /** First day of shipMonth as an ISO date, for the product page's structured data. Keep in sync with shipMonth. */
+  shipDate: '2027-06-01',
   /** Flat shipping to the contiguous US, charged with the balance. */
   contiguousShipping: 99,
   /** Days after delivery a stove can be returned; the buyer pays return shipping. */

@@ -54,7 +54,7 @@ const multipleReservationHref = `/?subject=${encodeURIComponent('Reserving more 
             </div>
           </dl>
           <p class="summary-save">You save {usd(savings)} as a founder.</p>
-          <p class="summary-shipping">{shippingTerms}</p>
+          <p class="summary-shipping">Estimated to ship {campaign.shipMonth}. {shippingTerms}</p>
 
           <ul class="summary-perks">
             {founderPerks.map((perk) => (
