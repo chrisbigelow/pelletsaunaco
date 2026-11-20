@@ -105,6 +105,8 @@ const productSchema = {
     price: campaign.price,
     priceCurrency: 'USD',
     availability: 'https://schema.org/PreOrder',
+    // Google requires an availability date on pre-order listings (at most a year out).
+    availabilityStarts: campaign.shipDate,
     itemCondition: 'https://schema.org/NewCondition',
     seller: { '@type': 'Organization', name: 'The Pellet Sauna Company' },
     // Only the flat contiguous-US rate is published; Alaska, Hawaii, and Canada are quoted at production time.
@@ -187,7 +189,8 @@ const productSchema = {
           <p class="buy-price-save">Founders’ price for our first {campaign.batchSize} · Save {usd(savings)}</p>
           <p class="buy-price-note">
             Reserve with only <strong>{usd(campaign.deposit)} down today</strong>. Fully refundable.<br />
-            The remaining balance is charged when production begins in {campaign.productionMonth}.
+            The remaining balance is charged when production begins in {campaign.productionMonth}.<br />
+            Estimated to ship {campaign.shipMonth}.
           </p>
           <BatchProgress size="compact" />
         </div>
@@ -227,6 +230,7 @@ const productSchema = {
           <dl class="founders-payment">
             <div><dt>Today</dt><dd>{usd(campaign.deposit)} down, fully refundable</dd></div>
             <div><dt>At production</dt><dd>{usd(balance)} + shipping and tax</dd></div>
+            <div><dt>Ships</dt><dd>{campaign.shipMonth} (estimated)</dd></div>
           </dl>
           <a href={reserveHref} class="btn btn-clay founders-cta">Reserve for {usd(campaign.deposit)} <Icon name="arrow-right" size={14} /></a>
         </div>
