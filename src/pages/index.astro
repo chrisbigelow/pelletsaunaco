@@ -7,6 +7,7 @@ import CompareTable from '../components/CompareTable.astro';
 import RitualSection from '../components/RitualSection.astro';
 import InfoTip from '../components/InfoTip.astro';
 import { guides, productPath } from '../lib/site';
+import { reserveHref } from '../lib/campaign';
 import '../styles/theme.css';
 
 const heroStats = [
@@ -75,7 +76,8 @@ const contactDetails = [
         </p>
         <div class="hero-cta">
           <a href={productPath} class="btn btn-clay">Explore the P1 <Icon name="arrow-right" size={16} /></a>
-          <a href="#contact" class="btn btn-outline-light"><span class="hero-contact-desktop">Get in Touch</span><span class="hero-contact-mobile">Pre Order Now</span></a>
+          <a href="#contact" class="btn btn-outline-light hero-contact-desktop">Get in Touch</a>
+          <a href={reserveHref} class="btn btn-outline-light hero-contact-mobile">Reserve Now</a>
         </div>
       </div>
 
@@ -599,7 +601,7 @@ const contactDetails = [
     text-underline-offset: 3px;
   }
 
-  /* Mobile-only FAQ extras (shown in the 640px breakpoint). */
+  /* Mobile-only extras (shown in the 640px breakpoint): the hero's Reserve button and the FAQ eyebrow. */
   .hero-contact-mobile,
   .faq-eyebrow {
     display: none;
@@ -966,7 +968,7 @@ const contactDetails = [
     }
 
     .hero-contact-mobile {
-      display: inline;
+      display: inline-flex;
     }
 
     /* Hero: stove on top, copy below */
